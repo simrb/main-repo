@@ -1,9 +1,7 @@
-# INTRODUCTION
-
 This is a background adminisitration module that provides the base functions to user for maintaining the data
 
 
-# HELPERS
+## Helpers
 
 ### admin_page :tpl_name
 
@@ -18,7 +16,7 @@ end
 ```
 
 
-# ROUTES
+## Routes
 
 ### /admin/view/:table_name
 
@@ -33,7 +31,7 @@ provide an index page as the top menu of all of sub menus
 a shortcut link of background login, like `http://www.example.com/a`
 
 
-# COMMANDS
+# Command-lines
 
 ### $ 3s g admin --demo
 
