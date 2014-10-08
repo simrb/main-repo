@@ -1,3 +1,5 @@
+## Introduction
+
 This is a background adminisitration module that provides the base functions to user for maintaining the data
 
 
@@ -31,7 +33,7 @@ provide an index page as the top menu of all of sub menus
 a shortcut link of background login, like `http://www.example.com/a`
 
 
-# Command-lines
+## Commands
 
 ### $ 3s g admin --demo
 
