@@ -1,0 +1,6 @@
+---
+- name: view
+  order: 11
+  author: linyu deng
+  version: 1.0.0
+  description: a view module that processes all of templates, and views

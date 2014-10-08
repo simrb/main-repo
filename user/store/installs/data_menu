@@ -1,0 +1,20 @@
+---
+- name		: user
+  link		: /admin/info/user
+  tag		: admin
+
+- name		: menber
+  link		: /admin/user
+  parent	: user
+  tag		: admin
+
+- name		: session
+  link		: /admin/sess
+  parent	: user
+  tag		: admin
+
+- name		: mark
+  link		: /admin/view/user_mark
+  parent	: user
+  tag		: admin
+

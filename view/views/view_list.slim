@@ -1,0 +1,65 @@
+.lists
+	- tag_enable = false
+	- if data_tag_enable?(@t[:name]) and data_tag_has?(@t[:name])
+		- tag_enable = true
+		th = Sl[:tag]
+
+	- @ds.each do | row |
+		ul.list
+			- unless @t[:opt_fns].empty?
+				li
+					input type='checkbox' name="#{row.first[0]}[]" value="#{row.first[1]}" form="adminform"
+
+			- @t[:fields].each do | k |
+				- if @t[:data][k][:view_type] == :img
+					li : img.img src="#{_file(row[k])}"
+
+				- elsif @t[:data][k].has_key?(:assoc_one)
+					- kv = data_kv(@t[:data][k][:assoc_one][0], k, @t[:data][k][:assoc_one][1])
+					- if @t[:data][k].has_key?(:index)
+						li : a href="#{_url2('', :sw => k, :sc => kv[row[k]])}" = kv[row[k]]
+					- else
+						li = kv[row[k]]
+
+				- elsif @t[:data][k].has_key?(:assoc_many)
+					- kv2 = data_kv(@t[:data][k][:assoc_many][0], @t[:data][k][:assoc_many][1], @t[:data][k][:assoc_many][2])
+					- arr = _assoc_many(k, row[k])
+					li = arr.map{ |r| kv2[r] }.join(' , ')
+
+				- else
+					- if @t[:data][k].has_key?(:index)
+						li : a href="#{_url2('', :sw => k, :sc => row[k])}" = row[k]
+					- else
+						li = row[k]
+
+			- if tag_enable
+				li
+					- tags = data_get_tags(@t[:name], row.first[1])
+					- tags.each do | tag |
+						a href="#{_url('', :_tag => tag)}" #{tag}
+
+			- unless @t[:lnk_fns].empty?
+				li
+					- @t[:lnk_fns].each do | name, method |
+						a href="#{_url('', :view_get => method, row.first[0] => row.first[1])}" = Sl[name]
+
+		.clear
+
+
+	- if @t[:css] == ''
+		== _css("view/css/list.css")
+	- else
+		== _css(@t[:css])
+
+
+	- if @t[:js] == ''
+		== _js("view/js/checkbox.js")
+	- else
+		== _js(@t[:js])
+
+
+- if @page_count > 1
+	p.page_bar
+		- for i in 1..@page_count
+			- page_focus = i == @page_curr ? "page_focus" : ""
+			span class="#{page_focus}" : a href="#{_url2('', :page_curr => i)}" = i

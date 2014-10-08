@@ -1,0 +1,52 @@
+---
+- dkey			: favicon
+  dval			: view/images/favicon.ico
+  tag			: view
+
+- dkey			: form_submit_level
+  dval			: 1
+  tag			: user
+  description	: allow the user who has the level to submit the form or operation
+
+- dkey			: home
+  dval			: /view/index
+  tag			: link
+  description	: main page
+
+- dkey			: title
+  dval			: page title
+  tag			: page
+
+- dkey			: description
+  dval			: no description
+  tag			: page
+
+- dkey			: keywords
+  dval			: page keywords
+  tag			: page
+
+- dkey			: footer
+  dval			: Power by simrb
+  tag			: page
+  description	: footer mark of page
+
+- dkey			: login
+  dval			: /user/login
+  tag			: link
+  description	: account login page
+
+- dkey			: logout
+  dval			: /user/logout
+  tag			: link
+  description	: account logout page
+
+- dkey			: after_login
+  dval			: /
+  tag			: link
+  description	: jump to this page after user login
+
+- dkey			: register
+  dval			: /user/register
+  tag			: link
+  description	: account register page
+

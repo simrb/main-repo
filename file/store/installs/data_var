@@ -1,0 +1,26 @@
+---
+- dkey			: upload_level
+  dval			: 1
+  tag			: file
+  description	: the required for uploading file
+
+- dkey			: default_file
+  dval			: 1
+  tag			: file
+  description	: when the file is null, display this file by fid, default is 1
+
+- dkey			: encoding
+  dval			: gb2312
+  tag			: file
+  description	: encoding, or decodeing the file for output, or input
+
+- dkey			: filetype
+  dval			: image/png,image/jpeg,image/gif
+  tag			: file
+  description	: the types of file allow to upload
+
+- dkey			: filesize
+  dval			: 300000
+  tag			: file
+  description	: 300000 is 3M
+

@@ -1,0 +1,36 @@
+---
+- name		: system
+  link		: /admin/info/system
+  order		: 18
+  tag		: admin
+
+- name		: module
+  link		: /admin/view/base_info
+  parent	: system
+  tag		: admin
+
+- name		: menu
+  link		: /admin/view/data_menu
+  parent	: system
+  tag		: admin
+
+- name		: settings
+  link		: /admin/view/data_var
+  parent	: system
+  tag		: admin
+
+- name		: file
+  link		: /admin/file
+  parent	: system
+  tag		: admin
+
+- name		: tags
+  link		: /admin/view/data_tag
+  parent	: system
+  tag		: admin
+
+- name		: backup
+  link		: /admin/baks
+  parent	: system
+  tag		: admin
+

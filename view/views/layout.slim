@@ -1,0 +1,9 @@
+doctype html
+html
+	head
+		title = @t[:title]
+		meta name="keywords" content="#{@t[:keywords]}"
+		meta http-equiv="content-type" content="text/html; charset=UFT-8"
+		link rel='stylesheet' type='text/css' href='#{_assets("view/css/style.css")}'
+	body
+		== yield

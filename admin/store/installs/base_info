@@ -1,0 +1,8 @@
+---
+- name: admin
+  order: 18
+  author: linyu deng
+  version: 1.0.0
+  dependon: base, data, view
+  description: an administration module for background
+ 

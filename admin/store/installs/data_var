@@ -1,0 +1,10 @@
+---
+- dkey			: admin_level
+  dval			: 10
+  tag			: user
+  description	: the level enters to administrator of background
+
+- dkey			: admin_title
+  dval			: administrator
+  tag			: admin_page
+

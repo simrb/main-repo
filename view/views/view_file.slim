@@ -1,0 +1,22 @@
+form.form action="#{_url2(@t[:action])}" method="post" id="form" enctype="multipart/form-data"
+	p
+		a href="#{_url}"
+			button.button.mr10 = Sl[:return]
+
+		input.button type="submit" value="#{Sl[:done]}"
+		input type="hidden" name="view_post" value="#{@t[:view_post]}"
+		input type="hidden" name="_name" value="#{@t[:name]}"
+
+	- @t[:entries].times.each do | i |
+		p : input type="file" name="upload[]"
+
+
+	- if @t[:css] == ''
+		== _css("view/css/form.css")
+	- else
+		== _css(@t[:css])
+
+	- if @t[:js] == ''
+		== _js("view/js/form.js")
+	- else
+		== _js(@t[:js])

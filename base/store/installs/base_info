@@ -1,0 +1,6 @@
+---
+- name: base
+  order: 9
+  author: linyu deng
+  version: 1.0.0
+  description: the core module that stores common methods of interface

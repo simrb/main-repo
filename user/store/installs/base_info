@@ -1,0 +1,6 @@
+---
+- name: user
+  order: 17
+  author: linyu deng
+  version: 1.0.0
+  description: a user system module
