@@ -1,0 +1,12 @@
+*.swo
+*.swp
+*.gem
+*.lock
+*.bak
+db/*
+tmp/*
+log/*
+modules/*
+scfg
+spath
+*~
