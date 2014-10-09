@@ -1,5 +1,21 @@
 A core module that defines the base interface for common function
 
+
+### VARIABLE
+
+#### @f = {}
+a key-val variable that stores the fields of db table and will be saved into db
+
+#### @qs = {}
+the request string of url
+
+#### @t = {}
+the common variable for template
+
+#### @msg = ''
+the message that will be raised 
+
+
 ### HELPER
 
 #### _randon size=12
@@ -28,21 +44,6 @@ get the current ip of user login
 	# 	_timeout?(start_time, 30) 		# => true
 	#
 ```
-
-### VARIABLE
-
-#### @f = {}
-a key-val variable that stores the fields of db table and will be saved into db
-
-#### @qs = {}
-the request string of url
-
-#### @t = {}
-the common variable for template
-
-#### @msg = ''
-the message that will be raised 
-
 
 ### COMMAND-LINE
 
