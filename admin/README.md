@@ -16,10 +16,10 @@ a shortcut link of background login, like `http://www.example.com/a`
 ### HELPER
 
 #### admin_page :tpl_name
-call your custom template that will set the admin layout, automatically
+call your custom template with the specified layout of admin module, automatically
 
 ```
-# assuming you offer a custom interface of administration
+# call your template :dmeo_admin with admin layout
 get '/admin/demo' do
 	@t[:title] = "this is admin page of demo module"
 	admin_page :demo_admin
