@@ -1,7 +1,7 @@
 A core module that defines the base interface for common function
 
 
-### VARIABLE
+### VARIABLES
 
 #### @f = {}
 a key-val variable that stores the fields of db table and will be saved into db
@@ -16,7 +16,7 @@ the common variable for template
 the message that will be raised 
 
 
-### HELPER
+### HELPERS
 
 #### _randon size=12
 return a random string with the size given
@@ -45,7 +45,7 @@ get the current ip of user login
 	#
 ```
 
-### COMMAND-LINE
+### COMMANDS
 
 #### $ 3s get simrb/demo
 get a module from remote repository to local dir
