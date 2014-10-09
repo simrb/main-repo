@@ -8,7 +8,7 @@ This is a background adminisitration module that provides the base functions to 
 call your custom template that will set the admin layout, automatically
 
 ```
-# assume you offer a custom interface of administration
+# assuming you offer a custom interface of administration
 get '/admin/demo' do
 	@t[:title] = "this is admin page of demo module"
 	admin_page :demo_admin

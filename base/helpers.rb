@@ -4,7 +4,7 @@ configure :production do
 	end
 
 	error do
-		Sl['sorry there was a nasty error - '] + env['sinatra.error'].name
+		Sl['sorry there was a nasty error,'] + env['sinatra.error'].name
 	end
 end
 
