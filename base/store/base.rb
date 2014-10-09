@@ -13,7 +13,7 @@ module Simrb
 			simrb_app.run(args.unshift('get'))
 		end
 
-		# create a module, initializes the default dirs and files of module
+		# create a module and initialize the default module dirs and files
 		#
 		# == Example
 		# 
@@ -25,7 +25,7 @@ module Simrb
 			simrb_app.run(args.unshift('new'))
 		end
 
-		# run the bundled operation for module
+		# run the bundled operation for specified module
 		#
 		# == Example
 		#

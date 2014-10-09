@@ -9,7 +9,7 @@ configure :production do
 end
 
 before do
-	# a key-val field that will be inserted to database
+	# a key-val variable that stores the fields of db table and will be saved into db
 	@f = {}
 
 	# request query_string
@@ -52,17 +52,17 @@ helpers do
 	#
 	# == Arguments
 	#
-	# start_time, 	Time, the value format like, 2014-01-01 12:11:11 - 0700
-	# time, 		Integer, seconds
+	# start_time, 	Time, a start time, like 2014-01-01 12:11:11 - 0700
+	# time, 		Integer, the period of the time is available, like 30
 	#
 	# == Examples
 	#
 	# 	start_time = Time.new - 31
 	#
-	#	# 1 day
+	#	# the time is effective in 1 day
 	# 	_timeout?(start_time, 3600*24) 	# => false
 	#
-	#	# 30 seconds
+	#	# as above, but just 30 seconds
 	# 	_timeout?(start_time, 30) 		# => true
 	#
 	def _timeout? changed_time, timeout
