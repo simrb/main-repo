@@ -1,5 +1,6 @@
 A data module that processes all of output and input operations of data and interacts with database
 
+
 ### STORAGE ARCHITECTURE
 
 Bascially, in programming field, anything that will be treated as data with the various formats and types. The most common approach to process data is divided it into two parts, classification and save. The module provides the tag and menu systems in application data classification, and as the majority of stored format are the variable mode and X.
