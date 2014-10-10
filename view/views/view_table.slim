@@ -68,7 +68,7 @@ table.table.checkall
 
 				- @t[:fields].each do | k |
 					- if @t[:data][k][:view_type] == :img
-						td : img.img src="#{file_url(row[k])}"
+						td : img.img src="#{_file(row[k])}"
 
 					- elsif @t[:data][k].has_key?(:assoc_one)
 						- kv = data_kv(@t[:data][k][:assoc_one][0], k, @t[:data][k][:assoc_one][1])

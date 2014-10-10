@@ -1,6 +1,11 @@
 helpers do
 
-	# get a list of file info by type, return the json data
+	# get the list of file information by given type, the result is json data
+	#
+	# == Examples
+	#
+	# 	file_list 'image'
+	#
 	def file_list type = 'all', pagination = true
 		page_size = 20
 		page_curr = (@qs.include?(:page_curr) and @qs[:page_curr].to_i > 0) ? @qs[:page_curr].to_i : 1
@@ -47,10 +52,11 @@ helpers do
 	# save file info to db, and move the file content to upload directory
 	#
 	# == Arguments
-	# file, 		filename, tempfile
-	# returned, 	return file info by the symbol you pass
 	#
-	def file_save file, returned = nil
+	# file,		filename, tempfile
+	# reval, 	return file info by the symbol you pass
+	#
+	def file_save file, reval = nil
 		fields = {}
 # 		fields[:uid] 		= _user[:uid]
 		fields[:fnum] 		= file_num_generate
@@ -79,8 +85,8 @@ helpers do
 		end
 
 		# return the value
-		unless returned == nil
-			Sdb[:file_info].filter(fields).get(returned)
+		unless reval == nil
+			Sdb[:file_info].filter(fields).get(reval)
 		end
 	end
 
@@ -107,11 +113,6 @@ helpers do
 	def file_num_generate
 		_random(7)
 # 		_random(6) + "#{_user[:uid]}"
-	end
-
-	# generate a file path of url for html link
-	def file_url path, domain = '/'
-		"#{domain}file/get/#{path}"
 	end
 
 end

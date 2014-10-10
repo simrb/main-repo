@@ -256,6 +256,10 @@ helpers do
 		"<script type='text/javascript' src='#{_assets(path, domain)}'></script>"
 	end
 
+	def _file fnum, domain = '/'
+		"#{domain}file/get/#{fnum}"
+	end
+
 	# throw out the message, and redirect back
 	def _throw str
 		response.set_cookie 'msg', :value => str, :path => '/'
