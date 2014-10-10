@@ -1,17 +1,23 @@
 helpers do
 
-	# return a string, others is null value
+	# get the variable value that is a string, others is null value
 	#
 	# == Arguments
 	#
 	# key, this is key name
 	# tag, tag name
-	# val, default value, that will return if no this key in database
+	# val, default value, add the variable and set the default value if it isn`t existing
 	#
 	# == Example
 	#
 	# 	_var :home_page
+	#
+	# get the variable :home_page by tag 'www'
+	#
 	# 	_var :home_page, 'www'
+	#
+	# get the variable, if it isn`t existing, assign value '/home/page'
+	#
 	# 	_var :home_page, 'www', '/home/page'
 	#
 	def _var key, tag = '', val = ''

@@ -16,7 +16,7 @@ helpers do
 	#
 	# == Example
 	# 	
-	# 	assume the tag ruby id is 2 that will,
+	# 	assuming the tag ruby id is 2 that will be,
 	#
 	# 	_tag(:ruby) # => 2
 	#

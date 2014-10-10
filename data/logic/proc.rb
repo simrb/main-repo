@@ -27,7 +27,7 @@ helpers do
   		require 'kramdown'
 	end
 
-	# get two columns of database table as a key-value hash
+	# get an hash with two fields of db table as key-val format
 	def data_kv table, key, value
 		name = "#{table}-#{key}-#{value}".to_sym
 		@cache ||= {}

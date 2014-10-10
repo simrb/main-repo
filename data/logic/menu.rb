@@ -1,6 +1,6 @@
 helpers do
 
-	# get an hash link by tag
+	# get the menu by tag, the result is an array of hash
 	#
 	# == Examples
 	#
