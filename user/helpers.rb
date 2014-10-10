@@ -40,11 +40,11 @@ helpers do
 	#
 	# == Example
 	#
-	# if the user is unlogin status, that will be jump to the page '/loginpage'
+	# if the user status is unlogin, that will be jump to the page '/loginpage'
 	# 	
 	# 	user_login? _var(:login, :link)
 	#
-	# if the user has been login, that will return true, other is false.
+	# if the user had been login, that will return true, other is false.
 	#
 	# 	user_login?
 	#
@@ -62,13 +62,15 @@ helpers do
 		uid ? uid : nil
 	end
 
-	# get the current user infomation by uid,
+	# get the current user infomation by uid, default value is 0 that means unlogin user
 	#
-	# == Argument
-	# uid, integer, default value is 0
+	# == Examples
 	#
-	# == Returned
-	# a hash, the key have :uid, :name
+	# 	user_info #=> {:uid = 0, :name => 'unknown', :pawd => '123456', :level => 2}
+	#
+	# or just get the name by 
+	#
+	# 	user_info[:name] 	#=> unknown
 	#
 	def user_info uid = 0
 		@user_info 			= {}
@@ -126,10 +128,10 @@ helpers do
 	# add a new user
 	#
 	# == Arguments
-	# a hash includes :name, :pawd, :level
+	# an hash includes :name, :pawd, :level
 	#
 	# == Returned
-	# return uid, others is 0
+	# return uid if success, others is 0
 	#
 	def user_add argv = {}
 		f				= {}
