@@ -214,17 +214,17 @@ helpers do
 	#
 	# == Examples
 	#
-	# assume current request path is /cms/user
+	# assume current request path is /demo/user
 	#
-	# 	_url() # retuen '/cms/user'
+	# 	_url() # retuen '/demo/user'
 	#
 	# or give a path
 	#
-	# 	_url('/cms/home') # return '/cms/home'
+	# 	_url('/demo/home') # return '/demo/home'
 	#
 	# and, with some parameters
 	#
-	# 	_url('/cms/home', :uid => 1, :tag => 2) # return '/cms/home?uid=1&tag=2'
+	# 	_url('/demo/home', :uid => 1, :tag => 2) # return '/demo/home?uid=1&tag=2'
 	#
 	def _url path = request.path, options = {}
 		str = path
