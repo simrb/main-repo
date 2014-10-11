@@ -30,8 +30,6 @@ post '/user/register' do
 end
 
 
-
-
 helpers do
 
 	def user_page name

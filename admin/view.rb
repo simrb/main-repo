@@ -81,8 +81,9 @@ post '/admin/baks/backup' do
 		# generate the csv file
 		encoding 	= params[:encoding] ? params[:encoding] : _var(:encoding, :file)
 		csv_file 	= base_table_to_csv params[:table_name], encoding
-		filename	= (params[:filename] and params[:filename] !='') ? params[:filename] : 'Records'
-		filename 	= Spath[:backup_dir] + "#{filename}_#{Time.now.strftime('%y%m%d_%H%M%S')}_csv"
+		filename	= "#{Time.now.strftime('%Y%m%d%H%M%S')}"
+		filename	= (params[:filename] and params[:filename] !='') ? params[:filename] : ''
+		filename 	= Spath[:backup_dir] + "#{filename}_csv"
 
 		# save at server
 		File.open(filename, 'w+') do | f |
