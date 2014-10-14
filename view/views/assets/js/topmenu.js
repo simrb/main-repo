@@ -61,17 +61,20 @@ $(window).scroll(function() {
  * 					li sub menu
  *
  * js
- * 		== _js("system/js/dropdown")
+ * 		== _js("view/js/dropdown")
  *
  */
 
-$(".dropdownitem").hover(function(){
+$(".dropdownitem").mouseover(function(){
 	$hide = $(this).find('.dropdownlist')
 	$hide.css('position', 'absolute')
-	$hide.css('top', 25)
+	$hide.css('top', 29)
 	$hide.css('left', $(this).offset().left - 10)
 	$hide.show()
-}, function(){
+})
+
+$(".dropdownitem").mouseleave(function(){
+//}, function(){
 	$hide = $(this).find('.dropdownlist')
 	$hide.hide()
 })
