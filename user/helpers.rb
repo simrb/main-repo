@@ -75,7 +75,7 @@ helpers do
 	def user_info uid = 0
 		@user_info 			= {}
 		@user_info[:uid] 	= uid
-		@user_info[:name] 	= 'unknown'
+		@user_info[:name] 	= 'guest'
 		@user_info[:level] 	= 0
 		@user_info[:sid] 	= ''
 
