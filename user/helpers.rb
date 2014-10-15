@@ -134,21 +134,18 @@ helpers do
 	# return uid if success, others is 0
 	#
 	def user_add argv = {}
-		f				= {}
-		f[:tag]			= argv[:tag] if argv.include?(:tag)
-		f[:salt] 		= _random 5
+		# if the username is existed
+		_throw Sl[:'the user is existed'] if user_has? argv[:name]
 
-		#username
-		_throw Sl[:'the user is existing'] if user_has? f[:name]
-		f[:name] 		= argv[:name]
-
-		#password
+		# password
 		require "digest/sha1"
-		f[:pawd] 		= Digest::SHA1.hexdigest(argv[:pawd] + f[:salt])
+		argv[:salt] 	= _random 5
+		argv[:pawd] 	= Digest::SHA1.hexdigest(argv[:pawd] + argv[:salt])
 
 # 		Sdb[:user].insert(f)
-		data_submit :user_info, :fkv => f, :uniq => true
-		uid = Sdb[:user_info].filter(:name => f[:name]).get(:uid)
+		data_submit :user_info, :fkv => argv, :uniq => true
+
+		uid = Sdb[:user_info].filter(:name => argv[:name]).get(:uid)
 		uid ? uid : 0
 	end
 
