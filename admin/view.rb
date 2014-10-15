@@ -11,7 +11,6 @@ end
 get '/admin/user' do
 	view_admin(:user_info, {}, {
 			:show			=>	{
-				:view_get	=>	'user_edit',
 				:fields		=>	[:uid, :name, :level, :created],
 				:search_fns	=>	[:uid, :name, :level, :created],
 				:btn_fns	=>	{ :create => 'user_add' },

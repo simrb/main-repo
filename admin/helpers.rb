@@ -18,8 +18,12 @@ helpers do
 		end
 	end
 
-	def view_get_user_edit argv = {}
-		user_edit argv
+# 	def view_get_user_edit argv = {}
+# 		user_edit params
+# 	end
+
+	def view_post_user_edit argv = {}
+		user_edit params
 	end
 
 	def view_post_user_del argv = {}
