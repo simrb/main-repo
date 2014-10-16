@@ -109,19 +109,22 @@ helpers do
 
 		data_valid :user_info_edit, argv
 
-		_throw Sl[:'no user id'] unless argv.include? :uid
-		ds = Sdb[:user_info].filter(:uid => argv[:uid])
-		unless ds.empty?
-			f = {}
+		unless argv.include? :uid
+			_throw Sl[:'no user id'] 
+		else
+			ds = Sdb[:user_info].filter(:uid => argv[:uid])
+			unless ds.empty?
+				f = {}
 
-			#password
-			if argv[:pawd]
-				f[:pawd] = Digest::SHA1.hexdigest(argv[:pawd] + ds.get(:salt))
+				# password
+				if argv[:pawd]
+					f[:pawd] = Digest::SHA1.hexdigest(argv[:pawd] + ds.get(:salt))
+				end
+
+				# userlevel
+				f[:level] = argv[:level] if argv[:level]
+				Sdb[:user_info].filter(:uid => argv[:uid]).update(f)
 			end
-
-			#userlevel
-			f[:level] = argv[:level] if argv[:level]
-			Sdb[:user_info].filter(:uid => argv[:uid]).update(f)
 		end
 	end
 
@@ -134,18 +137,22 @@ helpers do
 	# return uid if success, others is 0
 	#
 	def user_add argv = {}
+		fkv			= {}
+		fkv[:name]	= argv[:name]
+		fkv[:tag]	= argv[:tag] if argv[:tag]
+
 		# if the username is existed
-		_throw Sl[:'the user is existed'] if user_has? argv[:name]
+		_throw Sl[:'the user is existed'] if user_has? fkv[:name]
 
 		# password
 		require "digest/sha1"
-		argv[:salt] 	= _random 5
-		argv[:pawd] 	= Digest::SHA1.hexdigest(argv[:pawd] + argv[:salt])
+		fkv[:salt] 	= _random 5
+		fkv[:pawd] 	= Digest::SHA1.hexdigest(argv[:pawd] + fkv[:salt])
 
 # 		Sdb[:user].insert(f)
-		data_submit :user_info, :fkv => argv, :uniq => true
+		data_submit :user_info, :fkv => fkv, :uniq => true
 
-		uid = Sdb[:user_info].filter(:name => argv[:name]).get(:uid)
+		uid = Sdb[:user_info].filter(:name => fkv[:name]).get(:uid)
 		uid ? uid : 0
 	end
 
