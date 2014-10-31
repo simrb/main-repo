@@ -1,1 +1,0 @@
-$('#itags').tagsInput()
