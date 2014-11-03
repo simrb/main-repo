@@ -1,0 +1,28 @@
+
+#main .button {
+	width: 90px;
+	height: 33px;
+	padding: 8px;
+}
+
+#user_login { 
+	max-width: 22rem;
+	padding: 1px 20px;
+	border: 1px solid #D5C9B4;
+}
+
+#user_login dd {
+	width: 50%;
+}
+
+#user_login .tabs dd > a,
+#user_login .tabs dd.active a {
+	background: none;
+}
+
+#user_login dl .active h3 {
+	color: black;
+}
+#user_login dl h3 {
+	color: #CFC4BA;
+}
