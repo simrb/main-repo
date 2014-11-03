@@ -1,46 +1,53 @@
 doctype html
-html
+html class="no-js" lang="en"
 	head
 		title = @t[:title]
-		meta name="keywords" content="#{@t[:keywords]}"
 		meta name="description" content="#{@t[:description]}"
-		meta http-equiv="content-type" content="text/html; charset=UFT-8"
-		script src="#{_assets('view/js/jquery.js')}" type="text/javascript"
+		meta name="keywords" content="#{@t[:keywords]}"
+		meta charset="utf-8"
+		meta name="viewport" content="width=device-width, initial-scale=1.0"
 		link rel="shortcut icon" href="#{_assets(_var(:favicon, :view))}" type="image/x-icon"
-		link rel='stylesheet' type='text/css' href='#{_assets("view/css/style.css")}'
-		link rel='stylesheet' type='text/css' href='#{_assets("admin/admin.css")}'
+		== _css("view/css/foundation.css")
+		== _css("view/main.css")
+		== _js("view/js/vendor/modernizr.js")
 	body
-		#wrap
-			#header.keeptop
-				ul#top_menu
+		#header.fixed.contain-to-grid: nav.top-bar data-topbar="" role="navigation" 
+			ul.title-area
+				li.name
+					h1
+						a href="#" = Sl[:Administration]
+				li.toggle-topbar.menu-icon
+					a href="#"
+						span Menu
+
+			section.top-bar-section
+				ul.right
+					li.has-dropdown
+						a href="#" = user_info[:name]
+						ul.dropdown
+							li
+								a href="/" = Sl[:frontground]
+							li
+								a href="#{_url(_var(:logout, :link))}" = Sl[:logout]
+
+				ul.left
 					- data_menu(:admin).each do | item |
-						- menu_focus = item.include?(:focus) ? "focus1" : ""
-						li.left
-							span class="#{menu_focus}"
-								a href="#{item[:link]}" title="#{item[:name]}" = Sl[item[:name].to_sym]
+						li.has-dropdown
+							a href="#{item[:link]}" = Sl[item[:name].to_sym]
 							- if item.include?(:sub_menu)
-								- menu_hide = menu_focus == "focus1" ? '' : 'hide'
-								ul.sub_menu class="#{menu_hide}"
+								ul.dropdown
 									- item[:sub_menu].each do | item |
-										- menu_focus = item.include?(:focus) ? "focus2" : ""
-										li.left
-											span class="#{menu_focus}"
-												a href="#{item[:link]}" title="#{item[:name]}" = Sl[item[:name].to_sym]
-					li.right
-						a href="/" = Sl[:frontground]
-						a href="#{_url(_var(:logout, :link))}" = Sl[:logout]
+										li
+											a href="#{item[:link]}" = Sl[item[:name].to_sym]
 
-			#bodyer
-				#description = @t[:description]
-				.clear
 
-				== _tpl(:view_message)
-				.clear
 
-				#content == yield
-				.clear
+		.holderplace
+		#msg == _tpl(:view_message)
+		#main == yield
+		.holderplace
 
-			#footer
-
-		== _js('view/js/topmenu.js')
-		== _js('admin/admin.js')
+		== _js("view/js/vendor/jquery.js")
+		== _js("view/js/foundation.min.js")
+		== _js("view/main.js")
+		== _js("view/checkall.js")

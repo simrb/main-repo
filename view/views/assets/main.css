@@ -1,8 +1,28 @@
 
+/* body */
 #main .button {
 	width: 90px;
 	height: 33px;
 	padding: 8px;
+}
+#main .alert-box .close {
+	right: none;
+}
+.holderplace {
+	height: 50px;
+}
+#header .top-bar {
+	max-width: 67rem;
+}
+#main, #header, #footer {
+	width: 100%;
+	margin: 0 auto;
+}
+#main, #footer {
+	max-width: 65rem;
+}
+#footer {
+	margin-top: 30px;
 }
 
 #user_login { 
@@ -10,19 +30,16 @@
 	padding: 1px 20px;
 	border: 1px solid #D5C9B4;
 }
-
 #user_login dd {
 	width: 50%;
 }
-
-#user_login .tabs dd > a,
-#user_login .tabs dd.active a {
+.tab-1 .tabs dd > a,
+.tab-1 .tabs dd.active a {
 	background: none;
 }
-
-#user_login dl .active h3 {
+.tab-1 dl .active h3 {
 	color: black;
 }
-#user_login dl h3 {
+.tab-1 dl h3 {
 	color: #CFC4BA;
 }

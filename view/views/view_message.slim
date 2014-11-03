@@ -1,16 +1,4 @@
 - if @msg != ''
-	#msg #{@msg}
+	#msg.alert-box.secondary data-alert=""
+		a.close href="#" = @msg
 
-javascript:
-
-	if ($('#msg').text() != '') {
-		setTimeout(function(){
-			$('#msg').text('')
-		}, 5000)
-	}
-
-	$('#msg').mouseleave(function(){
-		if ($(this).text() != '') {
-			$(this).text('')
-		}
-	});
