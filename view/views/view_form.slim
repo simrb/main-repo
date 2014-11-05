@@ -1,13 +1,16 @@
 form.form action="#{_url2(@t[:action])}" method="post" id="editform"
-	p
-		- if @t[:back_fn] == :enable
-			a href="#{_url}"
-				button.button.mr10 = Sl[:return]
+	.button-bar
+		.button-group
+			- if @t[:back_fn] == :enable
+				a href="#{_url}"
+					button.button.tiny = Sl[:return]
 
-		input.button type="submit" value="#{Sl[:save]}"
-		input type="hidden" name="view_post" value="#{@t[:view_post]}"
-		input type="hidden" name="_name" value="#{@t[:name]}"
-		input type="hidden" name="_repath" value="#{@t[:_repath]}"
+		.button-group
+			input.button.tiny type="submit" value="#{Sl[:save]}"
+
+			input type="hidden" name="view_post" value="#{@t[:view_post]}"
+			input type="hidden" name="_name" value="#{@t[:name]}"
+			input type="hidden" name="_repath" value="#{@t[:_repath]}"
 
 	- load_picture_js = false
 	- load_editor_js = false

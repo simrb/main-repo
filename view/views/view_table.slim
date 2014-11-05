@@ -1,39 +1,34 @@
-form.form action="#{_url(@t[:action])}" method="post" id='adminform'
-	p
+.button-bar
+	form.form action="#{request.path}" method="get"
+		- unless @t[:search_fns].empty?
+			.button-group
+				input type="search" name="sc" placeholder="#{Sl[:keywords]}" value="#{@qs[:sc]}"
+
+			.button-group
+				button.dropdown.tiny data-dropdown="drop-search" aria-controls="drop-search" aria-expanded="false" = Sl[:search]
+				ul.submit.f-dropdown id="drop-search" data-dropdown-content=""
+					input.submit-value type="hidden" name="sw" value=""
+					- @t[:search_fns].each do | k |
+						- label = @t[:data][k].has_key?(:label) ? Sl[@t[:data][k][:label]] : Sl[k]
+						- active = @qs[:sw] == k.to_s ? "active" : "" 
+						li: a href="#" value="#{k}" class="#{active}" = label
+
+	form.form action="#{_url(@t[:action])}" method="post" id='adminform'
+		.button-group
+			- unless @t[:opt_fns].empty?
+				button.dropdown.tiny data-dropdown="drop-opt" aria-controls="drop-opt" aria-expanded="false" = Sl[:operate]
+				ul.submit.f-dropdown id="drop-opt" data-dropdown-content=""
+					input.submit-value type="hidden" name="view_post" value=""
+					- @t[:opt_fns].each do | k, v |
+						li: a href="#" value="#{v}" = Sl[k]
+
+			input type="hidden" name="_name" value="#{@t[:name]}"
+			input type="hidden" name="_repath" value="#{_url}"
+
+	ul.button-group
 		- unless @t[:btn_fns].empty?
 			- @t[:btn_fns].each do | name, method |
-				a.mr10 href="#{_url('', :view_get => method)}"
-					button.button = Sl[name]
-			span.mr10 |
-
-		- unless @t[:opt_fns].empty?
-			input.button.mr10 type="submit" value="#{Sl[:execute]}"
-			select.button.mr10 name="view_post"
-				- @t[:opt_fns].each do | k, v |
-					option value="#{v}" = Sl[k]
-			span.mr10 |
-
-		input type="hidden" name="_name" value="#{@t[:name]}"
-
-		input type="hidden" name="_repath" value="#{_url}"
-
-
-form.form action="#{request.path}" method="get"
-	p
-		- unless @t[:search_fns].empty?
-			input.mr10 type="search" name="sc" placeholder="#{Sl[:keywords]}" value="#{@qs[:sc]}"
-
-			select.button.mr10 name="sw"
-				option value='' -- #{Sl[:all]} --
-				- @t[:search_fns].each do | k |
-					- label = @t[:data][k].has_key?(:label) ? Sl[@t[:data][k][:label]] : Sl[k]
-					- if @qs[:sw] == k.to_s
-						option selected="selected" value="#{k}" = label
-					- else
-						option value="#{k}" = label
-
-			input.button.mr10 type="submit" value="#{Sl[:search]}"
-.clear
+				li: a.button.tiny href="#{_url('', :view_get => method)}" = Sl[name]
 
 
 table.table.checkall
@@ -102,20 +97,9 @@ table.table.checkall
 							a href="#{_url('', :view_get => method, row.first[0] => row.first[1])}" = Sl[name]
 
 
-	- if @t[:css] == ''
-		== _css("view/css/table.css")
-	- else
-		== _css(@t[:css])
-
-
-	- if @t[:js] == ''
-		== _js("view/js/checkbox.js")
-	- else
-		== _js(@t[:js])
-
-
 - if @page_count > 1
-	p.page_bar
+	ul.pagination
 		- for i in 1..@page_count
-			- page_focus = i == @page_curr ? "page_focus" : ""
-			span class="#{page_focus}" : a href="#{_url2('', :page_curr => i)}" = i
+			- page_focus = i == @page_curr ? "current" : ""
+			li class="#{page_focus}" : a href="#{_url2('', :page_curr => i)}" = i
+
