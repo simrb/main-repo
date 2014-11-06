@@ -9,13 +9,13 @@ get '/user/logout' do
 	user_logout
 end
 
-get '/user/register' do
-	if _var(:allow_register, :user) == 'yes'
-		user_page :user_register
-	else
-		redirect _var(:login, :link)
-	end
-end
+# get '/user/register' do
+# 	if _var(:allow_register, :user) == 'yes'
+# 		user_page :user_register
+# 	else
+# 		redirect _var(:login, :link)
+# 	end
+# end
 
 post '/user/login' do
 	user_login params

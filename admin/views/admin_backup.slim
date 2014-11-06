@@ -29,7 +29,7 @@ form.tab-1
 			.row
 				label.mr10 = Sl[:filename]
 				input.mr10 type="text" name="filename" placeholder='file name'
-				input.button type="submit" name="backup" value="#{Sl[:backup]}" formaction="/admin/baks/backup" formmethod="post"
+				input.button.tiny type="submit" name="backup" value="#{Sl[:backup]}" formaction="/admin/baks/backup" formmethod="post"
 
 		.content id="panel2"
 			.row
@@ -53,10 +53,7 @@ form.tab-1
 
 			.row
 				input type="file" name="inport"
-				input.button type="submit" value="#{Sl[:'inport']}" formaction="/admin/baks/inport" formmethod="post" formenctype="multipart/form-data"
+				input.button.tiny type="submit" value="#{Sl[:'inport']}" formaction="/admin/baks/inport" formmethod="post" formenctype="multipart/form-data"
 
 			.row
-				| Tip: if you intend to make a recover,
-				| you better to backup that table you want to recover at first,
-				| for preventing lose your data if backup failure.
-
+				| Tip: Backuping your records before recovering is better.

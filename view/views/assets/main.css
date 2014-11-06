@@ -29,6 +29,8 @@
 #user_login dd {
 	width: 50%;
 }
+
+/* tab head */
 .tab-1 .tabs dd > a,
 .tab-1 .tabs dd.active a {
 	background: none;
@@ -40,5 +42,6 @@
 	color: #CFC4BA;
 }
 
-/* form button */
-
+/* form */
+#main .form {
+}

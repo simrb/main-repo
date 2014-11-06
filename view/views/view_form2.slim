@@ -91,7 +91,8 @@ form.form action="#{_url2(@t[:action])}" method="post" id="editform"
 	
 
 	p
-		input.button type="submit" value="#{Sl[:submit]}"
+		input.button.tiny type="submit" value="#{Sl[:submit]}"
+
 		input type="hidden" name="view_post" value="#{@t[:view_post]}"
 		input type="hidden" name="_name" value="#{@t[:name]}"
 		input type="hidden" name="_repath" value="#{@t[:_repath]}"

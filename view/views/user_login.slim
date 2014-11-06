@@ -10,7 +10,7 @@
 
 	.tabs-content
 		.content.active id="login"
-			form action="#{_url2}" method="post"
+			form.form action="#{_url2(_var(:login, :link))}" method="post"
 				p : label = Sl[:account]
 				p : input type="text" name="name" required="required" placeholder="#{Sl[:username]}"
 
@@ -24,7 +24,7 @@
 
 		.content id="register"
 			- if _var(:allow_register, :user) == 'yes'
-				form action="#{_url2}" method="post"
+				form.form action="#{_url2(_var(:register, :link))}" method="post"
 					p : label = Sl[:account]
 					p : input type="text" name="name" required="required" placeholder="#{Sl[:username]}"
 

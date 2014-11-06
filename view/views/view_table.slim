@@ -98,7 +98,7 @@ table.table.checkall
 
 
 - if @page_count > 1
-	ul.pagination
+	.pagination-centered: ul.pagination
 		- for i in 1..@page_count
 			- page_focus = i == @page_curr ? "current" : ""
 			li class="#{page_focus}" : a href="#{_url2('', :page_curr => i)}" = i
