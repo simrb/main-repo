@@ -2,16 +2,18 @@
 	form.form action="#{request.path}" method="get"
 		- unless @t[:search_fns].empty?
 			.button-group
-				input type="search" name="sc" placeholder="#{Sl[:keywords]}" value="#{@qs[:sc]}"
-
-			.button-group
-				button.dropdown.tiny data-dropdown="drop-search" aria-controls="drop-search" aria-expanded="false" = Sl[:search]
+				a.tiny href="#{_url}" class="button split"
+					| #{Sl['search by']}
+					span data-dropdown="drop-search"
 				ul.submit.f-dropdown id="drop-search" data-dropdown-content=""
 					input.submit-value type="hidden" name="sw" value=""
 					- @t[:search_fns].each do | k |
 						- label = @t[:data][k].has_key?(:label) ? Sl[@t[:data][k][:label]] : Sl[k]
 						- active = @qs[:sw] == k.to_s ? "active" : "" 
 						li: a href="#" value="#{k}" class="#{active}" = label
+
+			.button-group
+				input type="search" name="sc" placeholder="#{Sl[:keyword]}" value="#{@qs[:sc]}"
 
 	form.form action="#{_url(@t[:action])}" method="post" id='adminform'
 		.button-group

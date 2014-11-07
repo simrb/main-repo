@@ -6,7 +6,6 @@ $(document).foundation();
 //});
 
 // form effect
-
 $('.form .submit a').click(function(){
 	$(this).each(function(){
 		var val = $(this).attr('value');
