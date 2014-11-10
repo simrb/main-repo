@@ -139,6 +139,7 @@ helpers do
 	def user_add argv = {}
 		fkv			= {}
 		fkv[:name]	= argv[:name]
+		fkv[:level]	= argv[:level]
 		fkv[:tag]	= argv[:tag] if argv[:tag]
 
 		# if the username is existed
