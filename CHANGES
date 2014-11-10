@@ -1,9 +1,9 @@
 by linyu deng, at 2014/11/09
 
-* add the _var3 method for return boolean value
-* add the @js variable for storing the js of view compont, and then load it at the end of template layout
+*002 add the @js variable for storing the js of view compont, and then load it at the end of template layout
+001 add the _var3 method for return boolean value
 
 by linyu deng, at 2014/11/09
 
-- mark down what are you want to do with * at the start of item of list
-- change the * to - if it has been finished
+- mark down what are you want to do with * at the front each line
+- remove the * if that task had been done

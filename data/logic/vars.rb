@@ -44,6 +44,13 @@ helpers do
 		val.to_s.split(sign)
 	end
 
+	# return a boolean value, estimate by true, on, yes
+	def _var3 key, tag = '', val = ''
+		val_arr = %w(yes true on)
+		val = _var(key, tag, val).to_s
+		val_arr.include? val ? true : false
+	end
+
 	# update variable, create one if it doesn't exist
 	def data_set_var key, val
  		Sdb[:data_var].filter(:dkey => key.to_s).update(:dval => val.to_s, :changed => Time.now)
