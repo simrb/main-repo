@@ -43,23 +43,14 @@
 					- @t[:lnk_fns].each do | name, method |
 						a href="#{_url('', :view_get => method, row.first[0] => row.first[1])}" = Sl[name]
 
-		.clear
 
-
-	- if @t[:css] == ''
-		== _css("view/css/list.css")
-	- else
-		== _css(@t[:css])
-
-
-	- if @t[:js] == ''
-		== _js("view/js/checkbox.js")
-	- else
-		== _js(@t[:js])
+	- @t[:css][:list] = 'view/list.css'
+	- @t[:js][:list] = 'view/list.js'
 
 
 - if @page_count > 1
-	p.page_bar
+	.pagination-centered: ul.pagination
 		- for i in 1..@page_count
-			- page_focus = i == @page_curr ? "page_focus" : ""
-			span class="#{page_focus}" : a href="#{_url2('', :page_curr => i)}" = i
+			- page_focus = i == @page_curr ? "current" : ""
+			li class="#{page_focus}" : a href="#{_url2('', :page_curr => i)}" = i
+

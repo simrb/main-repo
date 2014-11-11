@@ -12,13 +12,5 @@ form.form action="#{_url2(@t[:action])}" method="post" id="form" enctype="multip
 	- @t[:entries].times.each do | i |
 		input type="file" name="upload[]"
 
-
-	- if @t[:css] == ''
-		== _css("view/css/form.css")
-	- else
-		== _css(@t[:css])
-
-	- if @t[:js] == ''
-		== _js("view/js/form.js")
-	- else
-		== _js(@t[:js])
+	- @t[:js][:file] = 'view/file.js'
+	- @t[:css][:file] = 'view/file.css'

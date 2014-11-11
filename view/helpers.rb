@@ -17,7 +17,7 @@ helpers do
 	def view_table name, argv = {}
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_table
-		@t[:js]				= ''
+		@t[:js]				<< 'view/checkall.js'
 		@t[:css]			= ''
 		@t[:search_fns]		= []
 		@t[:btn_fns] 		= {}

@@ -82,21 +82,13 @@ form.form action="#{_url2(@t[:action])}" method="post" id="editform"
 
 		p : input type="text" name="tag" id="itags" value="#{tags}"
 
-		== _js('view/js/tag.js')
-		== _css('view/css/tag.css')
+		- @t[:js][:tag] = 'view/tag.js'
+		- @t[:css][:tag] = 'view/tag.css'
 
 
 	- if load_picture_js == true
-		== _js('view/js/picture.js')
+		- @t[:js][:picture] = 'view/picture.js'
 
 
-	- if @t[:css] == ''
-		== _css("view/css/form.css")
-	- else
-		== _css(@t[:css])
-
-
-	- if @t[:js] == ''
-		== _js("view/js/form.js")
-	- else
-		== _js(@t[:js])
+	- @t[:css][:form] = 'view/form.css'
+	- @t[:js][:form] = 'view/form.js'

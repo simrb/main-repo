@@ -98,6 +98,8 @@ table.table.checkall
 						- @t[:lnk_fns].each do | name, method |
 							a href="#{_url('', :view_get => method, row.first[0] => row.first[1])}" = Sl[name]
 
+	- @t[:css][:table] = 'view/table.css'
+	- @t[:js][:table] = 'view/checkbox.js'
 
 - if @page_count > 1
 	.pagination-centered: ul.pagination

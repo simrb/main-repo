@@ -40,14 +40,14 @@ html class="no-js" lang="en"
 		#msg == _tpl(:view_message)
 		#main == yield
 
-		- @t[:css].each do | path |
+		- @t[:css].each do | name, path |
 			== _css(path)
 
 		== _js("view/js/vendor/jquery.js")
 		== _js("view/js/foundation.min.js")
 		== _js("view/main.js")
 
-		- @t[:js].each do | path |
+		- @t[:js].each do | name, path |
 			== _js(path)
 
 
