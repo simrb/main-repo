@@ -1,16 +1,16 @@
 by linyu deng, at 2014/11/09
 
 - add the _var3 method for return boolean value 001
-- add the @js variable for storing the js of view component, 
-	and then load it at the end of template layout 002
+- add the @js variable for storing the js of view component, and then load it at the end of template layout 002
 - remove the js and css loaded of partial template 002.1
-- integrate the common function to view_init 003*
+- integrate the common function to view_init 003 *
 - update all of templates of view module for the new feature of Foundation import 004
+- correct the js and css assigned 005
 
 
 by linyu deng, at 2014/11/09
 
 - initialize this file
 - mark down the task what are you want to do as list
-- sign by * at the end of line means that has not been finished
-- the number at the end of line is task ID
+- sign by asterisk at the end of line means that has not been finished
+- the number at the end of line is task ID, like C001, C002

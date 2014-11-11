@@ -7,6 +7,19 @@ end
 
 helpers do
 
+	def view_init argv = {}
+		unless argv.include? :name
+			if params[:_name]
+				argv[:name] = params[:_name].to_sym
+			elsif @qs.include?(:_name)
+				argv[:name] = @qs[:_name].to_sym
+			else
+				_throw Sl[:'no parameter _name']
+			end
+		end
+		argv
+	end
+
 	# list view
 	def view_list name, argv = {}
 		argv[:tpl] = :view_list
@@ -17,8 +30,11 @@ helpers do
 	def view_table name, argv = {}
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_table
-		@t[:js]				<< 'view/checkall.js'
-		@t[:css]			= ''
+
+		@t[:css]			||= {}
+		@t[:js]				||= {}
+		@t[:js][:table]		= 'view/checkall.js'
+
 		@t[:search_fns]		= []
 		@t[:btn_fns] 		= {}
 		@t[:opt_fns] 		= {}
@@ -78,8 +94,8 @@ helpers do
 		@t[:tpl] 			= :view_form
 		@t[:opt] 			= :insert
 		@t[:back_fn] 		= :enable
-		@t[:js]				= ''
-		@t[:css]			= ''
+		@t[:css]			||= {}
+		@t[:js]				||= {}
 		@t[:action] 		= '/view/operate'
 		@t[:view_post] 		= 'submit'
 		@t[:_repath] 		= request.path
@@ -107,8 +123,8 @@ helpers do
 		@t[:entries] 		= 6
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_file
-		@t[:js]				= ''
-		@t[:css]			= ''
+		@t[:css]			||= {}
+		@t[:js]				||= {}
 		@t[:action] 		= '/view/operate'
 # 		@t[:action] 		= '/file/upload'
 		@t[:_repath] 		= request.path
@@ -146,19 +162,6 @@ helpers do
 			end
 		end
 		str = "<div class='nav'>" + str + "</div>"
-	end
-
-	def view_init argv = {}
-		unless argv.include? :name
-			if params[:_name]
-				argv[:name] = params[:_name].to_sym
-			elsif @qs.include?(:_name)
-				argv[:name] = @qs[:_name].to_sym
-			else
-				_throw Sl[:'no parameter _name']
-			end
-		end
-		argv
 	end
 
 	# admin view
