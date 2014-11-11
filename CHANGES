@@ -1,7 +1,9 @@
 by linyu deng, at 2014/11/09
 
-*002 add the @js variable for storing the js of view compont, and then load it at the end of template layout
-001 add the _var3 method for return boolean value
+- add the _var3 method for return boolean value 001
+- add the @js variable for storing the js of view component, and then load it at the end of template layout 002
+- remove the js and css loaded of partial template 002.1 *
+
 
 by linyu deng, at 2014/11/09
 
