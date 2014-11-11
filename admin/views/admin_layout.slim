@@ -47,7 +47,12 @@ html class="no-js" lang="en"
 		#main == yield
 		.holderplace
 
+		- @t[:css].each do | name, path |
+			== _css(path)
+
 		== _js("view/js/vendor/jquery.js")
 		== _js("view/js/foundation.min.js")
 		== _js("view/main.js")
-		== _js("view/checkall.js")
+
+		- @t[:js].each do | name, path |
+			== _js(path)
