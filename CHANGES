@@ -7,10 +7,10 @@ by linyu deng, at Nov, 2014
 - correct the js and css assigned 11
 - merge the template layout.slim and view_layout.slim 12
 - rename the user_login.slim to view_login.slim 12.0
+- add the default menu `main_menu` for view_layout.slim 12.1
+- update the auth.rb file 12.2
 
 *
-- add the default menu for view_layout.slim 12.1
-- update the auth.rb file 12.2
 - add the tags query to tool bar of table template 13
 
 by linyu deng, at Oct, 2014

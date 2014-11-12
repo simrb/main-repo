@@ -1,6 +1,7 @@
 ---
 - name	: simrb
   pawd	: simrb
+  level : 2
 
 - name 	: test
   pawd 	: test

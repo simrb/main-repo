@@ -3,8 +3,8 @@
   dval			: view/images/favicon.ico
   tag			: view
 
-- dkey			: form_submit_level
-  dval			: 1
+- dkey			: view_post_level
+  dval			: 0
   tag			: user
   description	: allow the user who has the level to submit the form or operation
 
@@ -14,11 +14,11 @@
   description	: main page
 
 - dkey			: title
-  dval			: page title
+  dval			: website
   tag			: page
 
 - dkey			: description
-  dval			: no description
+  dval			: page description
   tag			: page
 
 - dkey			: keywords

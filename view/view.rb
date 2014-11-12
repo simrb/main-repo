@@ -35,7 +35,7 @@ end
 
 # authorise the user to use
 # before '/view/operate' do
-# 	view_level? _var(:form_submit_level)
+# 	view_level? _var(:view_post_level)
 # end
 
 # a interface route for submitting data

@@ -1,0 +1,13 @@
+---
+- name		: Home
+  link		: #home
+  tag		: main_menu
+
+- name		: Page
+  link		: #page
+  tag		: main_menu
+
+- name		: About
+  link		: #about
+  tag		: main_menu
+

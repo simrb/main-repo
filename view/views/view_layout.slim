@@ -33,10 +33,13 @@ html class="no-js" lang="en"
 									a href="#{_url('/l')}" = Sl[:login]
 
 				ul.left
-					li
-						a href="#" Home
+					- menu = data_menu(:main_menu)
+					- if menu
+						- menu.each do | r |
+							li
+								a href="#{r[:link]}" = r[:name]
 
-
+		.holderplace.hide-for-small
 		#msg == _tpl(:view_message)
 		#main == yield
 		#footer = _var(:footer, :page)
