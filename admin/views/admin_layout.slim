@@ -18,7 +18,7 @@ html class="no-js" lang="en"
 						a href="#" = Sl[:Administration]
 				li.toggle-topbar.menu-icon
 					a href="#"
-						span Menu
+						span = Sl[:menu]
 
 			section.top-bar-section
 				ul.right
@@ -45,7 +45,7 @@ html class="no-js" lang="en"
 		.holderplace
 		#msg == _tpl(:view_message)
 		#main == yield
-		.holderplace
+		#footer = _var(:footer, :page)
 
 		- @t[:css].each do | name, path |
 			== _css(path)

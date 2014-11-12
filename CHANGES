@@ -1,16 +1,22 @@
-by linyu deng, at 2014/11/09
+by linyu deng, at Nov, 2014
+- add the _var3 method for return boolean value 09
+- add the @js variable for storing the js of view component, and then load it at the end of template layout 10
+- remove the js and css loaded of partial template 10.1
+- integrate the common function to view_init 11 *
+- update all of templates of view module for the new feature of Foundation import 11
+- correct the js and css assigned 11
+- merge the template layout.slim and view_layout.slim 12
+- rename the user_login.slim to view_login.slim 12.0
 
-- add the _var3 method for return boolean value 001
-- add the @js variable for storing the js of view component, and then load it at the end of template layout 002
-- remove the js and css loaded of partial template 002.1
-- integrate the common function to view_init 003 *
-- update all of templates of view module for the new feature of Foundation import 004
-- correct the js and css assigned 005
+*
+- add the default menu for view_layout.slim 12.1
+- update the auth.rb file 12.2
+- add the tags query to tool bar of table template 13
 
-
-by linyu deng, at 2014/11/09
-
-- initialize this file
-- mark down the task what are you want to do as list
-- sign by asterisk at the end of line means that has not been finished
-- the number at the end of line is task ID, like C001, C002
+by linyu deng, at Oct, 2014
+- initialize this file by author and date, and the month moves backward for one, like Nov -> Oct
+- mark down what are you want to do, and sign an asterisk at the end of each line or on the top of list block
+- remove the asterisk if these tasks have been done
+- the number at the end of each line is the day as task ID, and commit by like that C1411 10, C1411 10-12
+  C1411 10 		- the task at Nov, 2014, id 10
+  c1411 10-12 	- the task at Nov, 2014, id from 10 to 12

@@ -3,6 +3,9 @@ before do
 		@msg = request.cookies['msg'] 
 		response.set_cookie 'msg', :value => '', :path => '/'
 	end
+
+	@t[:css]			||= {}
+	@t[:js]				||= {}
 end
 
 helpers do
@@ -31,8 +34,6 @@ helpers do
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_table
 
-		@t[:css]			||= {}
-		@t[:js]				||= {}
 		@t[:js][:table]		= 'view/checkall.js'
 
 		@t[:search_fns]		= []
@@ -94,8 +95,6 @@ helpers do
 		@t[:tpl] 			= :view_form
 		@t[:opt] 			= :insert
 		@t[:back_fn] 		= :enable
-		@t[:css]			||= {}
-		@t[:js]				||= {}
 		@t[:action] 		= '/view/operate'
 		@t[:view_post] 		= 'submit'
 		@t[:_repath] 		= request.path
@@ -123,8 +122,6 @@ helpers do
 		@t[:entries] 		= 6
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_file
-		@t[:css]			||= {}
-		@t[:js]				||= {}
 		@t[:action] 		= '/view/operate'
 # 		@t[:action] 		= '/file/upload'
 		@t[:_repath] 		= request.path

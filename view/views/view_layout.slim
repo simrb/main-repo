@@ -1,17 +1,54 @@
 doctype html
-html
+html class="no-js" lang="en"
 	head
 		title = @t[:title]
-		meta name="keywords" content="#{@t[:keywords]}"
 		meta name="description" content="#{@t[:description]}"
-		meta http-equiv="content-type" content="text/html; charset=UFT-8"
-		script src="#{_assets('view/js/jquery.js')}" type="text/javascript"
+		meta name="keywords" content="#{@t[:keywords]}"
+		meta charset="utf-8"
+		meta name="viewport" content="width=device-width, initial-scale=1.0"
 		link rel="shortcut icon" href="#{_assets(_var(:favicon, :view))}" type="image/x-icon"
-		link rel='stylesheet' type='text/css' href='#{_assets("view/css/style.css")}'
+		== _css("view/css/foundation.css")
+		== _css("view/main.css")
+		== _js("view/js/vendor/modernizr.js")
 	body
-		#wrap
-			#header
+		#header.fixed.contain-to-grid: nav.top-bar data-topbar="" role="navigation" 
+			ul.title-area
+				li.name
+					h1
+						a href="#" = _var(:title, :page)
+				li.toggle-topbar.menu-icon
+					a href="#"
+						span = Sl[:menu]
 
-			== _tpl(:view_message)
+			section.top-bar-section
+				ul.right
+					li.has-dropdown
+						a href="#" = user_info[:name]
+						ul.dropdown
+							- if user_login?
+								li
+									a href="#{_url('/user/logout')}" = Sl[:exit]
+							- else
+								li
+									a href="#{_url('/l')}" = Sl[:login]
 
-			#bodyer == yield
+				ul.left
+					li
+						a href="#" Home
+
+
+		#msg == _tpl(:view_message)
+		#main == yield
+		#footer = _var(:footer, :page)
+
+		- @t[:css].each do | name, path |
+			== _css(path)
+
+		== _js("view/js/vendor/jquery.js")
+		== _js("view/js/foundation.min.js")
+		== _js("view/main.js")
+
+		- @t[:js].each do | name, path |
+			== _js(path)
+
+
