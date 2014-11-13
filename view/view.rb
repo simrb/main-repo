@@ -33,11 +33,6 @@ get "/robots.txt" do
 	arr.join("\n")
 end
 
-# authorise the user to use
-# before '/view/operate' do
-# 	view_level? _var(:view_post_level)
-# end
-
 # a interface route for submitting data
 post '/view/operate' do
 	method	= params[:view_post] ? params[:view_post] : (@qs.include?(:view_post) ? @qs[:view_post] : "")
@@ -49,18 +44,6 @@ post '/view/operate' do
 	@t[:repath] ||= (params[:_repath] || request.referer)
 	redirect @t[:repath]
 end
-
-# upload file
-# post '/file/upload' do
-# 	if params[:upload]
-# 		params[:upload].each do | item |
-# 			file_save item
-# 		end
-# 		Sl[:'upload complete']
-# 	else
-# 		Sl[:'the file is null']
-# 	end
-# end
 
 get '/file/list/:type' do
 	file_list params[:type]

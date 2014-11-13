@@ -1,4 +1,5 @@
 by linyu deng, at Nov, 2014
+
 - add the _var3 method for return boolean value 09
 - add the @js variable for storing the js of view component, and then load it at the end of template layout 10
 - remove the js and css loaded of partial template 10.1
@@ -9,11 +10,12 @@ by linyu deng, at Nov, 2014
 - rename the user_login.slim to view_login.slim 12.0
 - add the default menu `main_menu` for view_layout.slim 12.1
 - update the auth.rb file 12.2
-
 *
-- add the tags query to tool bar of table template 13
+- rewrite the view_level? method for including the level estimation from argument value of _var 13
+- add the tags query to tool bar of table template 15
 
 by linyu deng, at Oct, 2014
+
 - initialize this file by author and date, and the month moves backward for one, like Nov -> Oct
 - mark down what are you want to do, and sign an asterisk at the end of each line or on the top of list block
 - remove the asterisk if these tasks have been done
