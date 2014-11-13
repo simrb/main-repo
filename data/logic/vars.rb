@@ -46,9 +46,9 @@ helpers do
 
 	# return a boolean value, estimate by true, on, yes
 	def _var3 key, tag = '', val = ''
-		val_arr = %w(yes true on)
+		val_arr = %w(yes true on enable)
 		val = _var(key, tag, val).to_s
-		val_arr.include? val ? true : false
+		val_arr.include?(val) ? true : false
 	end
 
 	# update variable, create one if it doesn't exist
