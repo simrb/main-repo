@@ -43,5 +43,6 @@
 }
 
 /* form */
-#main .form {
+.form textarea {
+	height: 242px;
 }
