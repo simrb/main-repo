@@ -5,8 +5,8 @@
 
 - dkey			: view_post_level
   dval			: 0
-  tag			: user
-  description	: allow the user who has the level to submit the form or operation
+  tag			: user,level
+  description	: allow these users with this level to submit the form data in view_post action
 
 - dkey			: home
   dval			: /view/index
