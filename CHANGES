@@ -1,25 +1,28 @@
 by linyu deng, at Nov, 2014
 
-- add the _var3 method for return boolean value 09
+- add the _var3 method for return boolean value 9
 - add the @js variable for storing the js of view component, and then load it at the end of template layout 10
-- remove the js and css loaded of partial template 10.1
-- integrate the common function to view_init 11 *
-- update all of templates of view module for the new feature of Foundation import 11
-- correct the js and css assigned 11
-- merge the template layout.slim and view_layout.slim 12
-- rename the user_login.slim to view_login.slim 12.0
-- add the default menu `main_menu` for view_layout.slim 12.1
-- update the auth.rb file 12.2
-- add the level tag for some variables of user level 13.1
+- remove the js and css loaded of partial template 11
+- integrate the common function to view_init 12 *
+- update all of templates of view module for the new feature of Foundation import 13
+- correct the js and css assigned 14
+- merge the template layout.slim and view_layout.slim 15
+- rename the user_login.slim to view_login.slim 16
+- add the default menu `main_menu` for view_layout.slim 17
+- update the auth.rb file 18
+- add the level tag for some variables of user level 19
+- rewrite the data structure of file module for inserting the user id as interface 20
 *
-- rewrite the view_level? method for including the level estimation from argument value of _var 13
-- add the tags query to tool bar of table template 15
+- rewrite the view_level? method for including the level estimation from argument value of _var 21
+- add the tags query to tool bar of table template 22
+- classify all view outputs to view module, the non-view module have outputed html no more 23
 
 by linyu deng, at Oct, 2014
 
-- initialize this file by author and date, and the month moves backward for one, like Nov -> Oct
+- initialize this file by author and date
 - mark down what are you want to do, and sign an asterisk at the end of each line or on the top of list block
-- remove the asterisk if these tasks have been done
-- the number at the end of each line is the day as task ID, and commit by like that C1411 10, C1411 10-12
-  C1411 10 		- the task at Nov, 2014, id 10
-  c1411 10-12 	- the task at Nov, 2014, id from 10 to 12
+- remove the asterisk if these tasks had been done
+- append a numeric as the task ID at the end of line, and commit by like those C12, c13 14, c15-18
+  C12 		- the task 12
+  c13 14 	- the tasks 13 and 14
+  c15-18	- the tasks from 15 to 18
