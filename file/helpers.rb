@@ -11,8 +11,7 @@ helpers do
 		page_curr = (@qs.include?(:page_curr) and @qs[:page_curr].to_i > 0) ? @qs[:page_curr].to_i : 1
 
 		# search condition
-	# 	ds = Sdb[:file_info].filter(:uid => _user[:uid])
-		ds = Sdb[:file_info]
+	 	ds = Sdb[:file_info].filter(:uid => file_uid)
 		if type == 'all'
 		elsif type == 'image'
 			ds = ds.where(Sequel.like(:type, "#{type}/%"))
@@ -58,13 +57,12 @@ helpers do
 	#
 	def file_save file, reval = nil
 		fields = {}
-# 		fields[:uid] 		= _user[:uid]
+ 		fields[:uid] 		= file_uid
 		fields[:fnum] 		= file_num_generate
 		fields[:name] 		= file[:filename].split('.').first
 		fields[:created]	= Time.now
 		fields[:type]		= file[:type]
-# 		fields[:path] 		= "#{_user[:uid]}-#{fields[:created].to_i}#{_random(3)}"
-		fields[:path] 		= "#{fields[:created].to_i}#{_random(5)}"
+ 		fields[:path] 		= "#{file_uid}-#{fields[:created].to_i}#{_random(3)}"
 
 		# validate file specification
 		unless _var(:filetype, :file).include? file[:type]
@@ -111,8 +109,11 @@ helpers do
 
 	# create a random number for file
 	def file_num_generate
-		_random(7)
-# 		_random(6) + "#{_user[:uid]}"
+ 		_random(6) + "#{file_uid}"
+	end
+
+	def file_uid
+		self.respond_to?(:_user) ? _user[:uid] : 0
 	end
 
 end

@@ -7,9 +7,9 @@ data :file_info do
 			:default		=>	file_num_generate,
 			:view_type		=>	:img
 		},
-# 		:uid				=>	{
-# 			:default		=>	_user[:uid],
-# 		},
+		:uid				=>	{
+			:default		=>	file_uid,
+		},
 		:size				=>	{},
 		:type				=>	{
 			:size			=>	15,
