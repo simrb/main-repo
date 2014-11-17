@@ -24,7 +24,7 @@ by linyu deng, at Oct, 2014
 - initialize this file by author and date
 - mark down what are you want to do, and sign an asterisk at the end of each line or on the top of list block
 - remove the asterisk if these tasks had been done
-- append a numeric as the task ID at the end of line, and commit by like those C12, c13 14, c15-18
+- append a numeric of day as the task ID at the end of line, and commit by like those C12, c13 14, c15-18
   C12 		- the task 12
   c13 14 	- the tasks 13 and 14
   c15-18	- the tasks from 15 to 18

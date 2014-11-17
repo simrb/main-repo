@@ -53,10 +53,9 @@ helpers do
 	# == Arguments
 	#
 	# file,		filename, tempfile
-	# reval, 	return file info by the symbol you pass
 	#
-	def file_save file, reval = nil
-		fields = {}
+	def file_save file
+		fields 				= {}
  		fields[:uid] 		= file_uid
 		fields[:fnum] 		= file_num_generate
 		fields[:name] 		= file[:filename].split('.').first
@@ -64,34 +63,43 @@ helpers do
 		fields[:type]		= file[:type]
  		fields[:path] 		= "#{file_uid}-#{fields[:created].to_i}#{_random(3)}"
 
-		# validate file specification
+		_msg :file_save, ''
+
+		# allow these file type to save
 		unless _var(:filetype, :file).include? file[:type]
-			_throw Sl[:'the file type is wrong']
+			_msg :file_save, Sl[:'the file type isn`t allowed to save']
 		end
+
+		# allow the scope of file size
 		file_content = file[:tempfile].read
 		if (fields[:size] = file_content.size) > _var(:filesize, :file).to_i
-			_throw Sl[:'the file size is too big']
+			_msg :file_save, Sl[:'the file size is too big']
 		end
 
-		# save the info of file
-		# table = file[:table] ? file[:table].to_sym : :file
-		Sdb[:file_info].insert(fields)
+		if @msg[:file_save] == ''
+			# save the info of file
+			Sdb[:file_info].insert(fields)
 
-		# save the body of file
-		File.open(Spath[:upload_dir] + fields[:path], 'w+') do | f |
-			f.write file_content
-		end
+			# save the body of file
+			path = Spath[:upload_dir] + fields[:path]
+			Simrb.path_write path, file_content
+# 			File.open(Spath[:upload_dir] + fields[:path], 'w+') do | f |
+# 				f.write file_content
+# 			end
 
-		# return the value
-		unless reval == nil
-			Sdb[:file_info].filter(fields).get(reval)
+			_msg :file_save, Sl['saved file successfully']
 		end
+# 
+# 		# return the value
+# 		unless reval == nil
+# 			Sdb[:file_info].filter(fields).get(reval)
+# 		end
 	end
 
 	def file_rm fid, level = 1
 		ds = Sdb[:file_info].filter(:fiid => fid.to_i)
 		unless ds.empty?
-			path 	= ds.get(:path)
+			path 	= Spath[:upload_dir] + ds.get(:path)
 # 			uid		= ds.get(:uid)
 
 			# validate user
@@ -103,7 +111,7 @@ helpers do
 			ds.delete
 
 			# remove file
-			File.delete Spath[:upload_dir] + path
+			File.delete path if File.exist? path
 		end
 	end
 

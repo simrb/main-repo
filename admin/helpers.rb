@@ -59,14 +59,11 @@ helpers do
 	end
 
 	def view_post_file_upload argv = {}
-		res = Sl[:'the file is null']
 		if params[:upload]
 			params[:upload].each do | item |
 				file_save item
 			end
-			res = Sl[:'uploaded completely']
 		end
-		_msg res
 	end
 
 	def base_table_to_csv datas, encoding = nil
