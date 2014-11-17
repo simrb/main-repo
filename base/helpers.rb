@@ -8,11 +8,11 @@ before do
 	# env["rack.request.query_hash"]
 	base_fill_qs_with request.query_string if request.query_string
 
-	# template common variable
+	# store all variable by key in here you need to use in template
 	@t = {}
 
-	# message variable
-	@msg = ''
+	# store all messages you need to output in here
+	@msg = {}
 end
 
 helpers do
@@ -58,6 +58,15 @@ helpers do
 	def _timeout? changed_time, timeout
 		@current_time ||= Time.now
 		(@current_time - changed_time - timeout) > 0 ? true : false
+	end
+
+	# save the string to @msg by a key
+	def _msg name, str = nil
+		if str == nil
+			name 	= :default
+			str 	= name.to_s
+		end
+		@msg[name] = str
 	end
 
 end

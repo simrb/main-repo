@@ -13,9 +13,11 @@ by linyu deng, at Nov, 2014
 - add the level tag for some variables of user level 13
 - rewrite the data structure of file module for inserting the user id as interface 13
 - rewrite the view_level? method for including the level estimation from argument value of _var 13 *
+- rewrite the message output mechanism 17
 *
-- classify all view outputs to view module, the non-view module have outputed html no more 14
-- add the tags query to tool bar of table template 20
+- classify all view outputs to view module, the non-view module have outputed html no more
+- add the tags query to tool bar of table template
+- fix the richtext editor of view module
 
 by linyu deng, at Oct, 2014
 

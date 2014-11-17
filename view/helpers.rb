@@ -9,13 +9,20 @@ configure :production do
 end
 
 before do
+	@t[:msg]	= ''
+	@t[:css]	= {}
+	@t[:js]		= {}
+
 	unless request.cookies['msg'] == ''
-		@msg = request.cookies['msg'] 
+		@t[:msg] = request.cookies['msg']
 		response.set_cookie 'msg', :value => '', :path => '/'
 	end
+end
 
-	@t[:css]			||= {}
-	@t[:js]				||= {}
+after do
+	unless @msg.empty?
+ 		response.set_cookie 'msg', :value => @msg.values.join('\n'), :path => '/'
+	end
 end
 
 helpers do
@@ -255,6 +262,7 @@ helpers do
 
 	# load the template
 	def _tpl tpl_name, layout = false
+		@t[:msg] << @msg.values.join("\n") unless @msg.empty?
 		slim tpl_name, :layout => layout
 	end
 
@@ -274,12 +282,6 @@ helpers do
 	def _throw str
 		response.set_cookie 'msg', :value => str, :path => '/'
 		redirect back
-	end
-
-	#set the message if get a parameter, otherwise returns the @str value
-	def _msg str = ''
-		@msg = str
-		response.set_cookie 'msg', :value => str, :path => '/'
 	end
 
 	# generate the assets url
