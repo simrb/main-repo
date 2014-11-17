@@ -46,3 +46,9 @@
 .form textarea {
 	height: 242px;
 }
+
+/* table */
+.table img {
+	height: 30px;
+	width: 30px;
+}
