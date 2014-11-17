@@ -1,3 +1,13 @@
+configure :production do
+	not_found do
+		Sl['sorry, no page']
+	end
+
+	error do
+		Sl['sorry there was a nasty error,'] + env['sinatra.error'].name
+	end
+end
+
 before do
 	unless request.cookies['msg'] == ''
 		@msg = request.cookies['msg'] 

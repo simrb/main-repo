@@ -3,19 +3,19 @@ by linyu deng, at Nov, 2014
 - add the _var3 method for return boolean value 9
 - add the @js variable for storing the js of view component, and then load it at the end of template layout 10
 - remove the js and css loaded of partial template 11
-- integrate the common function to view_init 12 *
-- update all of templates of view module for the new feature of Foundation import 13
-- correct the js and css assigned 14
-- merge the template layout.slim and view_layout.slim 15
-- rename the user_login.slim to view_login.slim 16
-- add the default menu `main_menu` for view_layout.slim 17
-- update the auth.rb file 18
-- add the level tag for some variables of user level 19
-- rewrite the data structure of file module for inserting the user id as interface 20
+- integrate the common function to view_init 11 *
+- update all of templates of view module for the new feature of Foundation import 11
+- correct the js and css assigned 11
+- merge the template layout.slim and view_layout.slim 12
+- rename the user_login.slim to view_login.slim 12
+- add the default menu `main_menu` for view_layout.slim 13
+- update the auth.rb file 13
+- add the level tag for some variables of user level 13
+- rewrite the data structure of file module for inserting the user id as interface 13
+- rewrite the view_level? method for including the level estimation from argument value of _var 13 *
 *
-- rewrite the view_level? method for including the level estimation from argument value of _var 21
-- add the tags query to tool bar of table template 22
-- classify all view outputs to view module, the non-view module have outputed html no more 23
+- classify all view outputs to view module, the non-view module have outputed html no more 14
+- add the tags query to tool bar of table template 20
 
 by linyu deng, at Oct, 2014
 

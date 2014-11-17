@@ -1,15 +1,5 @@
-configure :production do
-	not_found do
-		Sl['sorry, no page']
-	end
-
-	error do
-		Sl['sorry there was a nasty error,'] + env['sinatra.error'].name
-	end
-end
-
 before do
-	# a key-val variable that stores the fields of db table and will be saved into db
+	# a key-val variable that stores the fields of db table and then will be saved into db
 	@f = {}
 
 	# request query_string
