@@ -69,4 +69,9 @@ helpers do
 		@msg[name] = str
 	end
 
+	def _throw str
+		Simrb.p str
+		halt str
+	end
+
 end

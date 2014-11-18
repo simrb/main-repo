@@ -63,32 +63,27 @@ helpers do
 		fields[:type]		= file[:type]
  		fields[:path] 		= "#{file_uid}-#{fields[:created].to_i}#{_random(3)}"
 
-		_msg :file_save, ''
-
 		# allow these file type to save
 		unless _var(:filetype, :file).include? file[:type]
-			_msg :file_save, Sl[:'the file type isn`t allowed to save']
+			_throw Sl[:'the file type isn`t allowed to save']
 		end
 
 		# allow the scope of file size
 		file_content = file[:tempfile].read
 		if (fields[:size] = file_content.size) > _var(:filesize, :file).to_i
-			_msg :file_save, Sl[:'the file size is too big']
+			_throw Sl[:'the file size is too big']
 		end
 
-		if @msg[:file_save] == ''
-			# save the info of file
-			Sdb[:file_info].insert(fields)
+		# save the info of file
+		Sdb[:file_info].insert(fields)
 
-			# save the body of file
-			path = Spath[:upload_dir] + fields[:path]
-			Simrb.path_write path, file_content
+		# save the body of file
+		path = Spath[:upload_dir] + fields[:path]
+		Simrb.path_write path, file_content
 # 			File.open(Spath[:upload_dir] + fields[:path], 'w+') do | f |
 # 				f.write file_content
 # 			end
 
-			_msg :file_save, Sl['saved file successfully']
-		end
 # 
 # 		# return the value
 # 		unless reval == nil

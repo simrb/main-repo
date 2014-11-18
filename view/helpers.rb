@@ -262,7 +262,7 @@ helpers do
 
 	# load the template
 	def _tpl tpl_name, layout = false
-		@t[:msg] << @msg.values.join("\n") unless @msg.empty?
+ 		@t[:msg] << @msg.values.join("\n") unless @msg.empty?
 		slim tpl_name, :layout => layout
 	end
 

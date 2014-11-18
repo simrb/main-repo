@@ -1,9 +1,8 @@
 helpers do
 
 	# user login by user name and password
-	def user_login argv = nil
+	def user_login argv
 		if argv[:name] and argv[:pawd]
-
 			# valid field format
 			f = argv
 			data_valid :user, f
@@ -20,7 +19,6 @@ helpers do
 			else
 				_throw Sl[:'the password is wrong']
 			end
-
 		end
 	end
 

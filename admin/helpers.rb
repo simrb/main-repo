@@ -63,6 +63,7 @@ helpers do
 			params[:upload].each do | item |
 				file_save item
 			end
+			_msg :file_save, Sl['saved file successfully']
 		end
 	end
 

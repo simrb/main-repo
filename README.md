@@ -1,1 +1,1 @@
-This is a temporary and developing repository of core module
+This is a repository for core modules
