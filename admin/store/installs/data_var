@@ -1,10 +1,20 @@
 ---
-- dkey			: admin_level
+- dkey			: level
   dval			: 10
-  tag			: user,level
+  tag			: admin,level
   description	: the level of user is allowed to enter the background administration
 
-- dkey			: admin_title
-  dval			: administrator
-  tag			: admin_page
+- dkey			: title
+  dval			: administration
+  tag			: admin,page
+
+- dkey			: description
+  dval			: simrb administration
+  description	: simrb administration
+  tag			: admin,page
+
+- dkey			: keywords
+  dval			: simrb administration
+  description	: simrb administration
+  tag			: admin,page
 

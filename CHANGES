@@ -17,9 +17,11 @@ by linyu deng, at Nov, 2014
 - redesign the message throw mechanism, add more a method _throw to base module, 
 	and then overwrite it in view module 18
 - classify all view outputs to view module, the non-view module have outputed html no more 18.1
+- add the view_page method for separating the function of invoking template from _tpl 19.1
+- update some variable name of installed file 19.2
 *
 - add the tags query to tool bar of table template
-- add the view_page method for separating the function of invoking template from _tpl
+- update the scaffold output for choosing the _tpl or view_page automatically
 - fix the richtext editor of view module
 
 
@@ -28,7 +30,8 @@ by linyu deng, at Oct, 2014
 - initialize this file by author and date
 - mark down what are you want to do, and sign an asterisk at the end of each line or on the top of list block
 - remove the asterisk if these tasks had been done
-- append a numeric of day as the task ID at the end of line, and commit by like those C12, c13 14, c15-18
-  C12 		- the task 12
-  c13 14 	- the tasks 13 and 14
-  c15-18	- the tasks from 15 to 18
+- append the day numeric as task id to the end of line
+- about the commit by task id like C141112, c141113 14, c141115-18
+  C141112 		- the task 12 in Nov, 2014
+  c141113 14 	- the tasks 13 and 14 in Nov, 2014
+  c141115-18	- the tasks from 15 to 18 in Nov, 2014

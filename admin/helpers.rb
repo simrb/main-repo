@@ -1,10 +1,7 @@
 helpers do
 
 	def admin_page name
-		@t[:title] 			||= _var(:admin_title, :admin_page)
-		@t[:keywords]		||= _var(:keywords, :admin_page)
-		@t[:description]	||= _var(:description, :admin_page)
-		_tpl name, :admin_layout
+		view_page name, :admin_layout, :admin
 	end
 
 	def view_get_user_add argv = {}

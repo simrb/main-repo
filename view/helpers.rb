@@ -261,9 +261,17 @@ helpers do
 	end
 
 	# load the template
-	def _tpl tpl_name, layout = false
+	def _tpl name, layout = false
+		slim name, :layout => layout
+	end
+
+	# load the page
+	def view_page name, layout = :view_layout, tag = :view
+		@t[:title] 			||= _var(:title, tag)
+		@t[:keywords]		||= _var(:keywords, tag)
+		@t[:description]	||= _var(:description, tag)
  		@t[:msg] << @msg.values.join("\n") unless @msg.empty?
-		slim tpl_name, :layout => layout
+		_tpl name, layout
 	end
 
 	def _css path, domain = '/'

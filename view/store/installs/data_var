@@ -15,19 +15,19 @@
 
 - dkey			: title
   dval			: website
-  tag			: page
+  tag			: view,page
 
 - dkey			: description
   dval			: page description
-  tag			: page
+  tag			: view,page
 
 - dkey			: keywords
   dval			: page keywords
-  tag			: page
+  tag			: view,page
 
 - dkey			: footer
   dval			: Power by simrb
-  tag			: page
+  tag			: view,page
   description	: footer mark of page
 
 - dkey			: login
