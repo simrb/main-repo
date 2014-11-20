@@ -15,7 +15,7 @@ html class="no-js" lang="en"
 			ul.title-area
 				li.name
 					h1
-						a href="#" = _var(:title, :page)
+						a href="#" = _var(:title, :view)
 				li.toggle-topbar.menu-icon
 					a href="#"
 						span = Sl[:menu]
@@ -42,7 +42,7 @@ html class="no-js" lang="en"
 		.holderplace.hide-for-small
 		#msg == _tpl(:view_message)
 		#main == yield
-		#footer = _var(:footer, :page)
+		#footer = _var(:footer, :view)
 
 		- @t[:css].each do | name, path |
 			== _css(path)
