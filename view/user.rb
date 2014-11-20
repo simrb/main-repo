@@ -33,7 +33,7 @@ end
 helpers do
 
 	def user_page name
-		view_page name
+		_tpl @t[:tpl], :view_page
 	end
 
 	def view_login? redirect_url = ''

@@ -19,17 +19,18 @@ by linyu deng, at Nov, 2014
 - classify all view outputs to view module, the non-view module have outputed html no more 18.1
 - add the view_page method for separating the function of invoking template from _tpl 19.1
 - update some variable name of installed file 19.2
+- update the output of view scaffold for choosing the _tpl or view_page automatically 19.3
+- merge the view_page and _tpl method 20
 *
 - add the tags query to tool bar of table template
-- update the scaffold output for choosing the _tpl or view_page automatically
 - fix the richtext editor of view module
 
 
 by linyu deng, at Oct, 2014
 
 - initialize this file by author and date
-- mark down what are you want to do, and sign an asterisk at the end of each line or on the top of list block
-- remove the asterisk if these tasks had been done
+- mark down the new task what you want to do, and sign an asterisk at the end of that line or on the top of list block
+- remove the asterisk if that task have been done
 - append the day numeric as task id to the end of line
 - about the commit by task id like C141112, c141113 14, c141115-18
   C141112 		- the task 12 in Nov, 2014

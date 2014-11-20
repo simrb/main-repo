@@ -1,7 +1,7 @@
 helpers do
 
 	def admin_page name
-		view_page name, :admin_layout, :admin
+		_tpl name, :admin_layout
 	end
 
 	def view_get_user_add argv = {}

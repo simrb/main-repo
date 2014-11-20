@@ -22,7 +22,7 @@ end
 # end
 
 get '/view/index' do
-	"This is an index page."
+	Sl[:"default page"]
 end
 
 get "/robots.txt" do
