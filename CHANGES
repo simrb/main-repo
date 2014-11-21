@@ -1,39 +1,29 @@
 by linyu deng, at Nov, 2014
 
-- add the _var3 method for return boolean value 9
-- add the @js variable for storing the js of view component, and then load it at the end of template layout 10
-- remove the js and css loaded of partial template 11
+- increase a method _var3 for return boolean value in the serial of _var methods 9
+- increase the @js variable for view module, integrate all assets loaded of template 10
 - integrate the common function to view_init 11 *
-- update all of templates of view module for the new feature of Foundation import 11
-- correct the js and css assigned 11
-- merge the template layout.slim and view_layout.slim 12
-- rename the user_login.slim to view_login.slim 12
-- add the default menu `main_menu` for view_layout.slim 13
-- update the auth.rb file 13
-- add the level tag for some variables of user level 13
+- fix the compatibility after the Foundation front-end framework import 11
+- integrate some the templates, remove the redundancies 12
+- arrange the authorization of some interfaces 13
 - rewrite the data structure of file module for inserting the user id as interface 13
 - rewrite the view_level? method for including the level estimation from argument value of _var 13 *
-- rewrite the message output mechanism 17
-- redesign the message throw mechanism, add more a method _throw to base module, 
-	and then overwrite it in view module 18
-- classify all view outputs to view module, the non-view module have outputed html no more 18.1
-- add the view_page method for separating the function of invoking template from _tpl 19.1
-- update some variable name of installed file 19.2
-- update the output of view scaffold for choosing the _tpl or view_page automatically 19.3
-- merge the view_page and _tpl method 20
-- import the richtext editor for view module 21
+- redesign the message output mechanism, add more a method _throw to base module, 
+	and then overwrite it in view module 17
+- classify all view outputs to view module, the non-view module no more output the html 18
+- update the method _tpl for setting the layout if it has been loaded 19
+- import the richtext editor for view module 20
 *
-- add the tags query to tool bar of table template
+- support the tag query for toolbar of table template
 
 
-by linyu deng, at Oct, 2014
+by <author/maintainer>, at <month>, <year>
 
-- initialize this file by author and date
-- mark down the new task what you want to do, and sign an asterisk at the end of that line or on the top of list block
+- initialize this file and define how to use
+- mark down the main task you intend to do, and sign it with an asterisk at the end of that line or on the top of list block
 - remove the asterisk if that task have been done
 - append the day numeric as task id to the end of line
-- about the commit by task id like C141112, c141113 14, c141115-18
+- about the commit id like C141112, c141113 14, c141115-18
   C141112 		- the task 12 in Nov, 2014
   c141113 14 	- the tasks 13 and 14 in Nov, 2014
   c141115-18	- the tasks from 15 to 18 in Nov, 2014
-  c12			- just the task id, 12
