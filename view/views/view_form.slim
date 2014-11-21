@@ -65,7 +65,8 @@ form.form action="#{_url2(@t[:action])}" method="post" id="editform"
 			p : input class="#{fieldclass}" type="hidden" name="#{k}" value="#{@f[k]}"
 
 		- elsif @t[:data][k][:form_type] == :textarea
-			p : textarea class="#{fieldclass}" name="#{k}" required=allownull = @f[k]
+			- load_editor_js = true if @t[:data][k].has_key?(:editor)
+			p : textarea class="#{fieldclass} ly_editor" name="#{k}" required=allownull = @f[k]
 
 		- elsif @t[:data][k][:form_type] == :password
 			p : input class="#{fieldclass}" type="password" name="#{k}" required=allownull
@@ -88,6 +89,11 @@ form.form action="#{_url2(@t[:action])}" method="post" id="editform"
 
 	- if load_picture_js == true
 		- @t[:js][:picture] = 'view/picture.js'
+	
+
+	- if load_editor_js == true
+		- @t[:js][:editor] = 'view/editor.js'
+		- @t[:css][:editor] = 'view/editor.css'
 
 
 	- @t[:css][:form] = 'view/form.css'

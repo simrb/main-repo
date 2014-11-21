@@ -21,9 +21,9 @@ by linyu deng, at Nov, 2014
 - update some variable name of installed file 19.2
 - update the output of view scaffold for choosing the _tpl or view_page automatically 19.3
 - merge the view_page and _tpl method 20
+- import the richtext editor for view module 21
 *
 - add the tags query to tool bar of table template
-- fix the richtext editor of view module
 
 
 by linyu deng, at Oct, 2014
