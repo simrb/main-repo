@@ -1,6 +1,7 @@
 helpers do
 
-	# get the list of file information by given type, the result is json data
+	# get the list of file information by given type
+	# return a json as result
 	#
 	# == Examples
 	#
@@ -17,6 +18,7 @@ helpers do
 			ds = ds.where(Sequel.like(:type, "#{type}/%"))
 		end
 
+		res = {}
 		unless ds.empty?
 			ds 			= ds.select(:fiid, :name, :type, :fnum).reverse_order(:fiid)
 			ds 			= ds.extension :pagination
@@ -28,12 +30,10 @@ helpers do
 
 			res 		= ds.all
 			res.unshift({:prev => page_prev, :next => page_next, :size => page_count, :curr => page_curr})
-
-			require 'json'
-			JSON.pretty_generate res
-		else
-			nil
 		end
+
+		require 'json'
+		JSON.pretty_generate res
 	end
 
 	# get the file by fnum
