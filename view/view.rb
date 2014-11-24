@@ -45,8 +45,8 @@ post '/view/operate' do
 	redirect @t[:repath]
 end
 
-get '/file/list/:type' do
-	file_list params[:type]
+get '/file/type/:name' do
+	file_list params[:name]
 end
 
 get '/file/get/:fnum' do

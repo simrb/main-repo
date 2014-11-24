@@ -5,7 +5,7 @@ by linyu deng, at Nov, 2014
 - integrate the common function to view_init 11 *
 - fix the compatibility after the Foundation front-end framework import 11
 - integrate some the templates, remove the redundancies 12
-- arrange the authorization of some interfaces 13
+- arrange the authorization of some open interfaces of admin, view module 13
 - rewrite the data structure of file module for inserting the user id as interface 13
 - rewrite the view_level? method for including the level estimation from argument value of _var 13 *
 - redesign the message output mechanism, add more a method _throw to base module, 

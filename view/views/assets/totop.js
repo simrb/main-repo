@@ -5,7 +5,8 @@
  *
  * html 
  * 		#header.keeptop
- *			p note that the css of #header need to set by {position: absolute; top: 0;}
+ *			p note that the css of #header need to set by {position: absolute; top: 0;} if you
+ *			p want it alway keeping top
  *			p and the #toTop color set by { background: "colorwhatyouwant"; }
  *
  * js
