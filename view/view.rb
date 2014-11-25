@@ -53,3 +53,6 @@ get '/file/get/:fnum' do
 	file_get params[:fnum]
 end
 
+post '/file/upload' do
+	"good"
+end

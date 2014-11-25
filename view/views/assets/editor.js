@@ -12,27 +12,22 @@
  *
  */
 
-function ly_show_msg(data) {
-	$('#msg').text(data);
-	setTimeout(function(){ $('#msg').text(''); }, 3000);
-}
-
 function ly_insert_to_textarea(opt) {
-	var textarea = $('.ly-et-textarea').data('textarea');
-	var before = opt.before != undefined ? opt.before : '';
-	var after = opt.after != undefined ? opt.after : '';
-	var replace = opt.replace != undefined ? opt.replace : '';
+	var textarea	= $('.ly-et-textarea').data('textarea');
+	var before		= opt.before != undefined ? opt.before : '';
+	var after 		= opt.after != undefined ? opt.after : '';
+	var replace 	= opt.replace != undefined ? opt.replace : '';
 
 	if (opt.html_type == 'img') {
 		replace = '![' + opt.img_name + '](' + opt.img_link + ')';
 	}
 
 	if (before != '' || after != '' || replace != '') {
-		var len = textarea.val().length;
-		var start = textarea[0].selectionStart;
-		var end = textarea[0].selectionEnd;
-		var select_text = replace != '' ? replace : textarea.val().substring(start, end);
-		var replace_text = before + select_text + after;
+		var len 			= textarea.val().length;
+		var start 			= textarea[0].selectionStart;
+		var end 			= textarea[0].selectionEnd;
+		var select_text		= replace != '' ? replace : textarea.val().substring(start, end);
+		var replace_text	= before + select_text + after;
 		textarea.val(textarea.val().substring(0, start) + replace_text + textarea.val().substring(end, len));
 	}
 }
@@ -65,7 +60,7 @@ function ly_insert_to_textarea(opt) {
 						{name : 'code', before : '```\n', after : '\n```', separator : '|'},
 
 						{name : 'link', key : 'L', before : '[name]', after : '(link)'},
-						{name : 'file', icon : 'picture', event : 'create_event_file'},
+						{name : 'file', icon : 'picture', event : 'file_event'},
 					]
 				}, options);
 
@@ -76,92 +71,87 @@ function ly_insert_to_textarea(opt) {
 		setup : function(config) {
 			return this.each(function(){
 
-				//select the textarea to update rich text editor
+				// select the textarea to update richtext editor
 				var textarea = $(this);
-				textarea.wrap('<div class="ly-et-textarea" style="clear:both;" />');
+				textarea.wrap('<div class="ly-et-textarea" />');
 
-				//add a toolbar to editor
+				// add a toolbar to editor
 				$('.ly-et-textarea').before('<div class="ly-et-toolbar" />');
 
-				//initialize the toolbar
-				var toolbar = "";
+				// initialize the toolbar
+				var toolbarHtml = "";
 				$.each(config.toolbar, function(index, item){
 
 					//set the toolbar index, attr, class, title, key ...
 					//event listener need to get the value from json with this index
-					toolbar += '<a index="' + index + '"';
+					toolbarHtml += '<a index="' + index + '"';
 
 					if (item.key != undefined) {
-						toolbar += ' accessKey="' + item.key + '"';
+						toolbarHtml += ' accessKey="' + item.key + '"';
 					}
 					if (item.title != undefined) {
-						toolbar += ' title="' + item.title + '"';
+						toolbarHtml += ' title="' + item.title + '"';
 					} else {
-						toolbar += ' title="' + item.name + '"';
+						toolbarHtml += ' title="' + item.name + '"';
 					}
 
-					toolbar += ' class="ly-et-tb-' + item.name;
+					toolbarHtml += ' class="ly-et-tb-' + item.name;
 					if (item.class != undefined) {
-						toolbar += ' ' + item.class;
+						toolbarHtml += ' ' + item.class;
 					}
 
 					// icon png
 					var icon_url = item.icon == undefined ? item.name : item.icon
-					toolbar += '" style="background-image:url(' + config.icon_path + icon_url + '.png)"'
+					toolbarHtml += '" style="background-image:url(' + config.icon_path + icon_url + '.png)"'
 
 					// given name
-					toolbar += '>' + item.name + '</a>';
+					toolbarHtml += '>' + item.name + '</a>';
 
 					// append the separator
 					if (item.separator != undefined) {
-						toolbar += '<a style="background-image:url(' + config.icon_path + 'separator.png)">' + item.separator + '</a>';
+						toolbarHtml += '<a style="background-image:url(' + config.icon_path + 'separator.png)">' + item.separator + '</a>';
 					}
 
 				});
 
-				//setup the toolbar
-				$('.ly-et-toolbar').append(toolbar);
+				// setup the toolbar
+				$('.ly-et-toolbar').append(toolbarHtml);
 				$('.ly-et-textarea').data('textarea', textarea);
-				$('.ly-et-textarea').data('config', config);
-				$(this).ly_editor('create_event', config);
+				//$('.ly-et-textarea').data('config', config);
 
-			});
-		},
-
-		// setup the default event for each item of toolbar
-		create_event : function(config) {
-			return $(this).each(function(){
+				// setup events for each item of toolbar function
 				$.each(config.toolbar, function(index, item){
-
 					if (item.event == undefined) {
 						$('.ly-et-toolbar .ly-et-tb-' + item.name).click(function(){
 							ly_insert_to_textarea(item);
 						});
-					} else if (item.event == 'create_event_file') {
-						$('.ly-et-toolbar .ly-et-tb-' + item.name).ly_editor('create_event_file', config);
+					} else {
+						$('.ly-et-toolbar .ly-et-tb-' + item.name).ly_editor(item.event, config);
 					}
-
 				});
+
 			});
 		},
 
 		// create file event
-		create_event_file : function(config) {
+		file_event : function(config) {
 			return $(this).each(function(){
 
+				// generate html
 				var fileHtml = '';
 				fileHtml += '<span class="ly-et-file-close right">X</span><div class="ly-et-file-list"/>';
 				fileHtml += '<div class="ly-et-file-upload">';
 				fileHtml += '<form class="ly-et-file-form"><input type="file" name="upload" />';
 				fileHtml += '<button class="ly-et-file-submit tiny">upload</button>';
-				fileHtml += '<div class="ly-et-file-progressbar"><div class="ly-et-file-subprogressbar" /></div>';
+				fileHtml += '<div class="ly-et-file-msg" /><progress value=0 max=100 class="ly-et-file-progress hide" />';
 				fileHtml += '</form></div>';
 				fileHtml = '<div class="ly-et-file">' + fileHtml + '</div>';
 
 				$('.ly-et-toolbar').after(fileHtml);
-				$('.ly-et-textarea').data('file_loaded', false);
+				$('.ly-et-file').data('file_loaded', false);
+				$('.ly-et-file').data('file_error', false);
 
-				//add event
+				// add event
 				$('.ly-et-tb-file').mouseenter(function(){
 					//$('.ly-et-file').show();
 					//$(this).ly_editor('file_view', config);
@@ -176,21 +166,48 @@ function ly_insert_to_textarea(opt) {
 					$(this).ly_editor('file_view', config);
 				});
 
-				$('.ly-et-file-submit').click(function(){
-					//$(this).ly_editor('file_upload', config);
-				});
-
 				$('.ly-et-file-close').click(function(){
 					$('.ly-et-file').hide();
+				});
+
+				$('.ly-et-file-submit').click(function(){
+					if ($('.ly-et-file').data('file_error') == false) {
+						$(this).ly_editor('file_upload', config);
+					}
+					return false;
+				});
+
+				// listen the form
+				$('.ly-et-file-form :file').change(function(){
+					console.log('file added');
+
+					var file = this.files[0];
+					var error_msg = '';
+
+					// validate the file
+					if ($.inArray(file.type, config.file_type) == -1) {
+						error_msg = 'file type must be ' + config.file_type.join(',') + '), not ' + file.type;
+					}
+					if (file.size > config.file_size) {
+						error_msg = 'file size ' + file.size + ' need lower than ' + config.file_size + ' bytes';
+					}
+
+					if (error_msg == '') {
+						$('.ly-et-file-msg').text('correct file');
+						$('.ly-et-file').data('file_error', false);
+					} else {
+						$('.ly-et-file-msg').text(error_msg);
+						$('.ly-et-file').data('file_error', true);
+					}
 				});
 
 			});
 		},
 
-		// load the file
+		// view file for loading from remote
 		file_view : function(config) {
 			return $(this).each(function(){
-				if($('.ly-et-textarea').data('file_loaded') == false) {
+				if($('.ly-et-file').data('file_loaded') == false) {
 					$.getJSON(config.picture_path, function(data){
 						//console.log("work 1");
 
@@ -209,7 +226,7 @@ function ly_insert_to_textarea(opt) {
 						}
 
 					});
-					$('.editor').data('file_loaded', true);
+					$('.ly-et-file').data('file_loaded', true);
 				}
 			});
 		},
@@ -217,106 +234,51 @@ function ly_insert_to_textarea(opt) {
 		// upload file
 		file_upload : function(config) {
 			return $(this).each(function(){
+				console.log('01 submit ...');
+				var formData = new FormData($('.ly-et-file-form')[0]);
+				$('.ly-et-file-progress').show();
 
-				//folder item event
-				var create_folder_menu = false;
-				$('.folder').click(function(){
+				$.ajax({
+					url 	: config.upload_path,
+					type 	: 'post',
 
-					if (create_folder_menu === true) {
-						$('.ly-et-file-submit').show();
-					} else {
+					xhr 	: function() {
+						var myxhr = $.ajaxSettings.xhr();
+						if (myxhr.upload) {
+							myxhr.upload.addEventListener('progress', function(e){
+								var done = e.position || e.loaded, total = e.totalSize || e.total;
+								var value = (Math.floor(done/total*1000)/10);
+								$('.ly-et-file-progress').val(value);
+							}, false);
+						}
+						return myxhr;
+					},
 
-						//initialize folder dropmenu
-						//$(this).after(folder);
-						//var folder_menu = $('.ly-et-file-upload');
-						//folder_menu.css('top', $(this).offset().top + 15);
-						//folder_menu.css('left', $(this).offset().left);
+					success	: function(data) {
+						//update progressbar
+						$('.ly-et-file-msg').text('successful uploaded');
 
-						//add changed event
-						$('.ly-et-file-form').change(function(){
-							$('.ly-et-file-subprogressbar').text('0 %');
-							$('.ly-et-file-subprogressbar').css('background-color', '');
-						});
-
-						//add view event
-						$('.editor').data('file_loaded', false);
+						//update folder view
+						$('.ly-et-file').data('file_loaded', false);
 						$(this).ly_editor('file_view', config);
+					},
 
-						//add validation function to form
-						var ly_upload_validation_error = '';
-						$('.ly-et-file-form :file').change(function(){
-							var file = this.files[0];
-							if ($.inArray(file.type, config.file_type) == -1) {
-								ly_upload_validation_error = 'the file must be (' + config.file_type.join(',') + '), but rather is ' + file.type;
-							}
-							if (file.size > config.file_size) {
-								ly_upload_validation_error = 'The file size ' + file.size + ' is not better than ' + config.file_size;
-							}
-						});
+					error	: function(xhr, status, err) {
+						$('.ly-et-file-msg').text('uploaded failure');
+						console.log(xhr.responseText);
+						console.log(status);
+						console.log(err);
+					},
 
-						//add uploading event
-						$('.ly-et-file-submit').click(function(){
-							if (ly_upload_validation_error != '') {
-								ly_show_msg(ly_upload_validation_error);
-								return false;
-							}
+					data	: formData,
+					cache	: false,
+					contentType : false,
+					processData : false
+				}, 'join');
 
-							var formData = new FormData($('.ly-et-file-form')[0]);
+				//$('.ly-et-file-progress').hide();
 
-							$.ajax({
-
-								url : config.upload_path,
-								type : 'post',
-
-								xhr : function() {
-									myxhr = $.ajaxSettings.xhr();
-									if (myxhr.upload) {
-										myxhr.upload.addEventListener('progress', function(e){
-											var done = e.position || e.loaded, total = e.totalSize || e.total;
-											var progressbar = 'uploading ... ' + (Math.floor(done/total*1000)/10) + ' %';
-											$('.ly-et-file-subprogressbar').text(progressbar);
-										}, false);
-									}
-									return myxhr;
-								},
-
-								success : function(data) {
-									//update progressbar
-									$('.ly-et-file-subprogressbar').text('100 %');
-									$('.ly-et-file-subprogressbar').css('background-color', 'yellow');
-
-									//show message
-									ly_show_msg(data);
-
-									//update folder view
-									$('.editor').data('file_loaded', false);
-									$(this).ly_editor('file_view', config);
-								},
-
-								error : function(xhr, status, err) {
-									console.log(xhr.responseText);
-									console.log(status);
-									console.log(err);
-								},
-
-								data : formData,
-								cache : false,
-								contentType : false,
-								processData : false
-
-							}, 'join');
-
-							return false;
-
-						});
-						create_folder_menu = true;
-						//initialize folder dropmenu ---- end
-					}
-
-				});
-
-			///-- setup complete
-
+			///-- end of function
 			});
 		},
 
