@@ -1,8 +1,4 @@
 
-.ly-et-toolbar {
-	//padding-bottom: 20px;
-}
-
 .ly-et-toolbar a {
 	display: block;
 	width: 16px;
@@ -15,44 +11,37 @@
 	cursor: pointer;
 }
 
-.folder_menu {
+.ly-et-file {
 	padding: 5px;
-	position: absolute;
-	background-color: white;
-	width: 200px;
-	border: 1px solid black;
+	clear: both;
+	display: none;
 }
-
 .ly-et-file input[type="file"] {
 	max-width: 200px;
-}
-.ly-et-file-close {
-	cursor: pointer;
 }
 .ly-et-file button {
 	margin: 0px 8px;
 	padding: 5px 10px;
 	color: black;
 }
-.folder_view td {
-	padding: 2px;
-}
-.folder_view .name {
+.ly-et-file-close {
 	cursor: pointer;
+}
+.ly-et-file-form {
+	clear: both;
+}
+.ly-et-file-list ul {
+	float: left;
+	margin: 0;
+}
+.ly-et-file-list li {
+	float: left;
+}
+.ly-et-file-list img {
+	width: 40px;
+	height: 40px;
+	float: left;
+	cursor: pointer;
+	padding: 8px;
 }
 
-.ly-et-file {
-	padding: 5px;
-	//position: absolute;
-	clear: both;
-	//width: 100%;
-	//border: 1px solid black;
-	display: none;
-}
-.ly-et-file img {
-	width: 50px;
-	height: 50px;
-	float: left;
-	padding: 8px;
-	cursor: pointer;
-}
