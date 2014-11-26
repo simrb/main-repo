@@ -51,6 +51,16 @@ input[type="text"], input[type="password"], input[type="date"], input[type="date
 .form textarea {
 	height: 242px;
 }
+.form progress,
+.form progress::-webkit-progress-bar,
+.form progress::-moz-progress-bar {
+	background-color: white;
+	height: 5px;
+	border-radius: 9px;  
+}
+.form progress::-webkit-progress-value {  
+	background-color: #B1A28A;
+}
 
 /* table */
 .table img {

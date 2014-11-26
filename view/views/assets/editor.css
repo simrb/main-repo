@@ -22,13 +22,7 @@
 	width: 200px;
 	border: 1px solid black;
 }
-.folder_progressbar {
-	border: 1px solid black;
-	width: 130px;
-	height: 19px;
-	margin: 3px;
-	text-align: right;
-}
+
 .ly-et-file input[type="file"] {
 	max-width: 200px;
 }
@@ -36,7 +30,7 @@
 	cursor: pointer;
 }
 .ly-et-file button {
-	margin-left: 4px;
+	margin: 0px 8px;
 	padding: 5px 10px;
 	color: black;
 }
