@@ -217,13 +217,28 @@ function ly_insert_to_textarea(opt) {
 							$('.ly-et-file-msg').html('no data');
 						} else {
 							var datas = [];
+							var pagebar = [];
 							$.each(data, function(index, item){
-								var type = item.type.split('/')
-								datas.push('<li><img src="' + config.file_path + item.fnum + '" alt="' + item.name + '" title="' + item.name + '"  /></li>');
+								//var type = item.type.split('/');
+								if (item.next == undefined) {
+									datas.push('<li><img src="' + config.file_path + item.fnum + '" alt="' + item.name + '" title="' + item.name + '"  /></li>');
+								} else {
+									if (item.curr != 1) {
+										pagebar.push(item);
+									}
+								}
 							});
+
+							// generate the file view
 							$('.ly-et-file-list').html('<ul>' + datas.join('') + '</ul>');
+
+							// add event for img elements
 							$('.ly-et-file-list li img').click(function(){
-								ly_insert_to_textarea({html_type : 'img', img_link : $(this).attr('src'), img_name : $(this).attr('alt')});
+								ly_insert_to_textarea({
+									html_type	: 'img',
+									img_link	: $(this).attr('src'),
+									img_name	: $(this).attr('alt')
+								});
 							});
 						}
 
