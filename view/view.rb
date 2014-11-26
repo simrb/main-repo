@@ -54,5 +54,8 @@ get '/file/get/:fnum' do
 end
 
 post '/file/upload' do
-	"good"
+	if params[:upload]
+		file_save params[:upload]
+	end
+	@msg.include?(:file_save) ? @msg[:msg] : Sl['saved file successfully']
 end
