@@ -140,11 +140,11 @@ function ly_insert_to_textarea(opt) {
 				// generate html
 				var fileHtml = '';
 				fileHtml += '<span class="ly-et-file-close right">X</span><div class="ly-et-file-list"/>';
-				fileHtml += '<div class="ly-et-file-upload">';
 				fileHtml += '<form class="ly-et-file-form"><input type="file" name="upload" />';
 				fileHtml += '<button class="ly-et-file-submit tiny">upload</button>';
-				fileHtml += '<div class="ly-et-file-msg" /><progress value=0 max=100 class="ly-et-file-progress hide" />';
-				fileHtml += '</form></div>';
+				fileHtml += '<progress value=0 max=100 class="ly-et-file-progress hide" />';
+				fileHtml += '<div class="ly-et-file-msg" />';
+				fileHtml += '</form>';
 				fileHtml = '<div class="ly-et-file">' + fileHtml + '</div>';
 
 				$('.ly-et-toolbar').after(fileHtml);
@@ -179,10 +179,12 @@ function ly_insert_to_textarea(opt) {
 
 				// listen the form
 				$('.ly-et-file-form :file').change(function(){
-					console.log('file added');
+					//console.log('file added');
 
 					var file = this.files[0];
 					var error_msg = '';
+					$('.ly-et-file-progress').val(0);
+					$('.ly-et-file-msg').text('');
 
 					// validate the file
 					if ($.inArray(file.type, config.file_type) == -1) {
@@ -212,7 +214,7 @@ function ly_insert_to_textarea(opt) {
 						//console.log("work 1");
 
 						if ($.isEmptyObject(data)) {
-							$('.ly-et-file-list').html('no data');
+							$('.ly-et-file-msg').html('no data');
 						} else {
 							var datas = [];
 							$.each(data, function(index, item){
@@ -234,46 +236,43 @@ function ly_insert_to_textarea(opt) {
 		// upload file
 		file_upload : function(config) {
 			return $(this).each(function(){
-				console.log('01 submit ...');
+				//console.log('01 submit ...');
 				var formData = new FormData($('.ly-et-file-form')[0]);
 				$('.ly-et-file-progress').show();
 
 				$.ajax({
-					url 	: config.upload_path,
-					type 	: 'post',
+					url 		: config.upload_path,
+					type 		: 'post',
+					data		: formData,
+					cache		: false,
+					contentType : false,
+					processData : false,
 
-					xhr 	: function() {
-						var myxhr = $.ajaxSettings.xhr();
-						if (myxhr.upload) {
-							myxhr.upload.addEventListener('progress', function(e){
-								var done = e.position || e.loaded, total = e.totalSize || e.total;
-								var value = (Math.floor(done/total*1000)/10);
-								$('.ly-et-file-progress').val(value);
-							}, false);
-						}
-						return myxhr;
+					xhr 		: function() {
+						var xhr = $.ajaxSettings.xhr();
+						xhr.upload.onprogress = function(e){ 
+							//console.log('progress', e.loaded/e.total*100);
+							$('.ly-et-file-progress').val(e.loaded/e.total*100);
+						};
+						//xhr.upload.onload = function(){ console.log('DONE!') };
+						return xhr;
 					},
 
-					success	: function(data) {
-						//update progressbar
+					success		: function(data) {
+						// set progressbar
 						$('.ly-et-file-msg').text('successful uploaded');
 
-						//update folder view
+						// update file view
 						$('.ly-et-file').data('file_loaded', false);
 						$(this).ly_editor('file_view', config);
 					},
 
-					error	: function(xhr, status, err) {
+					error		: function(xhr, status, err) {
 						$('.ly-et-file-msg').text('uploaded failure');
 						console.log(xhr.responseText);
 						console.log(status);
 						console.log(err);
-					},
-
-					data	: formData,
-					cache	: false,
-					contentType : false,
-					processData : false
+					}
 				}, 'join');
 
 				//$('.ly-et-file-progress').hide();
