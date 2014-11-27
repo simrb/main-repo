@@ -14,6 +14,7 @@ by linyu deng, at Nov, 2014
 - update the method _tpl for setting the layout if it has been loaded 19
 - import the richtext editor for view module 20
 *
+- fix the mobile responsive representation of html
 - support the tag query for toolbar of table template
 
 

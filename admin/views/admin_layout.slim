@@ -21,6 +21,17 @@ html class="no-js" lang="en"
 						span = Sl[:menu]
 
 			section.top-bar-section
+				ul.left
+					- data_menu(:admin).each do | item |
+						li.has-dropdown
+							a href="#" = Sl[item[:name].to_sym]
+							/! a href="#{item[:link]}" = Sl[item[:name].to_sym]
+							- if item.include?(:sub_menu)
+								ul.dropdown
+									- item[:sub_menu].each do | item |
+										li
+											a href="#{item[:link]}" = Sl[item[:name].to_sym]
+
 				ul.right
 					li.has-dropdown
 						a href="#" = user_info[:name]
@@ -29,17 +40,6 @@ html class="no-js" lang="en"
 								a href="/" = Sl[:frontground]
 							li
 								a href="#{_url(_var(:logout, :link))}" = Sl[:logout]
-
-				ul.left
-					- data_menu(:admin).each do | item |
-						li.has-dropdown
-							a href="#{item[:link]}" = Sl[item[:name].to_sym]
-							- if item.include?(:sub_menu)
-								ul.dropdown
-									- item[:sub_menu].each do | item |
-										li
-											a href="#{item[:link]}" = Sl[item[:name].to_sym]
-
 
 
 		.holderplace
