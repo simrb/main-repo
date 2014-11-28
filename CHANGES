@@ -13,9 +13,10 @@ by linyu deng, at Nov, 2014
 - import the richtext editor for view module 20
 - richtext editor supports the file uploaded on mobile 28
 *
-- support the tag query for toolbar of table template
+- add the pagebar for image view of editor toolbar
 - integrate the common function to view_init
 - rewrite the view_level? method for including the level estimation from argument value of _var
+- support the tag query for toolbar of table template
 
 
 by <author/maintainer>, at <month>, <year>

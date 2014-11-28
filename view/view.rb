@@ -45,15 +45,18 @@ post '/view/operate' do
 	redirect @t[:repath]
 end
 
-get '/file/type/:name' do
+# list by type
+get '/view/ajax/listfiles/:name' do
 	file_list params[:name]
 end
 
-get '/file/get/:fnum' do
+# get file by id
+get '/view/ajax/getfile/:fnum' do
 	file_get params[:fnum]
 end
 
-post '/file/upload' do
+# upload file by ajax
+post '/view/ajax/upload' do
 	if params[:upload]
 		file_save params[:upload]
 	end

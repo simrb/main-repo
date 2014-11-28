@@ -37,12 +37,12 @@ function ly_insert_to_textarea(opt) {
 		init : function(options) {
 			return this.each(function(){
 				var config = $.extend({
-					parser_path 	: '/file/preview',
-					folder_path 	: '/file/type/all',
-					picture_path 	: '/file/type/image',
-					upload_path 	: '/file/upload',
+					parser_path 	: '/view/ajax/preview',
+					folder_path 	: '/view/ajax/listfiles/all',
+					picture_path 	: '/view/ajax/listfiles/image',
+					upload_path 	: '/view/ajax/upload',
 					icon_path 		: '/_assets/view/icons/',
-					file_path 		: '/file/get/',
+					file_path 		: '/view/ajax/getfile/',
 					file_type 		: ['image/jpeg', 'image/gif', 'image/png'],
 					file_size 		: 300000,
 					toolbar 		: [
