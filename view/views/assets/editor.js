@@ -139,9 +139,11 @@ function ly_insert_to_textarea(opt) {
 
 				// generate html
 				var fileHtml = '';
-				fileHtml += '<span class="ly-et-file-close right">X</span><div class="ly-et-file-list"/>';
-				fileHtml += '<form class="ly-et-file-form"><input type="file" name="upload" />';
-				fileHtml += '<button class="ly-et-file-submit tiny">upload</button>';
+				fileHtml += '<div class="ly-et-file-list"/><span class="ly-et-file-close right">x</span>';
+				fileHtml += '<form method="post" action="' + config.upload_path + '" class="ly-et-file-form" enctype="multipart/form-data" data-ajax=false>';
+				fileHtml += '<input type="file" name="upload" />';
+				fileHtml += '<input class="ly-et-file-submit" type="submit" value="upload" />';
+				//fileHtml += '<button class="ly-et-file-submit tiny">upload</button>';
 				fileHtml += '<progress value=0 max=100 class="ly-et-file-progress hide" />';
 				fileHtml += '<div class="ly-et-file-msg" />';
 				fileHtml += '</form>';
@@ -170,19 +172,19 @@ function ly_insert_to_textarea(opt) {
 					$('.ly-et-file').hide();
 				});
 
-				$('.ly-et-file-submit').click(function(){
+				$('.ly-et-file-submit').click(function(e){
 					if ($('.ly-et-file').data('file_error') == false) {
 						$(this).ly_editor('file_upload', config);
 					}
-					return false;
+					e.preventDefault();
 				});
 
 				// listen the form
 				$('.ly-et-file-form :file').change(function(){
-					//console.log('file added');
-
+					//console.log(this.files[0]);
 					var file = this.files[0];
 					var error_msg = '';
+
 					$('.ly-et-file-progress').val(0);
 					$('.ly-et-file-msg').text('');
 
@@ -202,6 +204,60 @@ function ly_insert_to_textarea(opt) {
 						$('.ly-et-file').data('file_error', true);
 					}
 				});
+
+			});
+		},
+
+		// upload file
+		file_upload : function(config) {
+			return $(this).each(function(){
+				//console.log('01 submit ...');
+				//var formData = new FormData($('.ly-et-file-form')[0]);
+				//$('.ly-et-file-form').attr('data-ajax', 'false');
+				//$('.ly-et-file-form').attr('enctype', 'multipart/form-data');
+				var formData = new FormData(); 
+				formData.append('upload', $('.ly-et-file-form :file')[0].files[0]);
+
+				//console.log($('.ly-et-file-form :file')[0].files[0]);
+				//return false;
+				$('.ly-et-file-progress').show();
+
+				$.ajax({
+					url 		: config.upload_path,
+					type 		: 'post',
+					data		: formData,
+					cache		: false,
+					contentType : false,
+					processData : false,
+
+					xhr 		: function() {
+						var xhr = $.ajaxSettings.xhr();
+						xhr.upload.onprogress = function(e){ 
+							//console.log('progress', e.loaded/e.total*100);
+							$('.ly-et-file-progress').val(e.loaded/e.total*100);
+						};
+						//xhr.upload.onload = function(){ console.log('DONE!') };
+						return xhr;
+					},
+
+					success		: function(data) {
+						// set progressbar
+						$('.ly-et-file-msg').text('successful uploaded');
+
+						// update file view
+						$('.ly-et-file').data('file_loaded', false);
+						$(this).ly_editor('file_view', config);
+					},
+
+					error		: function(xhr, status, err) {
+						$('.ly-et-file-msg').text('uploaded failure');
+						console.log(xhr.responseText);
+						console.log(status);
+						console.log(err);
+					}
+				}, 'join');
+
+				//$('.ly-et-file-progress').hide();
 
 			});
 		},
@@ -245,54 +301,6 @@ function ly_insert_to_textarea(opt) {
 					});
 					$('.ly-et-file').data('file_loaded', true);
 				}
-			});
-		},
-
-		// upload file
-		file_upload : function(config) {
-			return $(this).each(function(){
-				//console.log('01 submit ...');
-				var formData = new FormData($('.ly-et-file-form')[0]);
-				$('.ly-et-file-progress').show();
-
-				$.ajax({
-					url 		: config.upload_path,
-					type 		: 'post',
-					data		: formData,
-					cache		: false,
-					contentType : false,
-					processData : false,
-
-					xhr 		: function() {
-						var xhr = $.ajaxSettings.xhr();
-						xhr.upload.onprogress = function(e){ 
-							//console.log('progress', e.loaded/e.total*100);
-							$('.ly-et-file-progress').val(e.loaded/e.total*100);
-						};
-						//xhr.upload.onload = function(){ console.log('DONE!') };
-						return xhr;
-					},
-
-					success		: function(data) {
-						// set progressbar
-						$('.ly-et-file-msg').text('successful uploaded');
-
-						// update file view
-						$('.ly-et-file').data('file_loaded', false);
-						$(this).ly_editor('file_view', config);
-					},
-
-					error		: function(xhr, status, err) {
-						$('.ly-et-file-msg').text('uploaded failure');
-						console.log(xhr.responseText);
-						console.log(status);
-						console.log(err);
-					}
-				}, 'join');
-
-				//$('.ly-et-file-progress').hide();
-
-			///-- end of function
 			});
 		},
 

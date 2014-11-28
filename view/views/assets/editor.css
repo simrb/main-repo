@@ -18,14 +18,16 @@
 }
 .ly-et-file input[type="file"] {
 	max-width: 200px;
+	margin: 0;
 }
-.ly-et-file button {
+.ly-et-file-submit {
 	margin: 0px 8px;
-	padding: 5px 10px;
 	color: black;
 }
 .ly-et-file-close {
 	cursor: pointer;
+	clear: both;
+	height: 9px;
 }
 .ly-et-file-form {
 	clear: both;
@@ -38,10 +40,13 @@
 	float: left;
 }
 .ly-et-file-list img {
-	width: 40px;
-	height: 40px;
+	width: 35px;
+	height: 35px;
 	float: left;
+	padding: 3px;
 	cursor: pointer;
-	padding: 8px;
 }
 
+.ly-et-file-list img:hover {
+	border: 1px solid gray;
+}
