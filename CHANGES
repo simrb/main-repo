@@ -2,29 +2,28 @@ by linyu deng, at Nov, 2014
 
 - increase a method _var3 for return boolean value in the serial of _var methods 9
 - increase the @js variable for view module, integrate all assets loaded of template 10
-- integrate the common function to view_init 11 *
 - fix the compatibility after the Foundation front-end framework import 11
 - integrate some the templates, remove the redundancies 12
 - arrange the authorization of some open interfaces of admin, view module 13
 - rewrite the data structure of file module for inserting the user id as interface 13
-- rewrite the view_level? method for including the level estimation from argument value of _var 13 *
 - redesign the message output mechanism, add more a method _throw to base module, 
 	and then overwrite it in view module 17
 - classify all view outputs to view module, the non-view module no more output the html 18
 - update the method _tpl for setting the layout if it has been loaded 19
 - import the richtext editor for view module 20
+- richtext editor supports the file uploaded on mobile 28
 *
-- fix the mobile responsive representation of html
 - support the tag query for toolbar of table template
+- integrate the common function to view_init
+- rewrite the view_level? method for including the level estimation from argument value of _var
 
 
 by <author/maintainer>, at <month>, <year>
 
-- initialize this file and define how to use
-- mark down the main task you intend to do, and sign it with an asterisk at the end of that line or on the top of list block
-- remove the asterisk if that task have been done
-- append the day numeric as task id to the end of line
-- about the commit id like C141112, c141113 14, c141115-18
-  C141112 		- the task 12 in Nov, 2014
-  c141113 14 	- the tasks 13 and 14 in Nov, 2014
-  c141115-18	- the tasks from 15 to 18 in Nov, 2014
+- initialize this file
+- mark down the main tasks you intend to do
+- append a day numeric if that task had been done
+- about the task id in commit like C141112, c141113 14, c141115-18
+  C141112 		- the task at day 12 in Nov, 2014
+  c141113 14 	- the tasks at days 13 and 14 in Nov, 2014
+  c141115-18	- the tasks at days from 15 to 18 in Nov, 2014
