@@ -116,7 +116,7 @@ helpers do
 	end
 
 	def file_uid
-		self.respond_to?(:_user) ? _user[:uid] : 0
+		self.respond_to?(:user_info) ? user_info[:uid] : 0
 	end
 
 end
