@@ -4,13 +4,13 @@
 #    view_login? _var(:login, :link)
 # end
 
-# before '/file/*' do
-# 	if request.path == '/file/upload'
+# before '/view/ajax/*' do
+# 	if request.path == '/view/ajax/upload'
 # 		view_level? _var(:upload_level, :file)
 # 	end
 # end
 
-# before '/view/operate' do
+# before '/view/operate/*' do
 # 	if params[:_name] == 'app_name'
 # 		view_level? _var(:app_name_level)
 # 	elsif params[:_name] == 'blog'

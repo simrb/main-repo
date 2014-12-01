@@ -4,14 +4,13 @@ helpers do
 		_tpl name, :admin_layout
 	end
 
-	def view_get_user_add argv = {}
+	def view_get_user_add
 		view_form :user_info, :fields => [:name, :pawd, :level], :view_post => 'user_add', :layout => :admin_layout
 	end
 
-	def view_post_user_add argv = {}
-		argv = params if params[:name] and params[:pawd]
-		if argv[:name] and argv[:pawd]
-			user_add argv
+	def view_post_user_add
+		if params[:name] and params[:pawd]
+			user_add params
 		end
 	end
 
@@ -19,11 +18,11 @@ helpers do
 # 		user_edit params
 # 	end
 
-	def view_post_user_edit argv = {}
+	def view_post_user_edit
 		user_edit params
 	end
 
-	def view_post_user_del argv = {}
+	def view_post_user_del
 		if params[:uid]
 			params[:uid].each do | uid |
 				user_del uid.to_i
@@ -31,15 +30,15 @@ helpers do
 		end
 	end
 
-	def view_post_sess_del argv = {}
+	def view_post_sess_del
 		user_session_remove params[:sid]
 	end
 
-	def view_post_sess_clean_all argv = {}
+	def view_post_sess_clean_all
 		user_session_clean_all
 	end
 
-	def view_post_sess_clean_timeout argv = {}
+	def view_post_sess_clean_timeout
 		user_session_clean_timeout
 	end
 
@@ -47,7 +46,7 @@ helpers do
 		view_file :file_form, argv
 	end
 
-	def view_post_file_del argv = {}
+	def view_post_file_del
 		if params[:fiid]
 			params[:fiid].each do | fid |
 				file_rm fid
@@ -55,7 +54,7 @@ helpers do
 		end
 	end
 
-	def view_post_file_upload argv = {}
+	def view_post_file_upload
 		if params[:upload]
 			params[:upload].each do | item |
 				file_save item

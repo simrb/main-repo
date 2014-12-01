@@ -57,7 +57,7 @@ helpers do
 		@t[:btn_fns] 		= {}
 		@t[:opt_fns] 		= {}
 		@t[:lnk_fns]		= {}
-		@t[:action] 		= '/view/operate'
+		@t[:action] 		= "/view/operate/#{name}"
 		@t[:view_post] 		= 'submit'
 
 		@t.merge!(data_init(name, argv))
@@ -112,10 +112,11 @@ helpers do
 		@t[:tpl] 			= :view_form
 		@t[:opt] 			= :insert
 		@t[:back_fn] 		= :enable
-		@t[:action] 		= '/view/operate'
 		@t[:view_post] 		= 'submit'
 		@t[:_repath] 		= request.path
+		@t[:action] 		= "/view/operate/#{name}"
 		@t.merge!(data_init(name, argv))
+
 
 		@t[:fields].delete @t[:pk]
 		data = @t[:fkv]
@@ -139,8 +140,7 @@ helpers do
 		@t[:entries] 		= 6
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_file
-		@t[:action] 		= '/view/operate'
-# 		@t[:action] 		= '/file/upload'
+		@t[:action] 		= "/view/operate/#{name}"
 		@t[:_repath] 		= request.path
 		@t[:_name] 			= :file_info
 		@t.merge!(argv)
@@ -285,7 +285,7 @@ helpers do
 	end
 
 	def _file fnum, domain = '/'
-		"#{domain}file/get/#{fnum}"
+		"#{domain}view/ajax/file/#{fnum}"
 	end
 
 	# throw out the message, and redirect back

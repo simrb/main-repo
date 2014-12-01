@@ -34,24 +34,24 @@ get "/robots.txt" do
 end
 
 # a interface route for submitting data
-post '/view/operate' do
+post '/view/operate/:_name' do
 	method	= params[:view_post] ? params[:view_post] : (@qs.include?(:view_post) ? @qs[:view_post] : "")
 	method	= "view_post_#{method}"
-	argv	= view_init
+# 	argv	= view_init
 	if self.respond_to?(method.to_sym)
-		eval("#{method} argv")
+		eval("#{method}")
 	end
-	@t[:repath] ||= (params[:_repath] || request.referer)
-	redirect @t[:repath]
+# 	@t[:repath] ||= (params[:_repath] || request.referer)
+	redirect (params[:_repath] || request.referer)
 end
 
 # list by type
-get '/view/ajax/listfiles/:name' do
+get '/view/ajax/filelist/:name' do
 	file_list params[:name]
 end
 
 # get file by id
-get '/view/ajax/getfile/:fnum' do
+get '/view/ajax/file/:fnum' do
 	file_get params[:fnum]
 end
 

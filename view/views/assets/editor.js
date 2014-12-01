@@ -38,11 +38,11 @@ function ly_insert_to_textarea(opt) {
 			return this.each(function(){
 				var config = $.extend({
 					parser_path 	: '/view/ajax/preview',
-					folder_path 	: '/view/ajax/listfiles/all',
-					picture_path 	: '/view/ajax/listfiles/image',
+					folder_path 	: '/view/ajax/filelist/all',
+					picture_path 	: '/view/ajax/filelist/image',
 					upload_path 	: '/view/ajax/upload',
 					icon_path 		: '/_assets/view/icons/',
-					file_path 		: '/view/ajax/getfile/',
+					file_path 		: '/view/ajax/file/',
 					file_type 		: ['image/jpeg', 'image/gif', 'image/png'],
 					file_size 		: 300000,
 					toolbar 		: [
