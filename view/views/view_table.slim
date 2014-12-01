@@ -15,6 +15,7 @@
 			.button-group
 				input type="search" name="sc" placeholder="#{Sl[:keyword]}" value="#{@qs[:sc]}"
 
+
 	form.form action="#{_url(@t[:action])}" method="post" id='adminform'
 		.button-group
 			- unless @t[:opt_fns].empty?
@@ -26,6 +27,7 @@
 
 			input type="hidden" name="_name" value="#{@t[:name]}"
 			input type="hidden" name="_repath" value="#{_url}"
+
 
 	ul.button-group
 		- unless @t[:btn_fns].empty?
@@ -98,8 +100,10 @@ table.table.checkall
 						- @t[:lnk_fns].each do | name, method |
 							a href="#{_url('', :view_get => method, row.first[0] => row.first[1])}" = Sl[name]
 
+
 	- @t[:css][:table] = 'view/table.css'
 	- @t[:js][:table] = 'view/checkall.js'
+
 
 - if @page_count > 1
 	.pagination-centered: ul.pagination
