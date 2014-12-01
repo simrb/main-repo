@@ -59,6 +59,11 @@ get '/admin/baks' do
 # 		attachment "#{Time.now}.csv"
 # 		csv_file
 		end
+	when 'download'
+		if @qs[:name]
+			type = @qs[:name].split('.').last
+			send_file Spath[:download_dir] + @qs[:name], :filename => "#{@qs[:name]}", :type => type.to_sym
+		end
 	when 'recover'
 		base_backup_recover(@qs[:id], @qs[:encoding]) if @qs[:id]
 		_msg Sl[:'recover complete']

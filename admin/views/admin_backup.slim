@@ -4,10 +4,12 @@ form.tab-1
 		dd.active
 			a href="#panel1"
 				h3 = Sl[:'creating backup']
-
 		dd
 			a href="#panel2"
 				h3 = Sl[:'operating backup']
+		dd
+			a href="#panel3"
+				h3 = Sl[:'download files']
 
 	.tabs-content
 		.content.active id="panel1"
@@ -40,7 +42,7 @@ form.tab-1
 						th export
 						th delete
 					tbody
-						- base_fetch_backup_list.each do | f |
+						- base_file_list(Spath[:backup_dir]).each do | f |
 							tr
 								td = f
 								td
@@ -57,3 +59,16 @@ form.tab-1
 
 			.row
 				| Tip: Backuping your records before recovering is better.
+
+		.content id="panel3"
+			.row
+				table.table
+					thead
+						th file name
+					tbody
+						- base_file_list(Spath[:download_dir]).each do | f |
+							tr
+								td
+									a href="#{_url('', :opt => 'download', :name => f)}" = f
+
+

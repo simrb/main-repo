@@ -125,9 +125,10 @@ helpers do
 		end
 	end
 
-	def base_fetch_backup_list
+	# list the files under the directory given with path
+	def base_file_list path
 		res = []
-		Dir[Spath[:backup_dir] + '*'].each do | f |
+		Dir[path + '*'].each do | f |
 			res << f.split('/').last
 		end
 		res.sort.reverse
