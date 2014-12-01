@@ -1,3 +1,11 @@
+by linyu deng, at Dec, 2014
+*
+- rebuild the method view_init for let it fetches the content from request submit, 
+	rewrite the route `/view/operate`
+	and update route `/view/operate` to `/view/operate/:name`
+- rebuild the _msg for support the get and put function
+- add the pagebar for image view of editor toolbar
+
 by linyu deng, at Nov, 2014
 
 - increase a method _var3 for return boolean value in the serial of _var methods 9
@@ -13,10 +21,8 @@ by linyu deng, at Nov, 2014
 - import the richtext editor for view module 20
 - richtext editor supports the file uploaded on mobile 28
 *
-- add the pagebar for image view of editor toolbar
-- integrate the common function to view_init
-- rewrite the view_level? method for including the level estimation from argument value of _var
 - support the tag query for toolbar of table template
+- rewrite the view_level? method for including the level estimation from argument value of _var
 
 
 by <author/maintainer>, at <month>, <year>
