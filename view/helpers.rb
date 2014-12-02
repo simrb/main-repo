@@ -223,7 +223,7 @@ helpers do
 				t[:conditions][t[:pk]] = params[t[:pk]].to_i 
 				Sdb[t[:name]].filter(t[:conditions]).delete
 			end
-			#_msg Sl[:'delete complete']
+			_msg :delete, Sl[:'deleting completed']
 		end
 	end
 

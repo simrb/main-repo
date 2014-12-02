@@ -66,11 +66,11 @@ get '/admin/baks' do
 		end
 	when 'recover'
 		base_backup_recover(@qs[:id], @qs[:encoding]) if @qs[:id]
-		_msg Sl[:'recover complete']
+		_msg :backup, Sl[:'recovery completed']
 		redirect back
 	when 'delete'
 		file = File.delete Spath[:backup_dir] + "#{@qs[:id]}"
-		_msg Sl[:'delete complete']
+		_msg :backup, Sl[:'deleting completed']
 		redirect back
 	else
 		@tables 	= Sdb.tables.each_slice(5).to_a
@@ -93,7 +93,7 @@ post '/admin/baks/backup' do
 		File.open(filename, 'w+') do | f |
 			f.write csv_file
 		end
-		_msg Sl[:'backup complete']
+		_msg :backup, Sl[:'backup completed']
 	end
 	redirect back
 end
@@ -105,7 +105,7 @@ post '/admin/baks/inport' do
 		File.open(Spath[:backup_dir] + filename, 'w+') do | f |
 			f.write params[:inport][:tempfile].read
 		end
-		_msg Sl[:'upload complete']
+		_msg :backup, Sl[:'upload completed']
 	end
 	redirect back
 end

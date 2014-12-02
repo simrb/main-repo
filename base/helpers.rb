@@ -60,13 +60,25 @@ helpers do
 		(@current_time - changed_time - timeout) > 0 ? true : false
 	end
 
-	# save the string to @msg by a key
+	# set temporary message to @msg or get it by key
+	#
+	# == Example
+	#
+	# save something,
+	#
+	# 	_msg :submit_post, 'successfully submit a post'
+	#
+	# get the value by just specified key, the result will be 'successfully submit a post' 
+	# otherwise, it is a null string, if it hasn`t existed
+	#
+	# 	_msg :submit_post
+	#
 	def _msg name, str = nil
 		if str == nil
-			name 	= :default
-			str 	= name.to_s
+			@msg.include?(name) ? @msg[name] : ''
+		else
+			@msg[name] = name.to_s
 		end
-		@msg[name] = str
 	end
 
 	def _throw str

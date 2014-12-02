@@ -57,8 +57,5 @@ end
 
 # upload file by ajax
 post '/view/ajax/upload' do
-	if params[:upload]
-		file_save params[:upload]
-	end
-	@msg.include?(:file_save) ? @msg[:msg] : Sl['saved file successfully']
+	params[:upload] ? file_save(params[:upload]) : ''
 end

@@ -80,6 +80,8 @@ helpers do
 		# save the body of file
 		path = Spath[:upload_dir] + fields[:path]
 		Simrb.path_write path, file_content
+		_msg :file_save, Sl['saved file successfully']
+
 # 			File.open(Spath[:upload_dir] + fields[:path], 'w+') do | f |
 # 				f.write file_content
 # 			end
