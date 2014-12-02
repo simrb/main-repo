@@ -288,10 +288,15 @@ helpers do
 		"#{domain}view/ajax/file/#{fnum}"
 	end
 
-	# throw out the message, and redirect back
+	# throw out the message and halt current operation
+	# suppot the ajax return, or redirect back
 	def _throw str
-		response.set_cookie 'msg', :value => str, :path => '/'
-		redirect back
+		if request.path.split('/').include?('ajax')
+			halt 200, str
+		else
+			response.set_cookie 'msg', :value => str, :path => '/'
+			redirect back
+		end
 	end
 
 	# generate the assets url
