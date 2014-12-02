@@ -73,7 +73,7 @@ function ly_insert_to_textarea(opt) {
 
 				// select the textarea to update richtext editor
 				var textarea = $(this);
-				textarea.wrap('<div class="ly-et-textarea" />');
+				textarea.wrap('<div class="ly-et-textarea" style="clear:both" />');
 
 				// add a toolbar to editor
 				$('.ly-et-textarea').before('<div class="ly-et-toolbar" />');
