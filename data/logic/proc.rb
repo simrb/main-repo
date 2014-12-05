@@ -37,89 +37,98 @@ helpers do
 		@cache[name]
 	end
 
-	# initialize variable
+	# prepare data for operation of following
+	# first argument is a symbol that is the name(table name) of data block
 	def data_init name, argv = {}
-		t = argv
+		v = argv
 
-		t[:name] 		= name.to_sym
-		t[:conditions]	||= {}
+		v[:name] 		= name.to_sym
+		v[:conditions]	||= {}
 
-		# datas is a table schema, see data_schema method
-		@data 			= data_schema t[:name]
-		t[:data]		||= @data[:data]
-		t[:pk] 			||= @data[:pk]
+		# validate the data
+		v[:valid]		||= true
+
+		# guarantee the inserted value is unique
+		v[:uniq]		||= true
+
+		# classify the data with tag
+		v[:tag]			||= true
+		if v[:tag] == true and data_tag_enable?(v[:name])
+			# extract the tag value from fkv
+			if v[:fkv].include?(:tag)
+				v[:newtag] = v[:fkv].delete(:tag)
+				v[:oldtag] = v[:fkv].include?(:oldtag) ? v[:fkv].delete(:oldtag) : ''
+			else
+				v[:tag]	= false
+			end
+		end
+
+		# get the standard data schema
+		@data 			= data_schema v[:name]
+		v[:data]		||= @data[:data]
+		v[:pk] 			||= @data[:pk]
 
 		# all of field name of the table
- 		t[:fields] 		||= @data[:fields]
+ 		v[:fields] 		||= @data[:fields]
 
-		# a field kev-val hash
-		# it has some alias name, like the setval, setValue
- 		t[:fkv] 		= (argv[:setval] || argv[:setValue] || argv[:fkv])
- 		t[:fkv] 		= t[:fkv] ? @data[:fkv].merge(t[:fkv]) : @data[:fkv]
+		# an hash key-val for storing table fields
+		# it has some alias names, like the setval, setValue
+ 		v[:fkv] 		= (argv[:setval] || argv[:setValue] || argv[:fkv])
+ 		v[:fkv] 		= v[:fkv] ? @data[:fkv].merge(v[:fkv]) : @data[:fkv]
 
-		t
+		v
 	end
 
-	# submit data, return null string if success to implement, otherwise returns message
-	def data_submit name, argv = {}
-		res				= ''
-		t 				= data_init(name, argv)
-		opt 			= argv[:opt] == nil ? :insert : :update
-		t[:tag]			= t.include?(:tag) ? t[:tag] : true
-		t[:valid]		= t.include?(:valid) ? t[:valid] : true
+	def data_insert name, argv = {}
+		v = data_init(name, argv)
 
-		# default event is updated , if the primary_key has been given.
-		if @qs.include?(t[:pk])
-			t[:conditions][t[:pk]] = @qs[t[:pk]].to_i
-			opt = :update
-		end
+		# process fields that would be stored to db
+		f = data_set_field v[:fkv], v[:fields]
+		f = v[:fkv].merge(f)
+		data_valid v[:name], f if v[:valid] == true
+		f.delete v[:pk]
 
-		# extract the tag value, if the tag field would be submit
-		tag	= t[:fkv].delete(:tag) if t[:fkv].include?(:tag)
-		tag	= params[:tag] if params[:tag]
-
-		# insert data
-		if opt == :insert
-			f	= data_set_field t[:fkv], t[:fields]
-			f	= t[:fkv].merge(f)
-			data_valid t[:name], f if t[:valid] == true
-# 			@f[:created] = Time.now if @f.include? :created
-			f.delete t[:pk]
-
-			# check the data whether it exists in db
-			if t.include?(:uniq) and t[:uniq] == true
-				ds = Sdb[t[:name]].filter(f)
-				Sdb[t[:name]].insert(f) if ds.empty?
-			else
-				Sdb[t[:name]].insert(f)
-			end
-			pkid = Sdb[t[:name]].filter(f).limit(1).get(t[:pk])
-
-		# update data
+		# check the record wether or not unique record, 
+		# don`t insert the data if it existed in database
+		if v[:uniq] == true
+			ds = Sdb[v[:name]].filter(f)
+			Sdb[v[:name]].insert(f) if ds.empty?
 		else
-			#tag	= f.delete(:tag) if f.include?(:tag) 
-			ds = Sdb[t[:name]].filter(t[:conditions])
-			unless ds.empty?
-				f = data_set_field ds.first, t[:fields]
-				data_valid t[:name], f if t[:valid] == true
-				f.delete t[:pk]
-				Sdb[t[:name]].filter(t[:conditions]).update(f)
-				pkid = ds.get(t[:pk])
-			else
-				res = Sl[:'no record in database']
-			end
+			Sdb[v[:name]].insert(f)
 		end
 
-		# insert or update the tag
-		if t[:tag] == true and tag and data_tag_enable?(t[:name]) and res == ''
-			if opt == :insert
-				data_add_tag t[:name], pkid, tag
-			else
-				data_set_tag t[:name], pkid, tag, params[:oldtag]
-			end
+		# add tag
+		if v[:tag] == true
+			pkid = Sdb[v[:name]].filter(f).limit(1).get(v[:pk])
+			data_add_tag v[:name], pkid, v[:newtag]
 		end
 
-		res
+		_msg :data_insert, Sl[:'adding completed']
+	end
+
+	def data_update name, argv = {}
+		v 	= data_init(name, argv)
+		ds	= Sdb[v[:name]].filter(v[:conditions])
+		_msg :data_update, Sl[:'no record in database']
+
+		unless ds.empty?
+			f = data_set_field ds.first, v[:fields]
+			data_valid(v[:name], f) if v[:valid] == true
+			f.delete v[:pk]
+			Sdb[v[:name]].filter(v[:conditions]).update(f)
+
+			# add tag
+			if v[:tag] == true
+				pkid = ds.get(v[:pk])
+				data_set_tag v[:name], pkid, v[:newtag], v[:oldtag]
+			end
+
+			_msg :data_update, Sl[:'update completed']
+		end
+	end
+
+	def data_delete name, argv = {}
+		v = data_init(name, argv)
 	end
 
 	# set field values for variable @f
@@ -143,7 +152,7 @@ helpers do
 				res[k] = ''
 			end
 
-			#specify field, fill the value, auto
+			# specify field, fill the value, auto
 			if k == :changed
 				res[k] = Time.now
 			end
@@ -181,9 +190,10 @@ helpers do
 	# 	:pk 	=> :uid, 
 	# 	:fkv 	=> {:uid => 0, :name => '', :pawd => '123456' ,,,}
 	# }
-	# `
+	# 
 	def data_schema name
-		#wait to build cache
+		return data_cache(name) if data_cache?(name)
+
 		pk 		= nil
 		fields 	= []
 		fkv		= {}
@@ -217,7 +227,10 @@ helpers do
 			# all of fields
 			fields << field
 		end
-		{ :data => data, :fields => fields, :pk => pk, :fkv => fkv }
+
+		res = { :data => data, :fields => fields, :pk => pk, :fkv => fkv }
+		data_cache name, res
+		res
 	end
 
 	# get the data block by name, and set the default type and value of field
@@ -269,6 +282,23 @@ helpers do
 		type
 	end
 
+	def data_cache name, content = nil
+		# get value
+		if content == nil
+			@cache[name]
+
+		# set value
+		else
+			@cache[name] = content
+		end
+	end
+
+	def data_cache? name
+		@cache.include?(name) ? @cache(name) : nil
+	end
+
 end
 
-
+before do
+	@cache = {}
+end
