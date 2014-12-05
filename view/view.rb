@@ -33,17 +33,10 @@ get "/robots.txt" do
 	arr.join("\n")
 end
 
-# a interface route for submitting data
-post '/view/operate/:_name' do
-	method	= params[:view_post] ? params[:view_post] : (@qs.include?(:view_post) ? @qs[:view_post] : "")
-	method	= "view_post_#{method}"
-# 	argv	= view_init
-	if self.respond_to?(method.to_sym)
-		eval("#{method}")
-	end
-# 	@t[:repath] ||= (params[:_repath] || request.referer)
-	redirect (params[:_repath] || request.referer)
-end
+
+#########################
+# editor.js interface
+#########################
 
 # list by type
 get '/view/ajax/filelist/:name' do
@@ -59,3 +52,22 @@ end
 post '/view/ajax/upload' do
 	params[:upload] ? file_save(params[:upload]) : ''
 end
+
+
+#########################
+# view_post interface
+#########################
+
+# a interface route for submitting data
+post '/view/operate/:_name' do
+	method	= params[:view_post] ? params[:view_post] : (@qs.include?(:view_post) ? @qs[:view_post] : "")
+	method	= "view_post_#{method}"
+# 	argv	= view_init
+	if self.respond_to?(method.to_sym)
+		eval("#{method}")
+	end
+# 	@t[:repath] ||= (params[:_repath] || request.referer)
+	redirect (params[:_repath] || request.referer)
+end
+
+

@@ -37,7 +37,7 @@ helpers do
 				_throw Sl[:'no parameter _name']
 			end
 		end
-		argv
+		argv = data_init argv[:name], argv
 	end
 
 	# list view
@@ -60,7 +60,7 @@ helpers do
 		@t[:action] 		= "/view/operate/#{name}"
 		@t[:view_post] 		= 'submit'
 
-		@t.merge!(data_init(name, argv))
+		@t.merge!(view_init(name, argv))
 
 		@t[:orders] 		||= @t[:fields]
 
@@ -115,8 +115,7 @@ helpers do
 		@t[:view_post] 		= 'submit'
 		@t[:_repath] 		= request.path
 		@t[:action] 		= "/view/operate/#{name}"
-		@t.merge!(data_init(name, argv))
-
+		@t.merge!(view_init(name, argv))
 
 		@t[:fields].delete @t[:pk]
 		data = @t[:fkv]
@@ -191,6 +190,46 @@ helpers do
 		end
 	end
 
+	# interface method for view operation
+	# auto process the submitted data from view request
+	def view_post_submit
+		name = params[:_name]
+		argv = params
+		data = data_schema name
+
+		argv[:conditions] = {}
+		argv[:conditions][data[:pk]] = @qs[data[:pk]].to_i if @qs.include?(data[:pk])
+
+		# process the input field from view
+
+		# process the action which is insert or update
+		# insert
+		if argv[:conditions].empty?
+			data_insert name, :fkv => argv
+
+		# update
+		else
+			data_update name, :fkv => argv
+		end
+	end
+
+	def view_post_delete
+		t = view_init params[:_name]
+		@t[:repath] ||= (params[:_repath] || request.path)
+
+		if params[t[:pk]]
+			# delete one morn records
+			if params[t[:pk]].class.to_s == 'Array'
+				Sdb[t[:name]].where(t[:pk] => params[t[:pk]]).delete
+			# delete single record
+			else
+				t[:conditions][t[:pk]] = params[t[:pk]].to_i 
+				Sdb[t[:name]].filter(t[:conditions]).delete
+			end
+			_msg :delete, Sl[:'deleting completed']
+		end
+	end
+
 	# interface method for view administration
 	def view_get_show argv
 		argv[:btn_fns] 		||= { :create => 'edit' }
@@ -202,29 +241,6 @@ helpers do
 
 	def view_get_edit argv 
 		view_form argv[:name], argv
-	end
-
-	# interface method for view operation
-	def view_post_submit argv
-		res = data_submit argv[:name], argv
-		_throw res unless res == ''
-	end
-
-	def view_post_delete argv
-		t = data_init argv[:name]
-		@t[:repath] ||= (params[:_repath] || request.path)
-
-		if params[t[:pk]]
-			#delete one morn records
-			if params[t[:pk]].class.to_s == 'Array'
-				Sdb[t[:name]].where(t[:pk] => params[t[:pk]]).delete
-			#delete single record
-			else
-				t[:conditions][t[:pk]] = params[t[:pk]].to_i 
-				Sdb[t[:name]].filter(t[:conditions]).delete
-			end
-			_msg :delete, Sl[:'deleting completed']
-		end
 	end
 
 	# return current path, and with options
