@@ -6,11 +6,11 @@ by linyu deng, at Dec, 2014
 - add the dowmload function in the backup block of administration console
 - rebuild the _msg for support the get and put function 02
 - rebuild the _throw method for support the ajax output 02.2
-*
 - rebuild the data processing mechanism in data module 04
 	separate the data_submit to two method, data_insert and data_update
 	add data_delete method
 	put all data processes to data_init
+*
 - rebuild the view_post_submit for automatically processing data and submitting 05
 - add the pagebar for image view of editor toolbar
 
