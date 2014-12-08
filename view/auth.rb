@@ -12,9 +12,9 @@
 
 # before '/view/operate/*' do
 # 	if params[:_name] == 'app_name'
-# 		view_level? _var(:app_name_level)
+# 		view_level? _var(:level, :app_name)
 # 	elsif params[:_name] == 'blog'
-# 		view_level? _var(:blog_level)
+# 		view_level? _var(:level, :blog)
 # 	else
 #  		view_level? _var(:view_post_level)
 # 	end
