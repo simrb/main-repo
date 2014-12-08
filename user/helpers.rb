@@ -149,7 +149,7 @@ helpers do
 		fkv[:pawd] 	= Digest::SHA1.hexdigest(argv[:pawd] + fkv[:salt])
 
 # 		Sdb[:user].insert(f)
-		data_submit :user_info, :fkv => fkv, :uniq => true
+		data_insert :user_info, :fkv => fkv, :uniq => true
 
 		uid = Sdb[:user_info].filter(:name => fkv[:name]).get(:uid)
 		uid ? uid : 0
@@ -219,7 +219,7 @@ helpers do
 
 		# if no record, create one
 		if ds.empty?
-			data_submit :user_mark, :fkv => {:name => name.to_s}
+			data_insert :user_mark, :fkv => {:name => name.to_s}
 		else
 			# if timeout to the last log, update the changed time
 			if _timeout?(ds.get(:changed), timeout)

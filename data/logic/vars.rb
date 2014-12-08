@@ -54,13 +54,13 @@ helpers do
 	# update variable, create one if it doesn't exist
 	def data_set_var key, val
  		Sdb[:data_var].filter(:dkey => key.to_s).update(:dval => val.to_s, :changed => Time.now)
-#  		data_submit(:data_var, :fkv => argv, :opt => :update) unless argv.empty?
+#  		data_insert(:data_var, :fkv => argv, :opt => :update) unless argv.empty?
 	end
 
 	def data_add_var argv = {}
 		argv[:dkey] = argv[:dkey].to_s
 		argv[:dval] = argv[:dval].to_s
- 		data_submit(:data_var, :fkv => argv, :uniq => true) unless argv.empty?
+ 		data_insert(:data_var, :fkv => argv, :uniq => true) unless argv.empty?
 	end
 
 end

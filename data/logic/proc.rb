@@ -84,7 +84,7 @@ helpers do
 
 		# process fields that would be stored to db
 		f = data_set_field v[:fkv], v[:fields]
-		f = v[:fkv].merge(f)
+# 		f = v[:fkv].merge(f)
 		data_valid v[:name], f if v[:valid] == true
 		f.delete v[:pk]
 
@@ -109,10 +109,10 @@ helpers do
 	def data_update name, argv = {}
 		v 	= data_init(name, argv)
 		ds	= Sdb[v[:name]].filter(v[:conditions])
-		_msg :data_update, Sl[:'no record in database']
 
 		unless ds.empty?
-			f = data_set_field ds.first, v[:fields]
+			f = data_set_field v[:fkv], v[:fields]
+# 			f = data_set_field ds.first, v[:fields]
 			data_valid(v[:name], f) if v[:valid] == true
 			f.delete v[:pk]
 			Sdb[v[:name]].filter(v[:conditions]).update(f)
@@ -124,6 +124,8 @@ helpers do
 			end
 
 			_msg :data_update, Sl[:'update completed']
+		else
+			_msg :data_update, Sl[:'no record in database']
 		end
 	end
 
@@ -142,11 +144,11 @@ helpers do
 	def data_set_field data, fields
 		res = {}
 		fields.each do | k |
-			if params[k]
-				res[k] = params[k]
-			elsif @qs.include? k
-				res[k] = @qs[k]
-			elsif data.include? k
+# 			if params[k]
+# 				res[k] = params[k]
+# 			elsif @qs.include? k
+# 				res[k] = @qs[k]
+			if data.include? k
 				res[k] = data[k]
 			else
 				res[k] = ''
@@ -294,7 +296,7 @@ helpers do
 	end
 
 	def data_cache? name
-		@cache.include?(name) ? @cache(name) : nil
+		@cache.include?(name) ? @cache[name] : nil
 	end
 
 end
