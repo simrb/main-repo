@@ -27,17 +27,19 @@ end
 
 helpers do
 
-	def view_init argv = {}
-		unless argv.include? :name
+	def view_init name = nil, argv = {}
+		# if no given name, just extract it from request view
+		if name == nil
 			if params[:_name]
-				argv[:name] = params[:_name].to_sym
+				name = params[:_name]
 			elsif @qs.include?(:_name)
-				argv[:name] = @qs[:_name].to_sym
+				name = @qs[:_name]
 			else
 				_throw Sl[:'no parameter _name']
 			end
 		end
-		argv = data_init argv[:name], argv
+
+		data_init name, argv
 	end
 
 	# list view
@@ -130,7 +132,7 @@ helpers do
 			end
 		end
 
-		@f = data_set_field data, @t[:fields]
+		@f = data_set_fkv @t[:fkv], data
 		_tpl @t[:tpl], @t[:layout]
 	end
 
@@ -182,7 +184,7 @@ helpers do
 		method 	= @qs.include?(:view_get) ? @qs[:view_get] : 'show'
 		argv 	= argv.merge(more[method.to_sym]) if more.include? method.to_sym
 		argv	= argv.merge(:name => name, :layout => :admin_layout)
-		argv 	= view_init argv
+		argv 	= view_init name, argv
 
 		method	= "view_get_#{method}"
 		if self.respond_to?(method.to_sym)
@@ -192,29 +194,25 @@ helpers do
 
 	# interface method for view operation
 	# auto process the submitted data from view request
-	def view_post_submit
-		name = params[:_name]
-		argv = params
-		data = data_schema name
-
-		argv[:conditions] = {}
-		argv[:conditions][data[:pk]] = @qs[data[:pk]].to_i if @qs.include?(data[:pk])
-
+	def view_post_submit name = nil
 		# process the input field from view
+		t = view_init name
+
+		t[:conditions][t[:pk]] = @qs[t[:pk]].to_i if @qs.include?(t[:pk])
 
 		# process the action which is insert or update
 		# insert
-		if argv[:conditions].empty?
-			data_insert name, :fkv => argv
+		if t[:conditions].empty?
+			data_insert name, :fkv => t[:fkv]
 
 		# update
 		else
-			data_update name, :fkv => argv
+			data_update name, :fkv => t[:fkv], :conditions => t[:conditions]
 		end
 	end
 
 	def view_post_delete
-		t = view_init params[:_name]
+		t = view_init
 		@t[:repath] ||= (params[:_repath] || request.path)
 
 		if params[t[:pk]]
