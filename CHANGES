@@ -10,8 +10,9 @@ by linyu deng, at Dec, 2014
 	separate the data_submit to two method, data_insert and data_update
 	add data_delete method
 	put all data processes to data_init
+- rewrite the :fkv field for prepocessing the field value that will be stored to database 11
 *
-- rebuild the view_post_submit for automatically processing data and submitting 05
+- rebuild the view_post_submit for automatically processing data and submitting
 - add the pagebar for image view of editor toolbar
 
 

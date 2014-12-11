@@ -42,6 +42,25 @@ helpers do
 		data_init name, argv
 	end
 
+	# overwirte the method of data module
+	def data_set_fkv origin, replace = {}
+		res = {}
+		origin.each do | k, v |
+			if replace.include?(k)
+				res[k] = replace[k]
+			elsif params[k]
+				res[k] = params[k]
+			elsif @qs.include? k
+				res[k] = @qs[k]
+			else
+				res[k] = v
+			end
+
+			res[k] = Time.now if k == :changed
+		end
+		res
+	end
+
 	# list view
 	def view_list name, argv = {}
 		argv[:tpl] = :view_list

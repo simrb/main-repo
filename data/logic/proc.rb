@@ -37,19 +37,12 @@ helpers do
 		@cache[name]
 	end
 
-	# prepare data for operation of following
+	# prepare data for the following operation
 	# first argument is a symbol that is the name(table name) of data block
 	def data_init name, argv = {}
 		v = argv
 
 		v[:name] 		= name.to_sym
-		v[:conditions]	||= {}
-
-		# validate the data
-		v[:valid]		||= true
-
-		# guarantee the inserted value is unique
-		v[:uniq]		||= true
 
 		# classify the data with tag
 		v[:tag]			||= true
@@ -63,6 +56,17 @@ helpers do
 			end
 		end
 
+		# conditions for updating and insertion, deleting, et
+		v[:conditions]	||= {}
+
+		# validate the data
+		v[:valid]		||= true
+
+		# guarantee the inserted value is unique
+		v[:uniq]		||= true
+		# do not submit the primary key value of field
+		v[:nopk]		||= true
+
 		# get the standard data schema
 		@data 			= data_schema v[:name]
 		v[:data]		||= @data[:data]
@@ -71,35 +75,47 @@ helpers do
 		# all of field name of the table
  		v[:fields] 		||= @data[:fields]
 
-		# an hash key-val for storing table fields
-		# it has some alias names, like the setval, setValue
- 		v[:fkv] 		= (argv[:setval] || argv[:setValue] || argv[:fkv])
- 		v[:fkv] 		= v[:fkv] ? @data[:fkv].merge(v[:fkv]) : @data[:fkv]
+		# an hash key-val that sets the table fields and values
+		#
+		# :fkv => {
+		# 	:name => 'user name', :pawd => 'user password'
+		# }
+		# notice: it has not primary key included in there
+ 		v[:fkv] 		= (v[:setval] || v[:setValue] || v[:fkv] || {})
+		v[:fkv]			= data_set_fkv @data[:fkv], v[:fkv]
+
+		v[:fkv].delete(v[:pk]) if v[:nopk] == true
+
+		data_valid v[:name], v[:fkv] if v[:valid] == true
 
 		v
+	end
+
+	# replace the default value with given value
+	def data_set_fkv origin, replace = {}
+		res = {}
+		origin.each do | k, v |
+			res[k] = replace.include?(k) ? replace[k] : v
+			res[k] = Time.now if k == :changed
+		end
+		res
 	end
 
 	def data_insert name, argv = {}
 		v = data_init(name, argv)
 
-		# process fields that would be stored to db
-		f = data_set_field v[:fkv], v[:fields]
-# 		f = v[:fkv].merge(f)
-		data_valid v[:name], f if v[:valid] == true
-		f.delete v[:pk]
-
 		# check the record wether or not unique record, 
 		# don`t insert the data if it existed in database
 		if v[:uniq] == true
-			ds = Sdb[v[:name]].filter(f)
-			Sdb[v[:name]].insert(f) if ds.empty?
+			ds = Sdb[v[:name]].filter(v[:fkv])
+			Sdb[v[:name]].insert(v[:fkv]) if ds.empty?
 		else
-			Sdb[v[:name]].insert(f)
+			Sdb[v[:name]].insert(v[:fkv])
 		end
 
 		# add tag
 		if v[:tag] == true
-			pkid = Sdb[v[:name]].filter(f).limit(1).get(v[:pk])
+			pkid = Sdb[v[:name]].filter(v[:fkv]).limit(1).get(v[:pk])
 			data_add_tag v[:name], pkid, v[:newtag]
 		end
 
@@ -109,13 +125,10 @@ helpers do
 	def data_update name, argv = {}
 		v 	= data_init(name, argv)
 		ds	= Sdb[v[:name]].filter(v[:conditions])
+		_msg :data_update, Sl[:'nothing happened']
 
 		unless ds.empty?
-			f = data_set_field v[:fkv], v[:fields]
-# 			f = data_set_field ds.first, v[:fields]
-			data_valid(v[:name], f) if v[:valid] == true
-			f.delete v[:pk]
-			Sdb[v[:name]].filter(v[:conditions]).update(f)
+			Sdb[v[:name]].filter(v[:conditions]).update(v[:fkv])
 
 			# add tag
 			if v[:tag] == true
@@ -124,42 +137,11 @@ helpers do
 			end
 
 			_msg :data_update, Sl[:'update completed']
-		else
-			_msg :data_update, Sl[:'no record in database']
 		end
 	end
 
 	def data_delete name, argv = {}
 		v = data_init(name, argv)
-	end
-
-	# set field values for variable @f
-	# @f is a key-val hash of field that would be submit to db
-	#
-	# == Arguments
-	#
-	# data,   a key-value hash that stores field name and value
-	# fields, specify some fields to assign value
-	#
-	def data_set_field data, fields
-		res = {}
-		fields.each do | k |
-# 			if params[k]
-# 				res[k] = params[k]
-# 			elsif @qs.include? k
-# 				res[k] = @qs[k]
-			if data.include? k
-				res[k] = data[k]
-			else
-				res[k] = ''
-			end
-
-			# specify field, fill the value, auto
-			if k == :changed
-				res[k] = Time.now
-			end
-		end
-		res
 	end
 
 	def data_valid name, f
