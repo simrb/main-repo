@@ -44,26 +44,18 @@ helpers do
 
 		v[:name] 		= name.to_sym
 
-		# classify the data with tag
-		v[:tag]			||= true
-		if v[:tag] == true and data_tag_enable?(v[:name])
-			# extract the tag value from fkv
-			if v[:fkv].include?(:tag)
-				v[:newtag] = v[:fkv].delete(:tag)
-				v[:oldtag] = v[:fkv].include?(:oldtag) ? v[:fkv].delete(:oldtag) : ''
-			else
-				v[:tag]	= false
-			end
-		end
-
 		# conditions for updating and insertion, deleting, et
 		v[:conditions]	||= {}
 
 		# validate the data
-		v[:valid]		||= true
+		v[:valid]		||= false
+
+		# enable the tag
+		v[:tag]			||= true
 
 		# guarantee the inserted value is unique
 		v[:uniq]		||= true
+
 		# do not submit the primary key value of field
 		v[:nopk]		||= true
 
@@ -84,9 +76,22 @@ helpers do
  		v[:fkv] 		= (v[:setval] || v[:setValue] || v[:fkv] || {})
 		v[:fkv]			= data_set_fkv @data[:fkv], v[:fkv]
 
+		# remove the primary key
 		v[:fkv].delete(v[:pk]) if v[:nopk] == true
 
+		# execute the validating
 		data_valid v[:name], v[:fkv] if v[:valid] == true
+
+		# process the tag
+		if v[:tag] == true and data_tag_enable?(v[:name])
+			# extract the tag value from fkv
+			if v[:fkv].include?(:tag)
+				v[:newtag] = v[:fkv].delete(:tag)
+				v[:oldtag] = v[:fkv].include?(:oldtag) ? v[:fkv].delete(:oldtag) : ''
+			else
+				v[:tag]	= false
+			end
+		end
 
 		v
 	end
