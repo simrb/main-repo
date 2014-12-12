@@ -222,11 +222,11 @@ helpers do
 		# process the action which is insert or update
 		# insert
 		if t[:conditions].empty?
-			data_insert name, :fkv => t[:fkv]
+			data_insert t[:name], :fkv => t[:fkv]
 
 		# update
 		else
-			data_update name, :fkv => t[:fkv], :conditions => t[:conditions]
+			data_update t[:name], :fkv => t[:fkv], :conditions => t[:conditions]
 		end
 	end
 

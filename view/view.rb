@@ -62,7 +62,6 @@ end
 post '/view/operate/:_name' do
 	method	= params[:view_post] ? params[:view_post] : (@qs.include?(:view_post) ? @qs[:view_post] : "")
 	method	= "view_post_#{method}"
-# 	argv	= view_init
 	if self.respond_to?(method.to_sym)
 		eval("#{method}")
 	end
