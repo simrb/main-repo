@@ -77,7 +77,7 @@ helpers do
 		if str == nil
 			@msg.include?(name) ? @msg[name] : ''
 		else
-			@msg[name] = name.to_s
+			@msg[name] = str.to_s
 		end
 	end
 
