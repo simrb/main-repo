@@ -1,4 +1,4 @@
-helpers
+helpers do
 
 	def file_uid
 		user_info[:uid]
