@@ -1,6 +1,6 @@
 ---
 - name: data
-  order: 10
+  order: 19
   author: linyu deng
   version: 1.0.0
   description: the module process all of datas that interacts amid local and database

@@ -1,6 +1,6 @@
 ---
 - name: admin
-  order: 18
+  order: 59
   author: linyu deng
   version: 1.0.0
   dependon: base, data, view

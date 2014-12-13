@@ -11,8 +11,11 @@ by linyu deng, at Dec, 2014
 	add data_delete method
 	put all data processes to data_init
 - rewrite the :fkv field for prepocessing the field value that will be stored to database 11
+- rebuild the view_post_submit for automatically processing data and submitting 12
+- classify all overwirte method to a file 13
+- reset the module order 13
 *
-- rebuild the view_post_submit for automatically processing data and submitting
+- classify all route access to user authorization
 - add the pagebar for image view of editor toolbar
 
 

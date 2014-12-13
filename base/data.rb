@@ -13,7 +13,7 @@ data :base_info do
 			:default		=>	'1.0.0'
 		},
 		:order				=> 	{
-			:default		=>	19
+			:default		=>	69
 		},
 	}
 end
