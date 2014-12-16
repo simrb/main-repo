@@ -3,11 +3,6 @@
   dval			: view/images/favicon.ico
   tag			: view
 
-- dkey			: view_post_level
-  dval			: 0
-  tag			: user,level
-  description	: allow these users with this level to submit the form data in view_post action
-
 - dkey			: home
   dval			: /view/index
   tag			: link

@@ -1,0 +1,10 @@
+---
+- path	: /admin/
+  level	: 10
+
+- path	: /view/operate/
+  level	: 1
+
+- path	: /view/ajax/
+  level	: 1
+

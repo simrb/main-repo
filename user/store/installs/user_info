@@ -1,14 +1,10 @@
 ---
 - name	: simrb
   pawd	: simrb
-  level : 2
-
-- name 	: test
-  pawd 	: test
-  level : 2
-
-- name	: system
-  pawd	: system
   level	: 99
   tag	: [admin, editor, viewer]
+
+- name	: tester
+  pawd	: tester
+  level	: 1
 

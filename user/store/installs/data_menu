@@ -18,3 +18,8 @@
   parent	: user
   tag		: admin
 
+- name		: access
+  link		: /admin/view/user_access
+  parent	: user
+  tag		: admin
+

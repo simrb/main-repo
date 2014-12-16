@@ -1,9 +1,4 @@
 ---
-- dkey			: level
-  dval			: 10
-  tag			: admin,level
-  description	: the level of user is allowed to enter the background administration
-
 - dkey			: title
   dval			: administration
   tag			: admin,page

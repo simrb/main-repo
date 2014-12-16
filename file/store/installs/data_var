@@ -1,9 +1,4 @@
 ---
-- dkey			: upload_level
-  dval			: 1
-  tag			: file,level
-  description	: the required for uploading file
-
 - dkey			: default_file
   dval			: 1
   tag			: file

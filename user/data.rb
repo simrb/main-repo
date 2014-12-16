@@ -69,5 +69,15 @@ data :user_mark do
 	}
 end
 
-
+data :user_access do
+	{
+		:uaid				=>	{
+			:primary_key	=>	true,
+		},
+		:path				=> 	{},
+		:level				=> 	{
+			:default		=>  1
+		},
+	}
+end
 

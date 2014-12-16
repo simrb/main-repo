@@ -15,8 +15,8 @@ by linyu deng, at Dec, 2014
 - classify all overwirte method to a file 13
 - reset the module order 13
 - redesign the tag mechanism 16
+- classify all route access to user authorization 17
 *
-- classify all route access to user authorization
 - add the pagebar for image view of editor toolbar
 
 
