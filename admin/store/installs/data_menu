@@ -25,7 +25,8 @@
   tag		: admin
 
 - name		: tags
-  link		: /admin/view/data_tag
+  link		: /admin/view/data_tag_enable
+  description : enable the tag classified by given table name and closed value 0, other is opened
   parent	: system
   tag		: admin
 

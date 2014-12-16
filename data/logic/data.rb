@@ -53,3 +53,16 @@ data :data_tag_assoc do
 	}
 end
 
+data :data_tag_enable do
+	{
+		:dteid				=> 	{
+			:primary_key	=>	true,
+		},
+		:name				=> 	{},
+		:closed				=> 	{
+			:default		=>	0,
+		},
+	}
+end
+
+

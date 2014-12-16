@@ -3,20 +3,29 @@ helpers do
 	# has it enable the tag function
 	#
 	# == Example
-	#
-	#	ask the post whether it enables the tag or not
+	# 
+	# ask for enabling the tag, default opened, the field closed value is 0,
+	# returning ture, other is false
 	#
 	# 	data_tag_enable? :posts
 	#
 	def data_tag_enable? name
- 		_var2(:table_tags_disable).include?(name.to_s) ? false : true
+		res = true
+ 		ds = Sdb[:data_tag_enable].filter(:name => name.to_s)
+ 		if ds.empty?
+			Sdb[:data_tag_enable].insert(:name => name.to_s, :closed => 0)
+		else
+			res = false if ds.get(:closed).to_i != 0
+		end
+		res
+#  		_var2(:table_tags_disable).include?(name.to_s) ? false : true
 	end
 
 	# return the tag id by tag name
 	#
 	# == Example
 	# 	
-	# 	assuming the tag ruby id is 2 that will be,
+	# assuming the tag ruby id is 2 that will be,
 	#
 	# 	_tag(:ruby) # => 2
 	#

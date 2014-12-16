@@ -14,6 +14,7 @@ by linyu deng, at Dec, 2014
 - rebuild the view_post_submit for automatically processing data and submitting 12
 - classify all overwirte method to a file 13
 - reset the module order 13
+- redesign the tag mechanism 16
 *
 - classify all route access to user authorization
 - add the pagebar for image view of editor toolbar

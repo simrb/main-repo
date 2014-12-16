@@ -51,7 +51,7 @@ helpers do
 		v[:valid]		||= false
 
 		# enable the tag
-		v[:tag]			||= true
+		v[:tag]			||= data_tag_enable?(v[:name])
 
 		# guarantee the inserted value is unique
 		v[:uniq]		||= true
@@ -74,6 +74,19 @@ helpers do
 		# }
 		# notice: it has not primary key included in there
  		v[:fkv] 		= (v[:setval] || v[:setValue] || v[:fkv] || {})
+
+		# process the tag
+		if v[:tag] == true
+			# extract the tag value from fkv
+			if v[:fkv].include?(:tag)
+				v[:newtag] = v[:fkv][:tag]
+				v[:oldtag] = v[:fkv].include?(:oldtag) ? v[:fkv][:oldtag] : ''
+			else
+				v[:tag]	= false
+			end
+		end
+
+		# auto complete the default value
 		v[:fkv]			= data_set_fkv @data[:fkv], v[:fkv]
 
 		# remove the primary key
@@ -81,17 +94,6 @@ helpers do
 
 		# execute the validating
 		data_valid v[:name], v[:fkv] if v[:valid] == true
-
-		# process the tag
-		if v[:tag] == true and data_tag_enable?(v[:name])
-			# extract the tag value from fkv
-			if v[:fkv].include?(:tag)
-				v[:newtag] = v[:fkv].delete(:tag)
-				v[:oldtag] = v[:fkv].include?(:oldtag) ? v[:fkv].delete(:oldtag) : ''
-			else
-				v[:tag]	= false
-			end
-		end
 
 		v
 	end
