@@ -342,7 +342,8 @@ helpers do
 	# 	_assets('view/css/style.css')
 	#
 	def _assets path, domain = '/'
-		"#{domain}_assets/#{path}"
+		domain = '_assets/' if domain == '/'
+		"#{domain}#{path}"
 	end
 
 end
