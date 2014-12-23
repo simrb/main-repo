@@ -309,6 +309,17 @@ helpers do
 		end
 	end
 
+	# throw out the message and halt current operation
+	# suppot the ajax return, or redirect back
+	def _throw str
+		if request.path.split('/').include?('ajax')
+			halt 200, str
+		else
+			response.set_cookie 'msg', :value => str, :path => '/'
+			redirect back
+		end
+	end
+
 	def _css path, domain = '/'
 		"<link rel='stylesheet' type='text/css' href='#{_assets(path, domain)}' />"
 	end
@@ -321,17 +332,6 @@ helpers do
 		"#{domain}view/ajax/file/#{fnum}"
 	end
 
-	# throw out the message and halt current operation
-	# suppot the ajax return, or redirect back
-	def _throw str
-		if request.path.split('/').include?('ajax')
-			halt 200, str
-		else
-			response.set_cookie 'msg', :value => str, :path => '/'
-			redirect back
-		end
-	end
-
 	# generate the assets url
 	#
 	# == Example
@@ -339,10 +339,8 @@ helpers do
 	# 	_assets('view/admin.css')
 	# 	_assets('view/admin.css', 'https//www.example.com')
 	#
-	# 	_assets('view/css/style.css')
-	#
 	def _assets path, domain = '/'
-		domain = '_assets/' if domain == '/'
+		domain = '/_assets/' if domain == '/'
 		"#{domain}#{path}"
 	end
 
