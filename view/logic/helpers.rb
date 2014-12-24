@@ -215,7 +215,7 @@ helpers do
 	# auto process the submitted data from view request
 	def view_post_submit name = nil
 		# process the input field from view
-		t = view_init name
+		t = view_init name, :fkv => params
 
 		t[:conditions][t[:pk]] = @qs[t[:pk]].to_i if @qs.include?(t[:pk])
 
@@ -230,8 +230,8 @@ helpers do
 		end
 	end
 
-	def view_post_delete
-		t = view_init
+	def view_post_delete name = nil
+		t = view_init name, :fkv => params
 		@t[:repath] ||= (params[:_repath] || request.path)
 
 		if params[t[:pk]]
@@ -294,16 +294,16 @@ helpers do
 	end
 
 	# load the template
-	def _tpl name, layout = false, tag = :view
+	def _tpl name, layout = false, tag = "view"
 		# just load the tpl
 		if layout == false
 			slim name, :layout => layout
 
 		# load the page layout
 		else
-			@t[:title] 			||= _var(:title, tag)
-			@t[:keywords]		||= _var(:keywords, tag)
-			@t[:description]	||= _var(:description, tag)
+			@t[:title] 			||= _var("#{tag}_title")
+			@t[:keywords]		||= _var("#{tag}_keywords")
+			@t[:description]	||= _var("#{tag}_description")
 			@t[:msg] << @msg.values.join("\n") unless @msg.empty?
 			slim name, :layout => layout
 		end

@@ -23,7 +23,7 @@ helpers do
 	end
 
 	def user_logout return_url = nil
-		return_url ||= _var(:after_login, :link)
+		return_url ||= _var(:after_login_link)
 		sid = request.cookies['sid']
 
 		# remove client cache
@@ -40,7 +40,7 @@ helpers do
 	#
 	# if the user status is unlogin, that will be jump to the page '/loginpage'
 	# 	
-	# 	user_login? _var(:login, :link)
+	# 	user_login? _var(:login_link)
 	#
 	# if the user had been login, that will return true, other is false.
 	#
@@ -182,7 +182,7 @@ helpers do
 		# client cookie
 		if params[:rememberme] == 'yes'
 			# timeout class is day, default is 30 (days)
-			timeout = _var(:timeout_of_session, :user).to_i
+			timeout = _var(:user_timeout_of_session).to_i
 			response.set_cookie "sid", :value => sid, :path => "/", :expires => (Time.now + 3600*24*timeout)
 		else
 			timeout = 1

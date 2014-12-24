@@ -8,9 +8,9 @@ module Simrb
 			tpl << "\tdef #{module_name}_page name\n"
 
 			tpl << "\t\t@layout ||= :#{module_name}_layout\n"
-			tpl << "\t\t@t[:title] \t\t\t||= _var(:title, :#{module_name}_page)\n"
-			tpl << "\t\t@t[:description] \t||= _var(:description, :#{module_name}_page)\n"
-			tpl << "\t\t@t[:keywords] \t\t||= _var(:keywords, :#{module_name}_page)\n"
+			tpl << "\t\t@t[:title] \t\t\t||= _var(:#{module_name}_title)\n"
+			tpl << "\t\t@t[:description] \t||= _var(:#{module_name}_description)\n"
+			tpl << "\t\t@t[:keywords] \t\t||= _var(:#{module_name}_keywords)\n"
 			tpl << "\t\t_tpl name, @layout\n"
 
 			tpl << "\tend\n\n"

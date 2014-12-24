@@ -2,20 +2,24 @@
 - dkey			: default_file
   dval			: 1
   tag			: file
+  name			: default file id
   description	: when the file is null, display this file by fid, default is 1
 
-- dkey			: encoding
+- dkey			: file_encoding
   dval			: gb2312
   tag			: file
+  name			: file encoding
   description	: encoding, or decodeing the file for output, or input
 
-- dkey			: filetype
+- dkey			: file_type
   dval			: image/png,image/jpeg,image/gif
   tag			: file
+  name			: file type
   description	: the types of file allow to upload
 
-- dkey			: filesize
+- dkey			: file_size
   dval			: 300000
   tag			: file
+  name			: file size
   description	: 300000 is 3M
 

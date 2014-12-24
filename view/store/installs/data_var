@@ -1,47 +1,57 @@
 ---
-- dkey			: favicon
+- dkey			: view_favicon
   dval			: view/images/favicon.ico
   tag			: view
+  name			: favicon
 
-- dkey			: home
-  dval			: /view/index
-  tag			: link
-  description	: main page
-
-- dkey			: title
+- dkey			: view_title
   dval			: website
   tag			: view,page
+  name			: website title
 
-- dkey			: description
+- dkey			: view_description
   dval			: page description
   tag			: view,page
+  name			: website description
 
-- dkey			: keywords
+- dkey			: view_keywords
   dval			: page keywords
   tag			: view,page
+  name			: website keywords
 
-- dkey			: footer
+- dkey			: view_footer
   dval			: Power by simrb
   tag			: view,page
-  description	: footer mark of page
+  name			: website footer
+  description	: page footer
 
-- dkey			: login
+- dkey			: home_link
+  dval			: /view/index
+  tag			: link
+  name			: home link
+  description	: default page
+
+- dkey			: login_link
   dval			: /user/login
   tag			: link
+  name			: login link
   description	: account login page
 
-- dkey			: logout
+- dkey			: logout_link
   dval			: /user/logout
   tag			: link
+  name			: logout link
   description	: account logout page
 
-- dkey			: after_login
+- dkey			: after_login_link
   dval			: /
   tag			: link
+  name			: the link of after login
   description	: jump to this page after user login
 
-- dkey			: register
+- dkey			: register_link
   dval			: /user/register
   tag			: link
+  name			: register link
   description	: account register page
 

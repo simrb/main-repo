@@ -10,7 +10,7 @@ A user module that provides the base operation for action, like login, register,
 	#
 	# if the user status is unlogin, that will be jump to the page '/loginpage'
 	# 	
-	# 	user_login? _var(:login, :link)
+	# 	user_login? _var(:login_link)
 	#
 	# if the user had been login, that will return true, other is false.
 	#

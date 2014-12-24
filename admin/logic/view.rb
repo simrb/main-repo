@@ -74,7 +74,7 @@ get '/admin/baks' do
 		redirect back
 	else
 		@tables 	= Sdb.tables.each_slice(5).to_a
-		@encoding 	= _var(:encoding, :file) != "" ? _var(:encoding, :file) : Scfg[:encoding]
+		@encoding 	= _var(:file_encoding) != "" ? _var(:file_encoding) : Scfg[:encoding]
 		admin_page :admin_backup
 	end
 end
@@ -83,7 +83,7 @@ end
 post '/admin/baks/backup' do
 	if params[:table_name]
 		# generate the csv file
-		encoding 	= params[:encoding] ? params[:encoding] : _var(:encoding, :file)
+		encoding 	= params[:encoding] ? params[:encoding] : _var(:file_encoding)
 		csv_file 	= base_table_to_csv params[:table_name], encoding
 		filename	= "#{Time.now.strftime('%Y%m%d%H%M%S')}"
 		filename	= (params[:filename] and params[:filename] !='') ? params[:filename] : ''

@@ -1,15 +1,7 @@
 ---
-- dkey			: title
+- dkey			: admin_title
   dval			: administration
-  tag			: admin,page
-
-- dkey			: description
-  dval			: simrb administration
-  description	: simrb administration
-  tag			: admin,page
-
-- dkey			: keywords
-  dval			: simrb administration
-  description	: simrb administration
+  name			: administration
+  description	: administration title
   tag			: admin,page
 

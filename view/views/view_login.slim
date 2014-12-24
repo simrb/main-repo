@@ -10,7 +10,7 @@
 
 	.tabs-content
 		.content.active id="login"
-			form.form action="#{_url2(_var(:login, :link))}" method="post"
+			form.form action="#{_url2(_var(:login_link))}" method="post"
 				p : label = Sl[:account]
 				p : input type="text" name="name" required="required" placeholder="#{Sl[:username]}"
 
@@ -23,8 +23,8 @@
 					label for="rememberme" = Sl[:rememberme]
 
 		.content id="register"
-			- if _var(:allow_register, :user) == 'yes'
-				form.form action="#{_url2(_var(:register, :link))}" method="post"
+			- if _var3(:user_allow_register)
+				form.form action="#{_url2(_var(:register_link))}" method="post"
 					p : label = Sl[:account]
 					p : input type="text" name="name" required="required" placeholder="#{Sl[:username]}"
 

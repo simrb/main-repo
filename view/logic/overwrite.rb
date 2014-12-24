@@ -12,7 +12,7 @@ helpers do
 				redirect _url2(redirect_url)
 			end
 		else
-			redirect_url = _var(:login, :link) if redirect_url == ''
+			redirect_url = _var(:login_link) if redirect_url == ''
 			if redirect_url != request.path
 				@qs[:come_from] = request.path
 				redirect _url2(redirect_url)

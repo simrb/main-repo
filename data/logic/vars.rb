@@ -1,53 +1,38 @@
 helpers do
 
-	# get the variable value that is a string, others is null value
-	#
-	# == Arguments
-	#
-	# key, this is key name
-	# tag, tag name
-	# val, default value, add the variable and set the default value if it isn`t existing
+	# get and set the variable
 	#
 	# == Example
+	# 
+	# get variable value by one argument
 	#
 	# 	_var :home_page
 	#
-	# get the variable :home_page by tag 'www'
+	# set the variable value by two arguments
 	#
-	# 	_var :home_page, 'www'
+	# 	_var :home_page, '/home/page'
 	#
-	# get the variable, if it isn`t existing, assign value '/home/page'
-	#
-	# 	_var :home_page, 'www', '/home/page'
-	#
-	def _var key, tag = '', val = ''
-		h 	= {:dkey => key.to_s}
-		ds 	= Sdb[:data_var].filter(h)
+	def _var key, val = ''
+		# get variable
+		if val == ''
+			ds = Sdb[:data_var].filter(:dkey => key.to_s)
+			ds.empty? ? 'no var' : ds.get(:dval)
 
-		if tag != ''
-			tids = data_tag_ids(:data_var, tag)
- 			ds = ds.filter(:dvid => tids)
-		end
-
-		# adding if the variable hasn't existing in database
-		if ds.empty?
-			data_add_var({dkey: key, tag: tag, dval: val})
-			val
+		# set variable
 		else
-			ds.get(:dval)
+			data_add_var({dkey: key, dval: val})
 		end
 	end
 
 	# return an array as value, split by ","
-	def _var2 key, tag = '', val = '', sign = ","
-		val = _var key, tag, val
-		val.to_s.split(sign)
+	def _var2 key, val = '', sign = ","
+		_var(key, val).to_s.split(sign)
 	end
 
 	# return a boolean value, estimate by true, on, yes
-	def _var3 key, tag = '', val = ''
+	def _var3 key, val = ''
 		val_arr = %w(yes true on enable)
-		val = _var(key, tag, val).to_s
+		val = _var(key, val).to_s
 		val_arr.include?(val) ? true : false
 	end
 

@@ -1,11 +1,13 @@
 ---
-- dkey			: allow_register
+- dkey			: user_allow_register
   dval			: yes
   tag			: user
+  name			: user register allow
   description	: allow the user register account, default value is yes, others is cloesd
 
-- dkey			: timeout_of_session
+- dkey			: user_timeout_of_session
   dval			: 30
   tag			: user
+  name			: user session timeout
   description	: 30 is 30 days
 

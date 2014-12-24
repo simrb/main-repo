@@ -64,13 +64,13 @@ helpers do
  		fields[:path] 		= "#{file_uid}-#{fields[:created].to_i}#{_random(3)}"
 
 		# allow these file type to save
-		unless _var(:filetype, :file).include? file[:type]
+		unless _var(:file_type).include? file[:type]
 			_throw Sl[:'the file type isn`t allowed to save']
 		end
 
 		# allow the scope of file size
 		file_content = file[:tempfile].read
-		if (fields[:size] = file_content.size) > _var(:filesize, :file).to_i
+		if (fields[:size] = file_content.size) > _var(:file_size).to_i
 			_throw Sl[:'the file size is too big']
 		end
 

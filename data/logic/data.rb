@@ -3,15 +3,20 @@ data :data_var do
 		:dvid				=>	{
 			:primary_key	=>	true,
 		},
-		:dkey				=>	{
-			:label			=>	:option,
+		:name				=>	{
+			:default		=>	'unname',
 		},
+		:description		=>	{},
+		:dkey				=>	{},
 		:dval				=>	{
 			:label			=>	:value,
 		},
-		:description		=>	{},
+		:type				=>	{
+			:default		=>	0,
+			# the options could be, text, number, boolean
+		},
 		:changed			=>	{
-			:default		=>	Time.now
+			:default		=>	Time.now,
 		}
 	}
 end

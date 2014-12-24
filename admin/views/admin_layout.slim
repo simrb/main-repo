@@ -6,7 +6,7 @@ html class="no-js" lang="en"
 		meta name="keywords" content="#{@t[:keywords]}"
 		meta charset="utf-8"
 		meta name="viewport" content="width=device-width, initial-scale=1.0"
-		link rel="shortcut icon" href="#{_assets(_var(:favicon, :view))}" type="image/x-icon"
+		link rel="shortcut icon" href="#{_assets(_var(:view_favicon))}" type="image/x-icon"
 		== _css("view/css/foundation.css")
 		== _css("view/main.css")
 		== _css("admin/main.css")
@@ -40,13 +40,13 @@ html class="no-js" lang="en"
 							li
 								a href="/" = Sl[:frontground]
 							li
-								a href="#{_url(_var(:logout, :link))}" = Sl[:logout]
+								a href="#{_url(_var(:logout_link))}" = Sl[:logout]
 
 
 		.holderplace
 		#msg == _tpl(:view_message)
 		#main == yield
-		#footer = _var(:footer, :page)
+		#footer = _var(:view_footer)
 
 		- @t[:css].each do | name, path |
 			== _css(path)

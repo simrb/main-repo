@@ -6,7 +6,7 @@ html class="no-js" lang="en"
 		meta name="keywords" content="#{@t[:keywords]}"
 		meta charset="utf-8"
 		meta name="viewport" content="width=device-width, initial-scale=1.0"
-		link rel="shortcut icon" href="#{_assets(_var(:favicon, :view))}" type="image/x-icon"
+		link rel="shortcut icon" href="#{_assets(_var(:view_favicon))}" type="image/x-icon"
 		== _css("view/css/foundation.css")
 		== _css("view/main.css")
 		== _js("view/js/vendor/modernizr.js")
@@ -15,7 +15,7 @@ html class="no-js" lang="en"
 			ul.title-area
 				li.name
 					h1
-						a href="#" = _var(:title, :view)
+						a href="#" = _var(:view_title)
 				li.toggle-topbar.menu-icon
 					a href="#"
 						span = Sl[:menu]
@@ -43,7 +43,7 @@ html class="no-js" lang="en"
 		.holderplace.hide-for-small
 		#msg == _tpl(:view_message)
 		#main == yield
-		#footer = _var(:footer, :view)
+		#footer = _var(:view_footer)
 
 		- @t[:css].each do | name, path |
 			== _css(path)

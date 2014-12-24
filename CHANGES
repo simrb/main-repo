@@ -16,6 +16,9 @@ by linyu deng, at Dec, 2014
 - reset the module order 13
 - redesign the tag mechanism 16
 - classify all route access to user authorization 17
+- rewrite the variable storged mechanism 24
+	remove the tag dependence, get the variable no more by tag
+	add the variable name to display for UI user
 *
 - add the pagebar for image view of editor toolbar
 
