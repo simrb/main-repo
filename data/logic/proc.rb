@@ -41,17 +41,19 @@ helpers do
 	# first argument is a symbol that is the name(table name) of data block
 	def data_init name, argv = {}
 		v = argv
-
 		v[:name] 		= name.to_sym
 
 		# conditions for updating and insertion, deleting, et
 		v[:conditions]	||= {}
 
+		# insert or update in data_submit method
+		v[:opt]			||= :insert
+
 		# validate the data
 		v[:valid]		||= false
 
 		# enable the tag
-		v[:tag]			||= data_tag_enable?(v[:name])
+		v[:entag]		||= data_tag_enable?(v[:name])
 
 		# guarantee the inserted value is unique
 		v[:uniq]		||= true
@@ -75,15 +77,11 @@ helpers do
 		# notice: it has not primary key included in there
  		v[:fkv] 		= (v[:setval] || v[:setValue] || v[:fkv] || {})
 
-		# process the tag
-		if v[:tag] == true
-			# extract the tag value from fkv
-			if v[:fkv].include?(:tag)
-				v[:newtag] = v[:fkv][:tag]
-				v[:oldtag] = v[:fkv].include?(:oldtag) ? v[:fkv][:oldtag] : ''
-			else
-				v[:tag]	= false
-			end
+		# process the tag value
+		if v[:entag] == true
+			v[:newtag] 	= v[:fkv].include?(:tag) ? v[:fkv][:tag] : (v.include?(:tag) ? v[:tag] : '')
+			v[:oldtag] 	= v[:fkv].include?(:oldtag) ? v[:fkv][:oldtag] : (v.include?(:oldtag) ? v[:oldtag] : '')
+			v[:entag] 	= false if v[:newtag] == ''
 		end
 
 		# auto complete the default value
@@ -94,7 +92,6 @@ helpers do
 
 		# execute the validating
 		data_valid v[:name], v[:fkv] if v[:valid] == true
-
 		v
 	end
 
@@ -102,54 +99,73 @@ helpers do
 	def data_set_fkv origin, replace = {}
 		res = {}
 		origin.each do | k, v |
-			res[k] = replace.include?(k) ? replace[k] : v
+			# default value
+			res[k] = v
+
+			# given value
+			res[k] = replace[k] if replace.include?(k)
+
+			# auto completed value
 			res[k] = Time.now if k == :changed
 		end
 		res
 	end
 
-	def data_insert name, argv = {}
+	# submit data to database
+	#
+	# == Example
+	#
+	# by default, the method will insert a record to DB, 
+	# or add the option `opt => update` for update the record that existed in DB yet
+	#
+	# data_submit(
+	#	:blog_post, 
+	#	:fkv 	=> { :title	=> 'new post', :body 	=> 'post content' },
+	#	:uniq 	=> true,
+	#	:valid 	=> false,
+	#	#:opt	=> :update
+	# )
+	#
+	def data_submit name, argv = {}
 		v = data_init(name, argv)
+		_msg :data_submit, Sl[:'nothing happened']
 
-		# check the record wether or not unique record, 
-		# don`t insert the data if it existed in database
-		if v[:uniq] == true
-			ds = Sdb[v[:name]].filter(v[:fkv])
-			Sdb[v[:name]].insert(v[:fkv]) if ds.empty?
-		else
-			Sdb[v[:name]].insert(v[:fkv])
-		end
-
-		# add tag
-		if v[:tag] == true
-			pkid = Sdb[v[:name]].filter(v[:fkv]).limit(1).get(v[:pk])
-			data_add_tag v[:name], pkid, v[:newtag]
-		end
-
-		_msg :data_insert, Sl[:'adding completed']
-	end
-
-	def data_update name, argv = {}
-		v 	= data_init(name, argv)
-		ds	= Sdb[v[:name]].filter(v[:conditions])
-		_msg :data_update, Sl[:'nothing happened']
-
-		unless ds.empty?
-			Sdb[v[:name]].filter(v[:conditions]).update(v[:fkv])
-
-			# add tag
-			if v[:tag] == true
-				pkid = ds.get(v[:pk])
-				data_set_tag v[:name], pkid, v[:newtag], v[:oldtag]
+		if v[:opt] == :insert
+			# check the record wether or not unique record, 
+			# don`t insert the data if it existed in database
+			if v[:uniq] == true
+				ds = Sdb[v[:name]].filter(v[:fkv])
+				Sdb[v[:name]].insert(v[:fkv]) if ds.empty?
+			else
+				Sdb[v[:name]].insert(v[:fkv])
 			end
 
-			_msg :data_update, Sl[:'update completed']
+			# add tag
+			if v[:entag] == true
+				pkid = Sdb[v[:name]].filter(v[:fkv]).limit(1).get(v[:pk])
+				data_add_tag v[:name], pkid, v[:newtag]
+			end
+
+			_msg :data_submit, Sl[:'adding completed']
+		else
+			ds	= Sdb[v[:name]].filter(v[:conditions])
+			unless ds.empty?
+				Sdb[v[:name]].filter(v[:conditions]).update(v[:fkv])
+
+				# add tag
+				if v[:entag] == true
+					pkid = ds.get(v[:pk])
+					data_set_tag v[:name], pkid, v[:newtag], v[:oldtag]
+				end
+
+				_msg :data_submit, Sl[:'update completed']
+			end
 		end
 	end
 
-	def data_delete name, argv = {}
-		v = data_init(name, argv)
-	end
+# 	def data_delete name, argv = {}
+# 		v = data_init(name, argv)
+# 	end
 
 	def data_valid name, f
 		Svalid[name].map { |b| instance_exec(f, &b) } if Svalid[name]

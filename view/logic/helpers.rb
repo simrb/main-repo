@@ -27,62 +27,25 @@ end
 
 helpers do
 
-	def view_init name = nil, argv = {}
-		# if no given name, just extract it from request view
-		if name == nil
-			if params[:_name]
-				name = params[:_name]
-			elsif @qs.include?(:_name)
-				name = @qs[:_name]
-			else
-				_throw Sl[:'no parameter _name']
-			end
-		end
-
-		data_init name, argv
-	end
-
-	# overwirte the method of data module
-	def data_set_fkv origin, replace = {}
-		res = {}
-		origin.each do | k, v |
-			if replace.include?(k)
-				res[k] = replace[k]
-			elsif params[k]
-				res[k] = params[k]
-			elsif @qs.include? k
-				res[k] = @qs[k]
-			else
-				res[k] = v
-			end
-
-			res[k] = Time.now if k == :changed
-		end
-		res
-	end
-
-	# list view
-	def view_list name, argv = {}
-		argv[:tpl] = :view_list
-		view_table name, argv
-	end
+	######################################################
+	# template component
+	######################################################
 
 	# table view
-	def view_table name, argv = {}
+	def view_table name = nil, argv = {}
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_table
-
 		@t[:js][:table]		= 'view/checkall.js'
 
 		@t[:search_fns]		= []
 		@t[:btn_fns] 		= {}
 		@t[:opt_fns] 		= {}
 		@t[:lnk_fns]		= {}
-		@t[:action] 		= "/view/operate/#{name}"
 		@t[:view_post] 		= 'submit'
 
-		@t.merge!(view_init(name, argv))
+		@t.merge!(data_init(name, argv))
 
+		@t[:action] 		= "/view/operate/#{@t[:name]}"
 		@t[:orders] 		||= @t[:fields]
 
 		# condition
@@ -127,17 +90,23 @@ helpers do
 		_tpl @t[:tpl], @t[:layout]
 	end
 
+	# list view
+	def view_list name = nil, argv = {}
+		argv[:tpl] = :view_list
+		view_table name, argv
+	end
+
 	# form view
-	def view_form name, argv = {}
+	def view_form name = nil, argv = {}
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_form
 		@t[:opt] 			= :insert
 		@t[:back_fn] 		= :enable
 		@t[:view_post] 		= 'submit'
 		@t[:_repath] 		= request.path
-		@t[:action] 		= "/view/operate/#{name}"
-		@t.merge!(view_init(name, argv))
+		@t.merge!(data_init(name, argv))
 
+		@t[:action] 		= "/view/operate/#{@t[:name]}"
 		@t[:fields].delete @t[:pk]
 		data = @t[:fkv]
 
@@ -156,66 +125,42 @@ helpers do
 	end
 
 	# file view
-	def view_file name, argv = {}
+	def view_file name = nil, argv = {}
 		@t[:entries] 		= 6
 		@t[:layout]			= false
 		@t[:tpl] 			= :view_file
-		@t[:action] 		= "/view/operate/#{name}"
 		@t[:_repath] 		= request.path
 		@t[:_name] 			= :file_info
+		@t[:action] 		= "/view/operate/#{name}"
 		@t.merge!(argv)
 # 		@t.merge!(argv.merge(:name => name))
 
 		_tpl @t[:tpl], @t[:layout]
 	end
 
-	# admin view
+	# admin view for admin module
 	def view_admin name, argv = {}, more = {}
 		method 	= @qs.include?(:view_get) ? @qs[:view_get] : 'show'
 		argv 	= argv.merge(more[method.to_sym]) if more.include? method.to_sym
 		argv	= argv.merge(:name => name, :layout => :admin_layout)
-		argv 	= view_init name, argv
-
 		method	= "view_get_#{method}"
+
 		if self.respond_to?(method.to_sym)
 			eval("#{method} argv")
 		end
 	end
 
-	# interface method for view operation
+	######################################################
+	# interface for route of view operation
+	######################################################
+
 	# auto process the submitted data from view request
-	def view_post_submit name = nil
-		# process the input field from view
-		t = view_init name, :fkv => params
-
-		t[:conditions][t[:pk]] = @qs[t[:pk]].to_i if @qs.include?(t[:pk])
-
-		# process the action which is insert or update
-		# insert
-		if t[:conditions].empty?
-			data_insert t[:name], :fkv => t[:fkv]
-
-		# update
-		else
-			data_update t[:name], :fkv => t[:fkv], :conditions => t[:conditions]
-		end
+	def view_post_submit name = nil, argv = {}
+		data_submit name, argv = {}
 	end
 
-	def view_post_delete name = nil
-		t = view_init name, :fkv => params
-		@t[:repath] ||= (params[:_repath] || request.path)
-
-		if params[t[:pk]]
-			# delete one morn records
-			if params[t[:pk]].class.to_s == 'Array'
-				Sdb[t[:name]].where(t[:pk] => params[t[:pk]]).delete
-			# delete single record
-			else
-				t[:conditions][t[:pk]] = params[t[:pk]].to_i 
-				Sdb[t[:name]].filter(t[:conditions]).delete
-			end
-			_msg :delete, Sl[:'deleting completed']
-		end
+	def view_post_delete name = nil, argv = {}
+		data_delete name, argv = {}
 	end
 
 	# interface method for view administration
@@ -227,9 +172,13 @@ helpers do
 		view_table argv[:name], argv
 	end
 
-	def view_get_edit argv 
+	def view_get_edit argv
 		view_form argv[:name], argv
 	end
+
+	######################################################
+	# template helper method
+	######################################################
 
 	# return current path, and with options
 	#

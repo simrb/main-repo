@@ -89,7 +89,7 @@ helpers do
 				ds = Sdb[:data_menu].filter(:name => data[:parent])
 				data[:parent] = ds.get(:dmid) unless ds.empty?
 			end
- 			data_insert :data_menu, :fkv => data, :uniq => true
+ 			data_submit :data_menu, :fkv => data, :uniq => true
 # 			Sdb[:link].insert(data)
 		end
 	end

@@ -19,6 +19,9 @@ by linyu deng, at Dec, 2014
 - rewrite the variable storged mechanism 24
 	remove the tag dependence, get the variable no more by tag
 	add the variable name to display for UI user
+- we start to overwrite strategy in viewmodule 26
+	rewirte many methods of data module for redefing the function
+	and, merge the methods data_insert, data_update as data_submit again
 *
 - add the pagebar for image view of editor toolbar
 
