@@ -1,25 +1,25 @@
 by linyu deng, at Dec, 2014
 
-- rebuild the method view_init for let it fetches the content from request submit, 01
+-01 rebuild the method view_init for let it fetches the content from request submit
 	rewrite the route `/view/operate`
 	and update route `/view/operate` to `/view/operate/:name`
-- add the dowmload function in the backup block of administration console
-- rebuild the _msg for support the get and put function 02
-- rebuild the _throw method for support the ajax output 02.2
-- rebuild the data processing mechanism in data module 04
+-02 add the dowmload function in the backup block of administration console
+-02 rebuild the _msg for support the get and put function
+	rebuild the _throw method for support the ajax output
+-04 rebuild the data processing mechanism in data module
 	separate the data_submit to two method, data_insert and data_update
 	add data_delete method
 	put all data processes to data_init
-- rewrite the :fkv field for prepocessing the field value that will be stored to database 11
-- rebuild the view_post_submit for automatically processing data and submitting 12
-- classify all overwirte method to a file 13
-- reset the module order 13
-- redesign the tag mechanism 16
-- classify all route access to user authorization 17
-- rewrite the variable storged mechanism 24
+-11 rewrite the :fkv field for prepocessing the field value that will be stored to database
+-12 rebuild the view_post_submit for automatically processing data and submitting
+-13 classify all overwirte method to a file
+-13 reset the module order
+-16 redesign the tag mechanism
+-17 classify all route access to user authorization
+-24 rewrite the variable storged mechanism
 	remove the tag dependence, get the variable no more by tag
 	add the variable name to display for UI user
-- we start to overwrite strategy in viewmodule 26
+-26 we start to overwrite strategy in viewmodule
 	rewirte many methods of data module for redefing the function
 	and, merge the methods data_insert, data_update as data_submit again
 *
@@ -28,18 +28,18 @@ by linyu deng, at Dec, 2014
 
 by linyu deng, at Nov, 2014
 
-- increase a method _var3 for return boolean value in the serial of _var methods 9
-- increase the @js variable for view module, integrate all assets loaded of template 10
-- fix the compatibility after the Foundation front-end framework import 11
-- integrate some the templates, remove the redundancies 12
-- arrange the authorization of some open interfaces of admin, view module 13
-- rewrite the data structure of file module for inserting the user id as interface 13
-- redesign the message output mechanism, add more a method _throw to base module, 
-	and then overwrite it in view module 17
-- classify all view outputs to view module, the non-view module no more output the html 18
-- update the method _tpl for setting the layout if it has been loaded 19
-- import the richtext editor for view module 20
-- richtext editor supports the file uploaded on mobile 28
+-09 increase a method _var3 for return boolean value in the serial of _var methods
+-10 increase the @js variable for view module, integrate all assets loaded of template
+-11 fix the compatibility after the Foundation front-end framework import
+-12 integrate some the templates, remove the redundancies
+-13 arrange the authorization of some open interfaces of admin, view module
+-13 rewrite the data structure of file module for inserting the user id as interface
+-17 redesign the message output mechanism, add more a method _throw to base module, 
+	and then overwrite it in view module
+-18 classify all view outputs to view module, the non-view module no more output the html
+-19 update the method _tpl for setting the layout if it has been loaded
+-20 import the richtext editor for view module
+-28 richtext editor supports the file uploaded on mobile
 *
 - support the tag query for toolbar of table template
 - rewrite the view_level? method for including the level estimation from argument value of _var
@@ -47,9 +47,8 @@ by linyu deng, at Nov, 2014
 
 by <author/maintainer>, at <month>, <year>
 
-- initialize this file
-- mark down the main tasks you intend to do
-- append a day numeric if that task had been done
+- initialing the file is for writing main task you want to do
+	and add the day as task number before itself
 - about the task id in commit like C141112, c141113 14, c141115-18
   C141112 		- the task at day 12 in Nov, 2014
   c141113 14 	- the tasks at days 13 and 14 in Nov, 2014
