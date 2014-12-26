@@ -169,35 +169,6 @@ helpers do
 		_tpl @t[:tpl], @t[:layout]
 	end
 
-	# == Examples
-	#
-	# puts the code to template
-	#
-	# 	== view_nav(:nav_name, [:option1, :option2])
-	#
-	# returns
-	# 	
-	# 	<div class="nav_name">
-	# 		<a href="/current_path?nav_name=option1" >option1</a>
-	# 		<a href="/current_path?nav_name=option2" >option2</a>
-	# 	</div>
-	#
-	def view_nav name, options = []
-		str = ""
-		unless @nav_style
-			str << '<link href="/css/nav-1.css" rel="stylesheet" type="text/css">'
-			 @nav_style = true
-		end
-		options.each do | ot |
-			if @qs[name] == ot.to_s
-				str << "<a class='focus' href='" + _url2('', name => ot) + "'>" + Sl[ot] + "</a>"
-			else
-				str << "<a href='" + _url2('', name => ot) + "'>" + Sl[ot] + "</a>"
-			end
-		end
-		str = "<div class='nav'>" + str + "</div>"
-	end
-
 	# admin view
 	def view_admin name, argv = {}, more = {}
 		method 	= @qs.include?(:view_get) ? @qs[:view_get] : 'show'
